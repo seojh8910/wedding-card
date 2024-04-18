@@ -1,0 +1,31 @@
+    <div>
+        <div>
+            <h1>Wedding Card</h1>
+        </div>
+        <div>
+            <a href="">
+                <span>Articles</span>
+            </a>
+            <a href="">
+                <span>Projects</span>
+            </a>
+            <a href="">
+                <span>Subscription</span>
+            </a>
+            {% if not user.is_authenticated %}
+            <a href="">
+                <span>login</span>
+            </a>
+            <a href="">
+                <span>Signup</span>
+            </a>
+            {% else %}
+            <a href="">
+                <span>MyPage</span>
+            </a>
+            <a href="">
+                <span>logout</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
