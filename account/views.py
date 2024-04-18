@@ -7,3 +7,8 @@ def hello_world(request):
 
 def login(request):
     return render(request, 'account/login.html')
+
+
+def sign_up(request):
+    return render(request, 'account/signup.html')
+
