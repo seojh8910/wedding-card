@@ -1,8 +1,10 @@
 import os
-
 import environ
 import requests
+
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from account.forms import CreateUserForm
 
 from wedding_card.settings import BASE_DIR
 
@@ -43,5 +45,26 @@ def google_login_callback(request):
 
 
 def sign_up(request):
-    return render(request, 'account/signup.html')
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'새로운 계정이 생성되었습니다.: {username}')
+            login(request, user)
+            messages.info(request, f"{username}으로 로그인 되었습니다.")
+            return redirect('account:hello_world')
+        else:
+            password1 = form.data['password1']
+            password2 = form.data['password2']
+            for msg in form.errors.as_data():
+                if msg == 'email':
+                    messages.error(request, "유효하지 않은 이메일입니다.")
+                if msg == 'password2' and password1 == password2:
+                    messages.error(request, "복잡한 비밀번호가 필요합니다.")
+                elif msg == 'password2' and password1 != password2:
+                    messages.error(request, "비밀번호가 일치하지 않습니다.")
+            return render(request=request, template_name='account/signup.html', context={'form': form})
+    form = CreateUserForm
+    return render(request, 'account/signup.html', context={'form': form})
 
