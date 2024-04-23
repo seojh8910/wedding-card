@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from account.forms import CreateUserForm, LoginForm
+from account.forms import CreateUserForm, LoginForm, CreateSocialUserForm
 from account.models import User
 
 from wedding_card.settings import BASE_DIR
@@ -72,7 +72,7 @@ def google_login_callback(request):
     user = User.objects.filter(email=user_email).first()
     if not user:
         create_data = {'email': user_email, 'type': 'gmail'}
-        form = CreateUserForm(initial=create_data)
+        form = CreateSocialUserForm(initial=create_data)
         return render(request, 'account/signup.html', context={'form': form})
     login(request, user)
     return redirect('/accounts/test/')
@@ -80,7 +80,10 @@ def google_login_callback(request):
 
 def sign_up(request):
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        if request.POST.get('type') == 'basic':
+            form = CreateUserForm(request.POST)
+        else:
+            form = CreateSocialUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
