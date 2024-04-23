@@ -3,9 +3,15 @@
     <div style="height: 10rem; background-color: #38df81; border-radius: 1rem; margin: 2rem; margin-bottom: 2rem;">
         <h1 style="text-align: center;">로그인</h1>
         <div style="display:flex; justify-content: center;">
-            <form>
-                <input type="text" style="border: 1px solid gray;border-radius: 10rem;" placeholder="아이디">
-                <input type="password" style="border: 1px solid gray;border-radius: 10rem;" placeholder="비밀번호">
+            <form method="POST" action="{% url 'account:login' %}">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
+                            placeholder="{{ field.label }}" name="{{ field.name }}">
+                </div>
+                {% endfor %}
                 <input type="submit" class="btn btn-primary">
             </form>
         </div>

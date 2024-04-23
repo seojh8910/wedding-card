@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from account.forms import CreateUserForm
+from account.forms import CreateUserForm, LoginForm
 from account.models import User
 
 from wedding_card.settings import BASE_DIR
@@ -21,7 +21,24 @@ def hello_world(request):
 
 
 def login_page(request):
-    return render(request, 'account/login.html')
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            raw_password = form.cleaned_data.get("password")
+            try:
+                user = User.objects.get(email=email)
+                if user.check_password(raw_password):
+                    login(request, user)
+                    return redirect('account:hello_world')
+                else:
+                    messages.error(request, "비밀번호가 일치하지 않습니다.")
+                    return redirect('account:login')
+            except User.DoesNotExist:
+                pass
+    else:
+        form = LoginForm()
+    return render(request, 'account/login.html', {"form": form})
 
 
 def logout_page(request):

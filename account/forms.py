@@ -12,3 +12,7 @@ class CreateUserForm(UserCreationForm):
         error_messages = {
             'password_mismatch': ('비밀번호 확인이 맞지 않습니다.'),
         }
+
+class LoginForm(forms.Form):
+    email = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
+    password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput())
