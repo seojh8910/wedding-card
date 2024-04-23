@@ -1,6 +1,7 @@
 import os
 import environ
 import requests
+from django.contrib.auth import login
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -18,7 +19,7 @@ def hello_world(request):
     return render(request, 'account/hello_world.html')
 
 
-def login(request):
+def login_page(request):
     return render(request, 'account/login.html')
 
 
