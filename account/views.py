@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from account.forms import CreateUserForm
+from account.models import User
 
 from wedding_card.settings import BASE_DIR
 
@@ -42,6 +43,15 @@ def google_login_callback(request):
     access_token = token_req.json().get('access_token')
     user_info_response = requests.get("https://www.googleapis.com/oauth2/v3/userinfo", params={'access_token': access_token})
     user_info = user_info_response.json()
+    user_email = user_info.get('email')
+    if not user_email:
+        return 'user email does not exists'
+    user = User.objects.filter(email=user_email).first()
+    if not user:
+        create_data = {'email': user_email, 'type': 'gmail'}
+        form = CreateUserForm(initial=create_data)
+        return render(request, 'account/signup.html', context={'form': form})
+    login(request, user)
     return redirect('/accounts/test/')
 
 
