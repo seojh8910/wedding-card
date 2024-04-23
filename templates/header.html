@@ -23,7 +23,7 @@
             <a href="">
                 <span>MyPage</span>
             </a>
-            <a href="">
+            <a href="{% url 'account:logout' %}?next={{ request.path }}">
                 <span>logout</span>
             </a>
             {% endif %}

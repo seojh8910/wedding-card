@@ -1,7 +1,7 @@
 import os
 import environ
 import requests
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -22,6 +22,12 @@ def hello_world(request):
 
 def login_page(request):
     return render(request, 'account/login.html')
+
+
+def logout_page(request):
+    next_path = request.GET.get('next', '/accounts/test/')
+    logout(request)
+    return redirect(next_path)
 
 
 def google_login(request):
