@@ -9,8 +9,8 @@
             <a href="">
                 <span>Projects</span>
             </a>
-            <a href="">
-                <span>Subscription</span>
+            <a href="{% url 'board:board_list' %}">
+                <span>게시판</span>
             </a>
             {% if not user.is_authenticated %}
             <a href="">
