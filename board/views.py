@@ -2,11 +2,12 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from board.forms import BoardCreationForm
+from board.models import Board
 
 
 def board_list(request):
-
-    return render(request, 'board/list.html')
+    board_object_list = Board.objects.all().order_by('-created_at')
+    return render(request, 'board/list.html', context={'board_object_list': board_object_list})
 
 
 def board_create(request):

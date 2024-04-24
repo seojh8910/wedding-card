@@ -8,38 +8,20 @@
             </a>
         </div>
         <div style="padding: 2rem;">
+            {% for board in board_object_list %}
             <div>
-                <p>제목입니다</p>
+                {% if board.is_secret %}
+                <p>비밀글입니다</p>
+                {% else %}
+                <p>{{ board.title }}</p>
+                {% endif %}
                 <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
-                    <p>작성자</p>
-                    <p>작성시간</p>
+                    <p>{{ board.writer.username }}</p>
+                    <p>{{ board.created_at|date:'Y-m-d H:i' }}</p>
                 </div>
             </div>
             <hr class="mb-3">
-            <div>
-                <p>제목입니다</p>
-                <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
-                    <p>작성자</p>
-                    <p>작성시간</p>
-                </div>
-            </div>
-            <hr class="mb-3">
-            <div>
-                <p>제목입니다</p>
-                <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
-                    <p>작성자</p>
-                    <p>작성시간</p>
-                </div>
-            </div>
-            <hr class="mb-3">
-            <div>
-                <p>제목입니다</p>
-                <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
-                    <p>작성자</p>
-                    <p>작성시간</p>
-                </div>
-            </div>
-            <hr class="mb-3">
+            {% endfor %}
         </div>
 
     </div>
