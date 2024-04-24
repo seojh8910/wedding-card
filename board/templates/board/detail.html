@@ -8,5 +8,12 @@
         </div>
         <hr>
         <p>{{ board.content }}</p>
+        {% if board.writer == request.user or request.user.is_staff %}
+        <div>
+            <a href="{% url 'board:board_delete' board.pk %}" class="btn btn-danger">
+                <span>삭제</span>
+            </a>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

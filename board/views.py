@@ -30,3 +30,14 @@ def board_detail(request, pk):
     if not board:
         return 'does not exists'
     return render(request, 'board/detail.html', context={'board': board})
+
+
+def board_delete(request, pk):
+    board = Board.objects.filter(pk=pk).first()
+    login_user = request.user
+    if not board:
+        return 'does not exists'
+    elif board.writer != login_user and not login_user.is_staff:
+        return '권한없음'
+    board.delete()
+    return redirect('board:board_list')
