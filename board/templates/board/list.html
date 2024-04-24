@@ -10,12 +10,12 @@
         <div style="padding: 2rem;">
             {% for board in board_object_list %}
             <div>
-                {% if board.is_secret %}
-                <p>비밀글입니다</p>
-                {% else %}
+                {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
                 <a href="{% url 'board:board_detail' board.pk %}">
                     <p>{{ board.title }}</p>
                 </a>
+                {% else %}
+                <p>비밀글입니다</p>
                 {% endif %}
                 <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
                     <p>{{ board.writer.username }}</p>

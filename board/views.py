@@ -27,9 +27,15 @@ def board_create(request):
 
 def board_detail(request, pk):
     board = Board.objects.filter(pk=pk).first()
+
     if not board:
         return 'does not exists'
-    return render(request, 'board/detail.html', context={'board': board})
+
+    if request.user == board.writer or request.user.is_staff or not board.is_secret:
+        return render(request, 'board/detail.html', context={'board': board})
+
+    else:
+        return redirect('board:board_list')
 
 
 def board_delete(request, pk):
