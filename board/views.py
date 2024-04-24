@@ -23,3 +23,10 @@ def board_create(request):
             return render(request, 'board/create.html', context={'form': form})
     form = BoardCreationForm
     return render(request, 'board/create.html', context={'form': form})
+
+
+def board_detail(request, pk):
+    board = Board.objects.filter(pk=pk).first()
+    if not board:
+        return 'does not exists'
+    return render(request, 'board/detail.html', context={'board': board})

@@ -13,7 +13,9 @@
                 {% if board.is_secret %}
                 <p>비밀글입니다</p>
                 {% else %}
-                <p>{{ board.title }}</p>
+                <a href="{% url 'board:board_detail' board.pk %}">
+                    <p>{{ board.title }}</p>
+                </a>
                 {% endif %}
                 <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
                     <p>{{ board.writer.username }}</p>

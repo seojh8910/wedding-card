@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; margin-right: 1rem;">
+            <p>{{ board.title }}</p>
+            <p>작성자 : {{ board.writer.username }}</p>
+        </div>
+        <hr>
+        <p>{{ board.content }}</p>
+    </div>
+{% endblock %}
