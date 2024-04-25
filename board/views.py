@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from board.forms import BoardCreationForm
 from board.models import Board
@@ -47,3 +49,17 @@ def board_delete(request, pk):
         return '권한없음'
     board.delete()
     return redirect('board:board_list')
+
+
+def board_update(request, pk):
+    board = Board.objects.filter(pk=pk).first()
+    if not board:
+        return 'does not exists'
+
+    if request.method == 'POST':
+        form = BoardCreationForm(request.POST, instance=board)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/boards/detail/{pk}')
+    form = BoardCreationForm(instance=board)
+    return render(request, 'board/update.html', context={'form': form, 'board': board})
