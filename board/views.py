@@ -34,8 +34,9 @@ def board_detail(request, pk):
         return 'does not exists'
 
     if request.user == board.writer or request.user.is_staff or not board.is_secret:
+        comment_list = board.comment.all().order_by('-created_at')
         form = CommentCreationForm
-        return render(request, 'board/detail.html', context={'board': board, 'form': form})
+        return render(request, 'board/detail.html', context={'board': board, 'comment_list': comment_list, 'form': form})
 
     else:
         return redirect('board:board_list')

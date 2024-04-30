@@ -1,0 +1,18 @@
+{% block content %}
+{% if comment_list %}
+<div>
+    {% for comment in comment_list %}
+        <div style="display: flex; justify-content: space-between">
+            <p>{{ comment.content }}</p>
+            <p>작성시간:{{ comment.created_at|date:'y년n월j일/H:i:s' }} &nbsp&nbsp&nbsp&nbsp 작성자 : {{ comment.writer.username }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+{% else %}
+<div>
+    <span>댓글 없음</span>
+</div>
+{% endif %}
+
+{% endblock %}
