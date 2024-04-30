@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from board.forms import BoardCreationForm, CommentCreationForm
-from board.models import Board
+from board.models import Board, Comment
 
 
 def board_list(request):
@@ -77,3 +77,13 @@ def comment_create(request):
             temp_commit.writer = request.user
             temp_commit.save()
             return redirect(f'/boards/detail/{board_pk}')
+
+
+def comment_delete(request, pk):
+    comment = Comment.objects.filter(pk=pk).first()
+    if not comment:
+        return 'does not exist comment'
+    board_pk = comment.board.pk
+    comment.delete()
+    messages.success(request, '삭제 완료!')
+    return redirect(f'/boards/detail/{board_pk}')

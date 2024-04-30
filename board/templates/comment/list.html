@@ -5,6 +5,12 @@
         <div style="display: flex; justify-content: space-between">
             <p>{{ comment.content }}</p>
             <p>작성시간:{{ comment.created_at|date:'y년n월j일/H:i:s' }} &nbsp&nbsp&nbsp&nbsp 작성자 : {{ comment.writer.username }}</p>
+            {% if request.user == comment.writer or request.user.is_staff %}
+            <a href="{% url 'board:comment_delete' pk=comment.pk %}"
+                class=" btn btn-danger rounded-pill">
+                삭제
+            </a>
+            {% endif %}
         </div>
         <hr>
     {% endfor %}
