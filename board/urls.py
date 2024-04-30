@@ -10,4 +10,5 @@ urlpatterns = [
     path('delete/<int:pk>', views.board_delete, name='board_delete'),
     path('detail/<int:pk>', views.board_detail, name='board_detail'),
     path('update/<int:pk>', views.board_update, name='board_update'),
+    path('comments/create/', views.comment_create, name='comment_create'),
 ]
