@@ -84,6 +84,8 @@ def comment_delete(request, pk):
     if not comment:
         return 'does not exist comment'
     board_pk = comment.board.pk
-    comment.delete()
-    messages.success(request, '삭제 완료!')
+    if request.user == comment.writer or request.user.is_staff:
+        comment.delete()
+        messages.success(request, '삭제 완료!')
+    messages.error(request, '권한이 없습니다.')
     return redirect(f'/boards/detail/{board_pk}')
