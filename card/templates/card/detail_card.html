@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<h1>청첩장 수정</h1>
+<br>
+<a href="{% url 'card:update' pk=card.pk %}">청첩장 수정</a>
+<a href="{% url 'card:delete' pk=card.pk %}">청첩장 삭제</a>
+<br>
+<div>청첩장 제목: {{ card.invitation_title }}</div>
+<div>생성일: {{ card.created_at }} / 수정일: {{ card.updated_at }}</div>
+<div>초대 메세지: {{ card.invitation_comment }}</div>
+
+{% endblock %}

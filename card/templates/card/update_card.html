@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="morder-editor">
+        <div class="morder-preview">
+            미리보기
+        </div>
+        <div class="morder-list-content">
+            <form action="{% url 'card:update' pk=card.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

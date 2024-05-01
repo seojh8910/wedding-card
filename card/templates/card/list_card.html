@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<h1>청첩장 목록</h1>
+<a href="{% url 'card:create' %}">청첩장 만들기</a>
+
+{% for card in cards %}
+<hr>
+    <div>
+        {% if card.main_img %}
+            <img src="{{ card.main_img.url }}" width=100px;>
+        {% endif %}
+        <a href="{% url 'card:detail' pk=card.pk %}">{{ card.invitation_title }}</a>
+        <span>생성일: {{ card.created_at }} / 수정일: {{ card.updated_at }}</span>
+        <a href="{% url 'card:update' pk=card.pk %}">청첩장 수정</a>
+        <a href="{% url 'card:delete' pk=card.pk %}">청첩장 삭제</a>
+
+    </div>
+{% endfor %}
+
+{% endblock %}
