@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'board',
     'card',
     'comment',
+    'review',
 ]
 
 MIDDLEWARE = [
