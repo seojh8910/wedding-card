@@ -24,7 +24,7 @@
                     <div style="width: 30rem; display: flex; flex-direction: column; justify-content: space-between; padding: 1rem;">
                         <p>{{ review.content }}</p>
                         <div style="display: flex; justify-content: space-between; height: 1.5rem; text-align: center; align-items: center;">
-                            <p>{{ review.writer.username }}</p>
+                            <p>{{ review.writer.username|slice:':-1' }}*</p>
                             <div style="display: flex; text-align: center; align-items: center;">
                                 <p style="margin-right: 0.4rem;">{{ review.created_at|date:'y.m.d' }}</p>
                                 {% if request.user == review.writer or request.user.is_staff %}
