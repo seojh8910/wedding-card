@@ -5,11 +5,28 @@
 
 <h1>청첩장 수정</h1>
 <br>
-<a href="{% url 'card:update' pk=card.pk %}">청첩장 수정</a>
-<a href="{% url 'card:delete' pk=card.pk %}">청첩장 삭제</a>
-<br>
-<div>청첩장 제목: {{ card.invitation_title }}</div>
-<div>생성일: {{ card.created_at }} / 수정일: {{ card.updated_at }}</div>
-<div>초대 메세지: {{ card.invitation_comment }}</div>
+<a href="{% url 'card:update' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 수정</button></a>
+<a href="{% url 'card:delete' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 삭제</button></a>
+<hr>
+<div><b>모시는 글 제목: </b>{{ card.invitation_title }}</div>
+<div><b>결혼식 날짜: </b>{{ card.wedding_date|date:'Y-m-d' }}</div>
+<div><b>생성일: </b>{{ card.created_at|date:'Y-m-d' }} / 수정일: {{ card.updated_at|date:'Y-m-d' }}</div>
+<hr>
+<div>
+    <b>신랑님: </b>{{ card.groom_name }} |
+    <b>신랑 어머님: </b>{{ card.groom_mother_name }} |
+    <b>신랑 아버님: </b>{{ card.groom_father_name }} |
+    <b>신랑님 호칭: </b>{{ card.groom_position }}
+</div>
+<div>
+    <b>신부님: </b>{{ card.bride_name }} |
+    <b>신부 어머님: </b>{{ card.bride_mother_name }} |
+    <b>신부 아버님: </b>{{ card.bride_father_name }} |
+    <b>신부님 호칭: </b>{{ card.bride_position }}
+</div>
+<hr>
+<div><img src="{{ card.main_img.url }}"></div>
+<hr>
+<div><b>모시는 글 내용: </b>{{ card.invitation_content }}</div>
 
 {% endblock %}
