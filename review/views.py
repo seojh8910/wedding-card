@@ -2,11 +2,12 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from review.forms import ReviewCreationForm
+from review.models import Review
 
 
 def review_list(request):
-
-    return render(request, 'review/list.html')
+    review_object_list = Review.objects.all().order_by('-created_at')
+    return render(request, 'review/list.html', context={'review_object_list': review_object_list})
 
 
 def review_create(request):
