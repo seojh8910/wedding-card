@@ -7,7 +7,7 @@ from card.models import Card
 class CardCreationForm(forms.ModelForm):
 
     main_img = forms.ImageField(error_messages={'required': '사진을 첨부해주세요.'}, label='메인 이미지')
-    wedding_date = forms.DateTimeField(widget=NumberInput(attrs={'type': 'date'}), label='결혼식 날짜')
+    wedding_date = forms.DateTimeField(widget=NumberInput(attrs={'type': 'date'}), label='결혼식 날짜', required=False)
 
     class Meta:
         model = Card
@@ -18,8 +18,6 @@ class CardCreationForm(forms.ModelForm):
             'wedding_date': '결혼식 날짜',
             'wedding_hall_address': '예식장 주소',
             'main_img': '메인 이미지',
-            'invitation_title': '모시는 글 제목',
-            'invitation_comment': '모시는 글 내용',
             'groom_name': '신랑님',
             'groom_mother_name': '신랑 어머님',
             'groom_father_name': '신랑 아버님',

@@ -17,4 +17,9 @@
         </div>
     </div>
 
+    <script>
+        var weddingDate = "{{ card.wedding_date | date:'Y-m-d' }}";
+        document.getElementById("id_wedding_date").value = weddingDate;
+    </script>
+
 {% endblock %}
