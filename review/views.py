@@ -1,13 +1,25 @@
+from datetime import timedelta
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from review.forms import ReviewCreationForm
 from review.models import Review
 
 
 def review_list(request):
+
+    two_days_ago = timezone.now() - timedelta(days=1)
+    review_count = Review.objects.all().count()
     review_object_list = Review.objects.all().order_by('-created_at')
-    return render(request, 'review/list.html', context={'review_object_list': review_object_list})
+    context = {
+        'review_object_list': review_object_list,
+        'review_count': review_count,
+        'two_days_ago': two_days_ago
+    }
+
+    return render(request, 'review/list.html', context=context)
 
 
 def review_create(request):
