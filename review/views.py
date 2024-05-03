@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils import timezone
 
@@ -13,9 +14,18 @@ def review_list(request):
     two_days_ago = timezone.now() - timedelta(days=1)
     review_count = Review.objects.all().count()
     review_object_list = Review.objects.all().order_by('-created_at')
+    page = request.GET.get('page')
+    paginator = Paginator(review_object_list, 10)
+    try:
+        page_obj_list = paginator.page(page)
+    except Exception as e:
+        page = 1
+        page_obj_list = paginator.page(page)
+
     context = {
-        'review_object_list': review_object_list,
+        'review_object_list': page_obj_list,
         'review_count': review_count,
+        'paginator': paginator,
         'two_days_ago': two_days_ago
     }
 

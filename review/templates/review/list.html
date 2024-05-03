@@ -48,10 +48,9 @@
                     </div>
                 </div>
             </div>
-            {% if not forloop.last %}
             <hr>
-            {% endif %}
             {% endfor %}
+            {% include 'snippets/pagination.html' with page_obj=review_object_list %}
         {% else %}
             <h3>리뷰가 없습니다.</h3>
         {% endif %}
