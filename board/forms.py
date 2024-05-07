@@ -11,9 +11,15 @@ class BoardCreationForm(ModelForm):
                               required=True)
     is_secret = forms.BooleanField(initial=True, required=False)
 
+    def __init__(self, *args, user=None, **kwargs):
+        super(BoardCreationForm, self).__init__(*args, **kwargs)
+        if user and user.is_staff:
+            # 특정 사용자에게는 태그를 생성하도록 설정
+            self.fields['is_notice'] = forms.BooleanField(initial=False, required=False)
+
     class Meta:
         model = Board
-        fields = ['title', 'content', 'is_secret', 'content']
+        fields = ['title', 'content', 'is_secret', 'content', 'is_notice']
 
 
 class CommentCreationForm(ModelForm):

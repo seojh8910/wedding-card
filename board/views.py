@@ -23,7 +23,7 @@ def board_create(request):
         else:
             messages.error(request, "오류가 발생했습니다.")
             return render(request, 'board/create.html', context={'form': form})
-    form = BoardCreationForm
+    form = BoardCreationForm(user=request.user)
     return render(request, 'board/create.html', context={'form': form})
 
 
