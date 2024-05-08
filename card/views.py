@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from card.forms import CardCreationForm
 from card.models import Card
+from guest_book.forms import GuestBookCreationForm
 
 
 def list_card(request):
@@ -30,7 +31,8 @@ def create_card(request):
 
 def detail_card(request, pk):
     card = get_object_or_404(Card, pk=pk)
-    return render(request, 'card/detail_card.html', {"card": card})
+    form = GuestBookCreationForm()
+    return render(request, 'card/detail_card.html', {"form": form, "card": card})
 
 
 def update_card(request, pk):

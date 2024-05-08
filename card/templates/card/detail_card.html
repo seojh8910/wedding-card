@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>청첩장 수정</h1>
+<h1>청첩장 상세보기</h1>
 <br>
 <a href="{% url 'card:update' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 수정</button></a>
 <a href="{% url 'card:delete' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 삭제</button></a>
@@ -28,5 +28,9 @@
 <div><img src="{{ card.main_img.url }}"></div>
 <hr>
 <div><b>모시는 글 내용: </b>{{ card.invitation_content }}</div>
-
+<hr>
+{% include 'guest_book/create.html' with card=card %}
+{% for guestbook in card.guestbooks.all %}
+    {% include 'guest_book/detail.html' with guestbook=guestbook %}
+{% endfor %}
 {% endblock %}
