@@ -14,7 +14,11 @@
             <div>
                 {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
                 <a href="{% url 'board:board_detail' board.pk %}">
+                    {% if board.is_notice %}
+                    <h4>{{ board.title }}</h4>
+                    {% else %}
                     <p>{{ board.title }}</p>
+                    {% endif %}
                 </a>
                 {% else %}
                 <p>비밀글입니다</p>

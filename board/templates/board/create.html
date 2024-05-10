@@ -9,7 +9,36 @@
             {% endfor %}
         </div>
         <br>
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        <h3 style="text-align: center;">게시글 작성</h3>
+        <div style="border: 1px solid gray; border-radius: 1rem; padding: 1rem; width: 90%; margin: 0 auto;">
+            <form method="post" action="{% url 'board:board_create' %}">
+
+            <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+                <p style="width: 15%; align-content: center; text-align: center;">제목</p>
+                <input style="width: 75%;" name="title" type="text" placeholder="제목을 입력해주세요.">
+            </div>
+
+            <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+                <p style="width: 15%; align-content: center; text-align: center;">내용</p>
+                <textarea style="width: 75%; height: 10rem;" name="content" placeholder="내용를 작성해해주세요."></textarea>
+            </div>
+
+            <div style="display: flex; text-align: center; align-content: center; align-items: center; width: 100%; margin-left: 10%;">
+                <div style="width: 10%; display: flex; margin-right: 1rem;">
+                    <p style="margin-bottom: auto; margin-right: 0.3rem;">비밀글</p>
+                    <input name="is_secret" type="checkbox">
+                </div>
+                {% if request.user.is_staff %}
+                <div style="width: 10%; display: flex;">
+                    <p style="margin-bottom: auto; margin-right: 0.3rem;">공지</p>
+                    <input name="is_notice" type="checkbox">
+                </div>
+                {% endif %}
+            </div>
+
+        </form>
+        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3" style="width: 100%;">
+        </div>
+
     </form>
 {% endblock %}

@@ -8,7 +8,7 @@ from board.models import Board, Comment
 
 
 def board_list(request):
-    board_object_list = Board.objects.all().order_by('-created_at')
+    board_object_list = Board.objects.all().order_by('-is_notice', '-created_at')
     return render(request, 'board/list.html', context={'board_object_list': board_object_list})
 
 
