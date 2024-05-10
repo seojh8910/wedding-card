@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block content %}
 
@@ -29,8 +30,76 @@
 <hr>
 <div><b>모시는 글 내용: </b>{{ card.invitation_content }}</div>
 <hr>
+
 {% include 'guest_book/create.html' with card=card %}
 {% for guestbook in card.guestbooks.all %}
     {% include 'guest_book/detail.html' with guestbook=guestbook %}
+    <div class="modal fade" id="deleteModal-{{ guestbook.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">방명록 삭제</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="delete-comment-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="password-{{ guestbook.pk }}">비밀번호:</label>
+                            <input type="password" class="form-control" id="password-{{ guestbook.pk }}" name="password">
+                        </div>
+                        <input type="hidden" class="guestbook-id" value="{{ guestbook.pk }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-danger confirm-delete-btn">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endfor %}
+
+
+<script>
+    $(document).ready(function() {
+        // 삭제 버튼 클릭 시
+        $('.delete-btn').on('click', function() {
+            var guestbookId = $(this).data('guestbook-id');
+            $('#deleteModal-' + guestbookId).modal('show');
+        });
+
+        // 삭제 확인 버튼 클릭 시
+        $('.confirm-delete-btn').on('click', function() {
+            var $modal = $(this).closest('.modal');
+            var guestbookId = $modal.find('.guestbook-id').val();
+            var password = $modal.find('.form-control[name="password"]').val();
+
+            // AJAX 요청으로 방명록 삭제
+            $.ajax({
+                url: "{% url 'guestbook:delete' pk=0 %}".replace('0', guestbookId),
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    guestbook_id: guestbookId,
+                    password: password
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        // 삭제 성공 시 모달 닫기
+                        $modal.modal('hide');
+                        // 페이지 새로고침 또는 다른 작업 수행
+                        location.reload();
+                    } else {
+                        // 비밀번호 일치하지 않을 때 메시지 표시
+                        alert('방명록을 삭제할 수 없습니다. 비밀번호를 다시 입력해주세요.');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}

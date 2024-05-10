@@ -6,15 +6,16 @@
         </strong>
         &nbsp&nbsp&nbsp
         <span style="color:darkgray;">{{ guestbook.created_at|date:"Y.m.d" }} {{ guestbook.created_at|time:"H:i" }}</span>
-
     </div>
     <div style="margin: 1rem 0;">
         {{ guestbook.content }}
     </div>
     <div style="text-align: right">
-        <a href="{% url 'guestbook:delete' pk=guestbook.pk %}"\\
-           class="btn btn-danger rounded-pill">
+        <button
+           class="btn btn-danger rounded-pill delete-btn"\\
+           data-toggle="modal" data-target="#deleteModal-{{ guestbook.pk }}">
             Delete
-        </a>
+        </button>
     </div>
 </div>
+
