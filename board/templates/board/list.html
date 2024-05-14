@@ -2,33 +2,51 @@
 
 {% block content %}
     <div>
-        <div style="display: flex; justify-content: end; margin-right: 2rem;">
-            {% if request.user.is_authenticated %}
-            <a href="{% url 'board:board_create' %}" class="btn btn-primary">
-                <span>생성</span>
-            </a>
-            {% endif %}
-        </div>
-        <div style="padding: 2rem;">
-            {% for board in board_object_list %}
-            <div>
-                {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
-                <a href="{% url 'board:board_detail' board.pk %}">
-                    {% if board.is_notice %}
-                    <h4>{{ board.title }}</h4>
-                    {% else %}
-                    <p>{{ board.title }}</p>
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; align-content: center;">
+                <h3>게시판</h3>
+                <div style="display: flex; justify-content: end; margin-right: 2rem;">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'board:board_create' %}" class="btn btn-primary">
+                        <span>생성</span>
+                    </a>
                     {% endif %}
-                </a>
-                {% else %}
-                <p>비밀글입니다</p>
-                {% endif %}
-                <div style="display: flex; justify-content: space-between; margin-right: 1rem; margin-left: 1rem;">
-                    <p>{{ board.writer.username }}</p>
-                    <p>{{ board.created_at|date:'Y-m-d H:i' }}</p>
                 </div>
             </div>
-            <hr class="mb-3">
+            <hr>
+        </div>
+        <div style="padding: 1rem;">
+            {% for board in board_object_list %}
+            <div style="display: flex; align-content: center; align-content: center;">
+                <div style="width: 10%; text-align: center; margin: auto 0;">
+                    {% if board.is_notice %}
+                    <h5 style="margin: auto 0;">공지</h5>
+                    {% else %}
+                    <p style="margin: auto 0;">{{ board.pk }}</p>
+                    {% endif %}
+                </div>
+
+                <div style="width: 60%; margin: auto 0;">
+                    {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
+                    <a href="{% url 'board:board_detail' board.pk %}">
+                        {% if board.is_notice %}
+                        <h5 style="margin: auto 0;">{{ board.title }}</h5>
+                        {% else %}
+                        <p style="margin: auto 0;">{{ board.title }}</p>
+                        {% endif %}
+                    </a>
+                    {% else %}
+                    <p style="margin: auto 0;">비밀글입니다</p>
+                    {% endif %}
+                </div>
+
+                <div style="display: flex; width: 25%; justify-content: space-between; margin: auto 0;">
+                    <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username }}</p>
+                    <p style="margin: auto 0;">{{ board.created_at|date:'Y.m.d' }}</p>
+                </div>
+
+            </div>
+            <hr>
             {% endfor %}
         </div>
 
