@@ -1,15 +1,21 @@
 {% block content %}
-    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
-        <div class="mb-4">
-            <h4>Comment Create</h4>
-        </div>
+    <div style="text-align: center; max-width: 500px; margin: 2rem auto;">
+
+        {% if user.is_authenticated %}
         <form action="{% url 'board:comment_create' %}" method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            {% if user.is_authenticated %}
-            <input type="submit" class="btn btn-primary">
-            {% endif %}
+{#            {{ form.as_p }}#}
+            <div>
+                <h5 style="text-align: left;">댓글</h5>
+                <div style="display:flex;">
+                    <input style="width: 80%; margin-right: 1rem;" name="content" placeholder="내용을 입력해주세요.">
+                    <button style="width: 15%;" type="submit" class="btn btn-primary">등록</button>
+                </div>
+            </div>
             <input type="hidden" name="board_pk" value="{{ board.pk }}">
         </form>
+        {% else %}
+            <h6>로그인이 필요합니다.</h6>
+        {% endif %}
     </div>
 {% endblock %}
