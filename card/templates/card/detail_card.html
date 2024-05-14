@@ -32,36 +32,37 @@
 <hr>
 
 {% include 'guest_book/create.html' with card=card %}
-{% for guestbook in card.guestbooks.all %}
-    {% include 'guest_book/detail.html' with guestbook=guestbook %}
-    <div class="modal fade" id="deleteModal-{{ guestbook.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">방명록 삭제</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="delete-comment-form">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="password-{{ guestbook.pk }}">비밀번호:</label>
-                            <input type="password" class="form-control" id="password-{{ guestbook.pk }}" name="password">
-                        </div>
-                        <input type="hidden" class="guestbook-id" value="{{ guestbook.pk }}">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-danger confirm-delete-btn">삭제</button>
+{% if card.guestbooks %}
+    {% for guestbook in card.guestbooks.all %}
+        {% include 'guest_book/detail.html' with guestbook=guestbook %}
+        <div class="modal fade" id="deleteModal-{{ guestbook.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">방명록 삭제</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="delete-comment-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="password-{{ guestbook.pk }}">비밀번호:</label>
+                                <input type="password" class="form-control" id="password-{{ guestbook.pk }}" name="password">
+                            </div>
+                            <input type="hidden" class="guestbook-id" value="{{ guestbook.pk }}">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-danger confirm-delete-btn">삭제</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endfor %}
-
+    {% endfor %}
+{% endif %}
 
 <script>
     $(document).ready(function() {
