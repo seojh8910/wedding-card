@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -8,8 +9,20 @@ from board.models import Board, Comment
 
 
 def board_list(request):
-    board_object_list = Board.objects.all().order_by('-is_notice', '-created_at')
-    return render(request, 'board/list.html', context={'board_object_list': board_object_list})
+    all_board_list = Board.objects.all().order_by('-is_notice', '-created_at')
+    page = request.GET.get('page')
+    paginator = Paginator(all_board_list, 15)
+    try:
+        board_object_list = paginator.page(page)
+    except Exception as e:
+        page = 1
+        board_object_list = paginator.page(page)
+
+    context = {
+        'board_object_list': board_object_list,
+        'paginator': paginator,
+    }
+    return render(request, 'board/list.html', context=context)
 
 
 def board_create(request):
