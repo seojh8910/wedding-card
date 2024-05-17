@@ -26,5 +26,6 @@ urlpatterns = [
     path('reviews/', include('review.urls')),
     path('cards/', include('card.urls')),
     path('guestbooks/', include('guest_book.urls')),
+    path('payments/', include('payment.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
