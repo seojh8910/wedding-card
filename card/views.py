@@ -1,4 +1,7 @@
-from django.contrib import messages
+import os, environ, requests
+from pathlib import Path
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from card.forms import CardCreationForm
@@ -19,6 +22,7 @@ def create_card(request):
         if form.is_valid():
             card = form.save(commit=False)
             card.user = request.user
+            card.wedding_hall_address = form.cleaned_data['wedding_hall_address']
             card.save()
             return redirect('card:list')
         else:
