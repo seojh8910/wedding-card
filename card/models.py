@@ -59,6 +59,6 @@ class Card(models.Model):
 
     guests_comment = models.CharField(max_length=20, null=True, default='temp')  # 임시 / 하객 방명록
 
-    created_at = models.DateField(auto_now_add=True, null=True)  # 청첩장 생성일
-    updated_at = models.DateField(auto_now=True, null=True)  # 청첩장 수정일
+    created_at = models.DateTimeField(auto_now_add=True, null=True)  # 청첩장 생성일
+    updated_at = models.DateTimeField(auto_now=True, null=True)  # 청첩장 수정일
 
