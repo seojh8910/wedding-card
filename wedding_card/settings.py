@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'review',
     'guest_book',
     'payment',
+    'home',
 ]
 
 MIDDLEWARE = [
