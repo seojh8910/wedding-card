@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
     {% include 'head.html' %}
@@ -10,10 +11,39 @@
             </div>
         </div>
         {% endfor %}
-        {% block content %}
-        {% endblock %}
+        <main  {% if request.path != '/' %}style="margin-top: 108px;{% endif %}">
+            <div class="container">
+            {% block content %}
+
+            {% endblock %}
+            </div>
+        </main>
         {% include 'footer.html' %}
     </body>
     {% block script %}
     {% endblock %}
+
+<script src='{% static "js/bootstrap.bundle.min.js" %}'></script>
+<script src='{% static "js/aos.js" %}'></script>
+<script>
+     AOS.init({
+       duration: 800, // values from 0 to 3000, with step 50ms
+     });
+</script>
+<script>
+    let scrollpos = window.scrollY
+    const header = document.querySelector(".navbar")
+    const header_height = header.offsetHeight
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
+
+    window.addEventListener('scroll', function() {
+    scrollpos = window.scrollY;
+
+    if (scrollpos >= header_height) { add_class_on_scroll() }
+    else { remove_class_on_scroll() }
+    console.log(scrollpos)
+    })
+</script>
+
 </html>
