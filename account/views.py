@@ -33,9 +33,13 @@ def login_page(request):
                     return redirect('account:hello_world')
                 else:
                     messages.error(request, "비밀번호가 일치하지 않습니다.")
-                    return redirect('account:login')
+                    return render(request, 'account/login.html', {"form": form})
             except User.DoesNotExist:
-                pass
+                messages.error(request, "아이디와 비밀번호를 확인해주세요.")
+                return render(request, 'account/login.html', {"form": form})
+        else:
+            messages.error(request, "아이디와 비밀번호를 확인해주세요.")
+            return render(request, 'account/login.html', {"form": form})
     else:
         form = LoginForm()
     return render(request, 'account/login.html', {"form": form})

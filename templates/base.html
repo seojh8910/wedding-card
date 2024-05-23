@@ -4,14 +4,14 @@
     {% include 'head.html' %}
     <body>
         {% include 'header.html' %}
-        {% for message in messages %}
-        <div class="text-center">
-            <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
-                {{ message }}
-            </div>
-        </div>
-        {% endfor %}
         <main  {% if request.path != '/' %}style="margin-top: 108px;{% endif %}">
+            {% for message in messages %}
+            <div class="text-center">
+                <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
             <div class="container">
             {% block content %}
 
