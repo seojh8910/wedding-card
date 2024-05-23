@@ -16,10 +16,6 @@ CLIENT_ID = env('client_id')
 CLIENT_SECRET = env('client_secret')
 
 
-def hello_world(request):
-    return render(request, 'account/hello_world.html')
-
-
 def login_page(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
