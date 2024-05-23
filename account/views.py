@@ -30,7 +30,7 @@ def login_page(request):
                 user = User.objects.get(email=email)
                 if user.check_password(raw_password):
                     login(request, user)
-                    return redirect('account:hello_world')
+                    return redirect('home:landing_page')
                 else:
                     messages.error(request, "비밀번호가 일치하지 않습니다.")
                     return render(request, 'account/login.html', {"form": form})
@@ -79,7 +79,7 @@ def google_login_callback(request):
         form = CreateSocialUserForm(initial=create_data)
         return render(request, 'account/signup.html', context={'form': form})
     login(request, user)
-    return redirect('/accounts/test/')
+    return redirect('home:landing_page')
 
 
 def sign_up(request):
