@@ -5,7 +5,8 @@ from account.models import User
 
 
 class CreateUserForm(UserCreationForm):
-    type = forms.CharField(widget=forms.HiddenInput(),initial='basic')
+    type = forms.CharField(widget=forms.HiddenInput(), initial='basic', required=False)
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'phone_number', 'type']
@@ -23,11 +24,13 @@ class CreateSocialUserForm(UserCreationForm):
     type = forms.CharField(widget=forms.HiddenInput(), initial='basic')
     password1 = forms.CharField(
         widget=forms.HiddenInput(),
-        initial='defaultpassword'
+        initial='defaultpassword',
+        required=False
     )
     password2 = forms.CharField(
         widget=forms.HiddenInput(),
-        initial='defaultpassword'
+        initial='defaultpassword',
+        required=False
     )
 
     class Meta:

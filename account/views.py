@@ -71,9 +71,7 @@ def google_login_callback(request):
         return 'user email does not exists'
     user = User.objects.filter(email=user_email).first()
     if not user:
-        create_data = {'email': user_email, 'type': 'gmail'}
-        form = CreateSocialUserForm(initial=create_data)
-        return render(request, 'account/signup.html', context={'form': form})
+        return render(request, 'account/signup.html', context={'email': user_email, 'type': 'gmail'})
     login(request, user)
     return redirect('home:landing_page')
 
@@ -90,7 +88,7 @@ def sign_up(request):
             messages.success(request, f'새로운 계정이 생성되었습니다.: {username}')
             login(request, user)
             messages.info(request, f"{username}으로 로그인 되었습니다.")
-            return redirect('account:hello_world')
+            return redirect('home:landing_page')
         else:
             password1 = form.data['password1']
             password2 = form.data['password2']
@@ -101,7 +99,8 @@ def sign_up(request):
                     messages.error(request, "복잡한 비밀번호가 필요합니다.")
                 elif msg == 'password2' and password1 != password2:
                     messages.error(request, "비밀번호가 일치하지 않습니다.")
+                else:
+                    messages.error(request, "뭔가 오류!!!!!")
             return render(request=request, template_name='account/signup.html', context={'form': form})
-    form = CreateUserForm
-    return render(request, 'account/signup.html', context={'form': form})
+    return render(request, 'account/signup.html', context={'type': 'basic'})
 
