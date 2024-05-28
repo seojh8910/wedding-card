@@ -5,7 +5,15 @@
         <div>
             <h2 style="margin-bottom: 1rem;">{{ board.title }}</h2>
             <hr>
+            {% if board.writer.is_staff %}
             <h5>{{ board.writer.username }}</h5>
+            {% else %}
+                {% if board.writer.username|length < 5 %}
+                <h5 style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</h5>
+                {% else %}
+                <h5 style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</h5>
+                {% endif %}
+            {% endif %}
         </div>
         <hr>
         <p>{{ board.content }}</p>

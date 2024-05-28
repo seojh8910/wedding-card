@@ -41,7 +41,15 @@
                 </div>
 
                 <div style="display: flex; width: 25%; justify-content: space-between; margin: auto 0;">
+                    {% if board.writer.is_staff %}
                     <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username }}</p>
+                    {% else %}
+                        {% if board.writer.username|length < 5 %}
+                        <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</p>
+                        {% else %}
+                        <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</p>
+                        {% endif %}
+                    {% endif %}
                     <p style="margin: auto 0;">{{ board.created_at|date:'Y.m.d' }}</p>
                 </div>
 
