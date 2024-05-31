@@ -6,14 +6,34 @@ from card.models import Card
 
 class CardCreationForm(forms.ModelForm):
 
-    main_img = forms.ImageField(error_messages={'required': '사진을 첨부해주세요.'}, label='메인 이미지')
+    main_img = forms.ImageField(widget=forms.HiddenInput(), required=False, error_messages={'required': '사진을 첨부해주세요.'}, label='메인 이미지')
     wedding_hall_address = forms.CharField(widget=forms.HiddenInput(), max_length=200, label='예식장 주소')
-    wedding_date = forms.CharField(widget=DateTimeInput(attrs={'type': 'datetime-local'}))
 
     class Meta:
         model = Card
         fields = '__all__'
         exclude = ('user', 'guests_comment', 'wedding_hall_address', )
+        widgets = {
+
+            'wedding_date': forms.DateTimeInput(attrs={'class': 'inorder_txt', 'type': 'datetime-local'}),
+
+            'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt'}),
+            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea'}),
+
+            'groom_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'groom_mother_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'groom_father_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'groom_position': forms.Select(attrs={'class': 'inorder_txt'}),
+
+            'bride_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'bride_mother_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'bride_father_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
+            'bride_position': forms.Select(attrs={'class': 'inorder_txt'}),
+
+            'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥김신부 결혼합니다'}),
+            'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분'}),
+
+        }
         labels = {
             'theme': '테마',
             'wedding_date': '결혼식 날짜',
