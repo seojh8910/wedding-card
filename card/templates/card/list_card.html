@@ -1,22 +1,19 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
 
 {% block content %}
-
-<h1>청첩장 목록</h1>
-
-{% for card in cards %}
-<hr>
-    <div>
-        {% if card.main_img %}
-            <img src="{{ card.main_img.url }}" width=100px;>
-        {% endif %}
-        <a href="{% url 'card:detail' pk=card.pk %}">{{ card.invitation_title }}</a>
-        <span>생성일: {{ card.created_at }} / 수정일: {{ card.updated_at }}</span>
-        <a href="{% url 'card:update' pk=card.pk %}">청첩장 수정</a>
-        <a href="{% url 'card:delete' pk=card.pk %}">청첩장 삭제</a>
-
-    </div>
-{% endfor %}
-
+    <h4>제작 내역</h4>
+    {% for card in cards %}
+        <hr>
+            <div style="display:flex; justify-content:space-between;">
+                {% if card.main_img %}
+                    <img src="{{ card.main_img.url }}" width=100px;>
+                {% endif %}
+                <a href="{% url 'card:detail' pk=card.pk %}">{{ card.invitation_title }}</a>
+                <div>
+                    <span>{{ card.created_at|date:'y.m.d' }}</span>
+                    <a class="btn btn-primary" href="{% url 'card:update' pk=card.pk %}">수정</a>
+                    <a class="btn btn-outline-dark" href="{% url 'card:delete' pk=card.pk %}">삭제</a>
+                </div>
+            </div>
+    {% endfor %}
 {% endblock %}
