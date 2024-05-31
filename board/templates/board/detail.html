@@ -3,35 +3,38 @@
 {% block content %}
     <div style="padding: 1.5rem;">
         <div>
-            <h2 style="margin-bottom: 1rem;">{{ board.title }}</h2>
+            <h2>게시판</h2>
             <hr>
-            {% if board.writer.is_staff %}
-            <h5>{{ board.writer.username }}</h5>
-            {% else %}
-                {% if board.writer.username|length < 5 %}
-                <h5 style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</h5>
+            <h5>{{ board.title }}</h5>
+            <div style="display: flex;">
+                <span class="material-icons" style="margin: auto 0;">face_6</span>
+                {% if board.writer.is_staff %}
+                <h5>{{ board.writer.username }}</h5>
                 {% else %}
-                <h5 style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</h5>
+                    {% if board.writer.username|length < 5 %}
+                    <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</p>
+                    {% else %}
+                    <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</p>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
+                <div style="display: flex;">
+                    <span style="margin: auto 0; margin-left: 1rem; margin-right: 1rem;">|</span>
+                    <span style="margin: auto 0;">{{ board.created_at|date:'Y.m.d H:i:s' }}</span>
+                        <div style="display: flex; justify-content: space-between">
+                            <a href="{% url 'board:board_delete' board.pk %}" class="btn btn-danger">
+                                <span>삭제</span>
+                            </a>
+                            <a href="{% url 'board:board_update' board.pk %}" class="btn btn-success">
+                                <span>수정</span>
+                            </a>
+                        </div>
+                </div>
+            </div>
         </div>
         <hr>
-        <p>{{ board.content }}</p>
-        {% if board.writer == request.user or request.user.is_staff %}
-        <div>
-            <a href="{% url 'board:board_delete' board.pk %}" class="btn btn-danger">
-                <span>삭제</span>
-            </a>
-            <a href="{% url 'board:board_update' board.pk %}" class="btn btn-success">
-                <span>수정</span>
-            </a>
-        </div>
-
-        {% endif %}
-
-    <hr>
-    {% include 'comment/create.html' with board=board %}
+        <p style="margin-top: 5rem; margin-bottom: 5rem;">{{ board.content }}</p>
     <hr>
     {% include 'comment/list.html' with comment_list=comment_list %}
+    {% include 'comment/create.html' with board=board %}
     </div>
 {% endblock %}
