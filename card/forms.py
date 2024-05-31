@@ -15,6 +15,7 @@ class CardCreationForm(forms.ModelForm):
         exclude = ('user', 'guests_comment', 'wedding_hall_address', )
         widgets = {
 
+            'theme': forms.Select(attrs={'class': 'inorder_txt'}),
             'wedding_date': forms.DateTimeInput(attrs={'class': 'inorder_txt', 'type': 'datetime-local'}),
 
             'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt'}),
