@@ -53,10 +53,18 @@
                                     <div class="morder-field" style="margin-bottom: 16px;">
                                         <span class="s1">사진</span>
                                         <span class="s2">
-                                            <div class="thm-container" style="margin: 0px; max-width: 154px;">
+                                            <div class="upload-box" data-preview-target="preview1">
+                                                <span>클릭 후 업로드</span>
+                                                <img id="preview1" src=""/>
+                                                <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview1')" style="display: none;">
+                                                    <div class="thm-btn-edit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
                                                 {{ form.main_img }}
-                                                <input type="file" id="" name="{{ form.main_img.name }}">
-                                                <div id="image-preview"></div>
                                             </div>
                                         </span>
                                     </div>
@@ -156,7 +164,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="st">
                         <div class="th">
                             <div>모시는 글</div>
@@ -315,7 +322,6 @@
                                         <input type="text" maxlength="32" class="inorder_txt" style="width: 154px;">
                                     </span>
                                 </div>
-
                             </div>
                             <div class="morder-group" style="border-top: 0px; padding-top: 0px;">
                                 <div>
@@ -381,33 +387,18 @@
                                 <div class="morder-field">
                                     <span class="s1">사진</span>
                                     <span class="s2">
-                                        <div class="thm-container" style="margin: 0px; max-width: 160px;">
-                                            <input id="file-undefined" type="file" accept="image/*" hidden="hidden">
-                                            <div class="thm-btn-wrap" style="display: none;">
+                                        <div class="upload-box" data-preview-target="preview2">
+                                            <span>클릭 후 업로드</span>
+                                            <img id="preview2" src=""/>
+                                            <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview2')" style="display: none;">
                                                 <div class="thm-btn-edit">
                                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
-                                                        <line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                        <line x1="6" x2="18" y1="6" y2="18"></line>
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <div class="thm-btn-wrap2" style="display: none;">
-                                                <div class="thm-btn-edit2">
-                                                    썸네일 편집
-                                                </div>
-                                            </div>
-                                            <div class="thm-btn-wrap3" style="display: none;">
-                                                <div class="thm-btn-crop">
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-crop">
-                                                        <path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"></path>
-                                                        <path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"></path>
-                                                    </svg>
-                                                    편집
-                                                </div>
-                                            </div>
-                                            <canvas width="300px" height="300px" oncontextmenu="return false" ondragstart="return false" onselectstart="return false"></canvas>
-                                            <div class="thm-overlay">
-                                                <a class="bs-orange">클릭 후 업로드</a>
-                                            </div>
+                                            {{ form.thumb_img }}
                                         </div>
                                     </span>
                                 </div> <!---->
@@ -423,7 +414,6 @@
                                     <span class="s1">내용</span>
                                     <span class="s2">
                                         <textarea name="thumb_content" cols="40" rows="10" class="input_txt" placeholder="5월 30일 목요일 오후 1시 30분" maxlength="100" required="" id="id_thumb_content" style="width: 100%; max-width: 260px; height: 80px;"></textarea>
-
 <!--                                        <input type="text" placeholder="5월 30일 오후 1시 30분" class="inorder_txt" style="max-width: 238px; width: calc(100% - 22px);">-->
 <!--                                        <textarea rows="2" placeholder="5월 30일 목요일 오후 1시 30분" class="input_txt" style="width: 100%; max-width: 260px; height: 80px;"></textarea>-->
                                     </span>
@@ -438,7 +428,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="st">
                         <div class="th">
                             <div>
@@ -511,7 +500,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div data-v-70c48e3a="" class="st">
                         <div data-v-70c48e3a="" class="th">
                             <div data-v-70c48e3a="">
@@ -648,13 +636,51 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </form>
         </div>
     </div>
 {% endblock %}
+
 {% block script %}
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
+    <script>
+        document.querySelectorAll('.upload-box').forEach(box => {
+            box.addEventListener('click', () => {
+                const input = box.querySelector('.image-input');
+                input.click();
+            });
+        });
+
+        function previewImage(event) {
+            const input = event.target;
+            const previewId = input.getAttribute('data-preview');
+            const output = document.getElementById(previewId);
+            const span = output.previousElementSibling;
+            const deleteIcon = output.nextElementSibling;
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                output.src = reader.result;
+                output.style.display = 'block';
+                span.style.display = 'none';
+                deleteIcon.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function deleteImage(event, previewId) {
+            event.stopPropagation();
+            const output = document.getElementById(previewId);
+            const span = output.previousElementSibling;
+            const deleteIcon = output.nextElementSibling;
+            const input = output.nextElementSibling.nextElementSibling;
+
+            output.src = '';
+            output.style.display = 'none';
+            span.style.display = 'block';
+            deleteIcon.style.display = 'none';
+            input.value = '';
+        }
+    </script>
 {% endblock %}

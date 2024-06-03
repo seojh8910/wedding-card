@@ -5,8 +5,6 @@ from card.models import Card
 
 
 class CardCreationForm(forms.ModelForm):
-
-    main_img = forms.ImageField(widget=forms.HiddenInput(), required=False, error_messages={'required': '사진을 첨부해주세요.'}, label='메인 이미지')
     wedding_hall_address = forms.CharField(widget=forms.HiddenInput(), max_length=200, label='예식장 주소')
 
     class Meta:
@@ -14,9 +12,9 @@ class CardCreationForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('user', 'guests_comment', 'wedding_hall_address', )
         widgets = {
-
             'theme': forms.Select(attrs={'class': 'inorder_txt'}),
             'wedding_date': forms.DateTimeInput(attrs={'class': 'inorder_txt', 'type': 'datetime-local'}),
+            'main_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview':'preview1', 'class': 'image-input'}),
 
             'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt'}),
             'invitation_content': forms.Textarea(attrs={'class': 'te-textarea'}),
@@ -31,6 +29,7 @@ class CardCreationForm(forms.ModelForm):
             'bride_father_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
             'bride_position': forms.Select(attrs={'class': 'inorder_txt'}),
 
+            'thumb_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview': 'preview2', 'class': 'image-input'}),
             'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥김신부 결혼합니다'}),
             'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분'}),
 
