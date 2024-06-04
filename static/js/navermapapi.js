@@ -1,19 +1,17 @@
-
 var map = new naver.maps.Map("map", {
     center: new naver.maps.LatLng(37.3595316, 127.1052133),
     zoom: 15,
     mapTypeControl: true
 });
 
-var infoWindow = new naver.maps.InfoWindow({
-    anchorSkew: true
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: map
 });
 
 map.setCursor('pointer');
 
 function searchCoordinateToAddress(latlng) {
-
-    infoWindow.close();
 
     naver.maps.Service.reverseGeocode({
         coords: latlng,
@@ -37,15 +35,6 @@ function searchCoordinateToAddress(latlng) {
 
             htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
         }
-
-        infoWindow.setContent([
-            '<div style="padding:10px;min-width:200px;line-height:150%;">',
-            '<h4 style="margin-top:5px;">검색 좌표</h4><br />',
-            htmlAddresses.join('<br />'),
-            '</div>'
-        ].join('\n'));
-
-        infoWindow.open(map, latlng);
     });
 }
 
@@ -58,7 +47,7 @@ function searchAddressToCoordinate(address) {
         }
 
         if (response.v2.meta.totalCount === 0) {
-            return alert('totalCount' + response.v2.meta.totalCount);
+            return alert('검색결과가 없습니다. 정확한 주소인지 확인해 주세요.');
         }
 
         var htmlAddresses = [],
@@ -77,15 +66,20 @@ function searchAddressToCoordinate(address) {
             htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
         }
 
-        infoWindow.setContent([
-            '<div style="padding:10px;min-width:200px;line-height:150%;">',
-            '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
-            htmlAddresses.join('<br />'),
-            '</div>'
-        ].join('\n'));
+
+        // 기존 마커 제거
+        marker.setMap(null);
+
+        var item = response.v2.addresses[0],
+            point = new naver.maps.Point(item.x, item.y);
+
+        // 새로운 마커 생성
+        marker = new naver.maps.Marker({
+            position: point,
+            map: map
+        })
 
         map.setCenter(point);
-        infoWindow.open(map, point);
     });
 }
 
