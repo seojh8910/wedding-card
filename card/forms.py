@@ -32,9 +32,8 @@ class CardCreationForm(forms.ModelForm):
             'bride_position': forms.Select(attrs={'class': 'inorder_txt'}),
 
             'thumb_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview': 'preview2', 'class': 'image-input'}),
-            'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥김신부 결혼합니다'}),
-            'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분'}),
-
+            'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥이신부 결혼합니다', 'style': 'max-width: 260px; width: calc(100% - 22px);'}),
+            'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분', 'style': 'width: 100%; max-width: 260px; height: 80px;'}),
         }
         labels = {
             'theme': '테마',
