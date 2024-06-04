@@ -5,19 +5,21 @@ from card.models import Card
 
 
 class CardCreationForm(forms.ModelForm):
-    wedding_hall_address = forms.CharField(widget=forms.HiddenInput(), max_length=200, label='예식장 주소')
 
     class Meta:
         model = Card
         fields = '__all__'
-        exclude = ('user', 'guests_comment', 'wedding_hall_address', )
+        exclude = ('user', 'guests_comment',)
         widgets = {
             'theme': forms.Select(attrs={'class': 'inorder_txt'}),
             'wedding_date': forms.DateTimeInput(attrs={'class': 'inorder_txt', 'type': 'datetime-local'}),
             'main_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview':'preview1', 'class': 'image-input'}),
+            'wedding_hall_name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
+            'wedding_hall_floor': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
+            'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);'}),
 
-            'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt'}),
-            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea'}),
+            'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
+            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'contenteditable': 'true', 'style': 'height: 120px; text-align: center;'}),
 
             'groom_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
             'groom_mother_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
@@ -37,6 +39,9 @@ class CardCreationForm(forms.ModelForm):
         labels = {
             'theme': '테마',
             'wedding_date': '결혼식 날짜',
+            'wedding_hall_name': '예식장명',
+            'wedding_hall_floor': '층과 홀',
+            'wedding_hall_address': '예식장 주소',
             'main_img': '메인 이미지',
             'groom_name': '신랑님',
             'groom_mother_name': '신랑 어머님',

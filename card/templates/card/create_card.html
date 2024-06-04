@@ -186,56 +186,8 @@
                                     <span class="s2">
                                         <div style="max-width: 100%;">
                                             <div>
-                                                <div class="te-toolbar">
-                                                    <button onclick="document.execCommand('bold', false, null)" class="te-btn bold">가</button>
-                                                    <button onclick="document.execCommand('underline', false, null)" class="te-btn underline">
-                                                        <span>가</span>
-                                                    </button>
-                                                    <button class="te-btn color">
-                                                        <span>가</span>
-                                                    </button>
-                                                    <span class="color-picker-wrap"><!----></span>
-                                                    <div class="te-divider"></div>
-                                                    <div class="te-btn align">
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-align-left">
-                                                            <line x1="17" x2="3" y1="10" y2="10"></line>
-                                                            <line x1="21" x2="3" y1="6" y2="6"></line>
-                                                            <line x1="21" x2="3" y1="14" y2="14"></line>
-                                                            <line x1="17" x2="3" y1="18" y2="18"></line>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="te-btn align active">
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-align-center">
-                                                            <line x1="18" x2="6" y1="10" y2="10"></line>
-                                                            <line x1="21" x2="3" y1="6" y2="6"></line>
-                                                            <line x1="21" x2="3" y1="14" y2="14"></line>
-                                                            <line x1="18" x2="6" y1="18" y2="18"></line>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="te-btn align">
-                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-align-right">
-                                                            <line x1="21" x2="7" y1="10" y2="10"></line>
-                                                            <line x1="21" x2="3" y1="6" y2="6"></line>
-                                                            <line x1="21" x2="3" y1="14" y2="14"></line>
-                                                            <line x1="21" x2="7" y1="18" y2="18"></line>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div id="te-1kldvwb100v" contenteditable="true" class="te-textarea" style="height: 120px; text-align: center;">
-                                                    살랑이는 바람결에<br>사랑이 묻어나는 계절입니다.<br>
-                                                    여기 곱고 예쁜 두 사람이 사랑을 맺어<br>인생의 반려자가 되려 합니다.<br>
-                                                    새 인생을 시작하는 이 자리에 오셔서<br>축복해 주시면 감사하겠습니다.
-                                                    {{ form.content }}
-                                                </div>
+                                                {{ form.invitation_content }}
                                             </div>
-                                        </div>
-                                        <div class="te-toolbar-bottom">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-type">
-                                                <polyline points="4 7 4 4 20 4 20 7"></polyline>
-                                                <line x1="9" x2="15" y1="20" y2="20"></line>
-                                                <line x1="12" x2="12" y1="4" y2="20"></line>
-                                            </svg>
-                                            <span>샘플 문구</span>
                                         </div>
                                     </span>
                                 </div>
@@ -277,19 +229,19 @@
                                 <div data-v-41b0ff6a="" class="morder-field">
                                     <span data-v-41b0ff6a="" class="s1">예식장명</span>
                                     <span data-v-41b0ff6a="" class="s2">
-                                        <input data-v-41b0ff6a="" type="text" class="inorder_txt" style="width: calc(100% - 20px); max-width: 378px;">
+                                        {{ form.wedding_hall_name }}
                                     </span>
                                 </div>
                                 <div data-v-41b0ff6a="" class="morder-field">
                                     <span data-v-41b0ff6a="" class="s1">층과 홀</span>
                                     <span data-v-41b0ff6a="" class="s2">
-                                        <input data-v-41b0ff6a="" type="text" class="inorder_txt" style="width: calc(100% - 20px); max-width: 378px;">
+                                        {{ form.wedding_hall_floor }}
                                     </span>
                                 </div> <!---->
                                 <div data-v-41b0ff6a="" class="morder-field">
                                     <span data-v-41b0ff6a="" class="s1">주소</span>
                                     <span data-v-41b0ff6a="" class="s2" style="width: calc(100% - 80px); max-width: 400px; position: relative;">
-                                        <input id="address" type="text" class="inorder_txt" style="width: calc(100% - 87px);" placeholder="검색할 주소" name="wedding_hall_address"/>
+                                        {{ form.wedding_hall_address }}
                                         <input id="submit" type="button"  class="morder-btn" style="position: absolute; right: 0px;" value="검색" />
                                     </span>
                                     <br>
@@ -315,14 +267,6 @@
                             </div>
                         </div>
                         <div class="td">
-                            <div class="morder-group">
-                                <div class="morder-field">
-                                    <span class="s1">제목</span>
-                                    <span class="s2">
-                                        <input type="text" maxlength="32" class="inorder_txt" style="width: 154px;">
-                                    </span>
-                                </div>
-                            </div>
                             <div class="morder-group" style="border-top: 0px; padding-top: 0px;">
                                 <div>
                                     <div class="gallery-upload">
@@ -405,15 +349,16 @@
                                 <div class="morder-field">
                                     <span class="s1">제목</span>
                                     <span class="s2">
-<!--                                        {{ form.thumb_title }}-->
-                                        <input type="text" name="thumb_title" class="inorder_txt" placeholder="김신랑♥김신부 결혼합니다" maxlength="20" required="" id="id_thumb_title" style="max-width: 238px; width: calc(100% - 22px);">
+                                        {{ form.thumb_title }}
+<!--                                        <input type="text" name="thumb_title" class="inorder_txt" placeholder="김신랑♥김신부 결혼합니다" maxlength="20" required="" id="id_thumb_title" style="max-width: 238px; width: calc(100% - 22px);">-->
 <!--                                        <input type="text" name="{{ form.thumb_title }}" placeholder=" ♥  결혼합니다" class="inorder_txt" >-->
                                     </span>
                                 </div>
                                 <div class="morder-field">
                                     <span class="s1">내용</span>
                                     <span class="s2">
-                                        <textarea name="thumb_content" cols="40" rows="10" class="input_txt" placeholder="5월 30일 목요일 오후 1시 30분" maxlength="100" required="" id="id_thumb_content" style="width: 100%; max-width: 260px; height: 80px;"></textarea>
+                                        {{ form.thumb_content }}
+<!--                                        <textarea name="thumb_content" cols="40" rows="10" class="input_txt" placeholder="5월 30일 목요일 오후 1시 30분" maxlength="100" required="" id="id_thumb_content" style="width: 100%; max-width: 260px; height: 80px;"></textarea>-->
 <!--                                        <input type="text" placeholder="5월 30일 오후 1시 30분" class="inorder_txt" style="max-width: 238px; width: calc(100% - 22px);">-->
 <!--                                        <textarea rows="2" placeholder="5월 30일 목요일 오후 1시 30분" class="input_txt" style="width: 100%; max-width: 260px; height: 80px;"></textarea>-->
                                     </span>
@@ -645,6 +590,7 @@
 {% block script %}
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
     <script>
+        <!-- 이미지 미리보기 기능 (1) -->
         document.querySelectorAll('.upload-box').forEach(box => {
             box.addEventListener('click', () => {
                 const input = box.querySelector('.image-input');
@@ -652,6 +598,7 @@
             });
         });
 
+        <!-- 이미지 미리보기 기능 (2) -->
         function previewImage(event) {
             const input = event.target;
             const previewId = input.getAttribute('data-preview');
@@ -669,6 +616,7 @@
             reader.readAsDataURL(event.target.files[0]);
         }
 
+        <!-- 이미지 미리보기 기능 (3) -->
         function deleteImage(event, previewId) {
             event.stopPropagation();
             const output = document.getElementById(previewId);
@@ -682,5 +630,23 @@
             deleteIcon.style.display = 'none';
             input.value = '';
         }
+
+        <!-- 글상자 옵션 선택 시 스크롤 위치 이동 방지 -->
+        function executeCommand(command, value = null) {
+            const scrollPosition = window.scrollY;
+            document.execCommand(command, false, value);
+            window.scrollTo(0, scrollPosition);
+        }
+
+        <!-- 엔터 키로 폼 제출 방지 -->
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("cardform");
+
+            form.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 {% endblock %}

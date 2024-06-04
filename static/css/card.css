@@ -302,6 +302,21 @@ audio, canvas, img, svg, video {
     background: #eee;
 }
 
+}
+
+.te-btn.color>span,
+.te-btn.underline>span {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    line-height: 16px;
+    box-shadow: inset 0 -1px 0 #000;
+}
+
+.te-btn.color>span {
+    box-shadow: inset 0 -3px 0 red;
+}
+
 .te-divider {
     margin: 0 4px;
     width: 1px;
