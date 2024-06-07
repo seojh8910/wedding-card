@@ -103,6 +103,19 @@ audio, canvas, img, svg, video {
     border-top: 0;
 }
 
+.morder-table .morder-group.lr>div:first-child {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(100% - 30px);
+}
+
+.morder-table .morder-group.lr>div:nth-child(2) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 30px;
+    text-align: right;
+}
+
 .morder-table .morder-group .close {
     background: #eee;
     display: inline-block;
