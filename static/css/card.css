@@ -377,6 +377,11 @@ audio, canvas, img, svg, video {
     vertical-align: middle;
 }
 
+.morder-btn.large {
+    border-radius: 32px;
+    padding: 0 32px;
+}
+
 .map-overlay {
     position: absolute;
     width: 100%;
