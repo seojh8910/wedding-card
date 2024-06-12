@@ -69,3 +69,9 @@ class Card(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)  # 청첩장 생성일
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)  # 청첩장 수정일
 
+class Transport(models.Model):
+    card = models.ForeignKey(Card, related_name='transports', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
