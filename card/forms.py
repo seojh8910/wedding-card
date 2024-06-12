@@ -1,11 +1,10 @@
 from django import forms
-from django.forms import DateTimeInput
+from django.forms import DateTimeInput, inlineformset_factory
 
-from card.models import Card
+from card.models import Card, Transport
 
 
 class CardCreationForm(forms.ModelForm):
-
     class Meta:
         model = Card
         fields = '__all__'
@@ -56,3 +55,16 @@ class CardCreationForm(forms.ModelForm):
             'thumb_title': '썸네일 제목',
             'thumb_content': '썸네일 내용',
         }
+
+
+class TransportForm(forms.ModelForm):
+    class Meta:
+        model = Transport
+        fields = ['name', 'description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);', 'placeholder': '버스'}),
+            'description': forms.TextInput(attrs={'class': 'te-textarea', 'style': 'height: 100px;'}),
+        }
+
+
+TransportFormSet = inlineformset_factory(Card, Transport, form=TransportForm, extra=1)

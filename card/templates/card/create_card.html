@@ -268,52 +268,55 @@
                         </div>
                         <div class="td">
                             <div id="transport-container">
-                                <div class="morder-group lr transport-box">
-                                    <div>
-                                        <div class="morder-field">
-                                            <span class="s1 m-hide">교통수단</span>
-                                            <span class="s2 m-w100">
-                                                <input type="text" class="inorder_txt" style="width: calc(100% - 22px);" placeholder="버스">
-                                            </span>
-                                        </div>
-                                        <div class="morder-field">
-                                            <span class="s1 m-hide">설명</span>
-                                            <span class="s2 m-w100">
-                                                <div style="max-width: 100%;">
-                                                    <div>
-                                                        <div id="te-2pa4godv76a" contenteditable="true" class="te-textarea" style="height: 100px;"></div>
+                                {{ transport_formset.management_form }}
+                                {% for form in transport_formset %}
+                                    <div class="morder-group lr transport-box">
+                                        <div>
+                                            <div class="morder-field">
+                                                <span class="s1 m-hide">교통수단</span>
+                                                <span class="s2 m-w100">
+                                                    {{ form.name }}
+                                                </span>
+                                            </div>
+                                            <div class="morder-field">
+                                                <span class="s1 m-hide">설명</span>
+                                                <span class="s2 m-w100">
+                                                    <div style="max-width: 100%;">
+                                                        <div>
+                                                            {{ form.description }}
+                                                        </div>
                                                     </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                <div class="close move-up disabled">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                                            <polyline points="18 15 12 9 6 15"></polyline>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="close move-down">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="close remove">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </span>
                                                 </div>
                                             </span>
                                         </div>
                                     </div>
-                                    <div>
-                                        <span>
-                                            <div class="move-up close disabled">
-                                                <span>
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
-                                                        <polyline points="18 15 12 9 6 15"></polyline>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="move-down close">
-                                                <span>
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">
-                                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div class="remove close">
-                                                <span>
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
-                                                        <line x1="18" x2="6" y1="6" y2="18"></line>
-                                                        <line x1="6" x2="18" y1="6" y2="18"></line>
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                             <div class="morder-group">
                                 <div class="morder-field">
@@ -353,7 +356,7 @@
                                         <div>
                                             <span>0</span>
                                             <span class="total">/ 60</span>
-                                        </div> <!---->
+                                        </div>
                                     </div>
                                     <div style="line-height: 0;">
                                         <img id="drag-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
@@ -380,7 +383,7 @@
                                         </svg>
                                     </div>
                                     <div>사진 순서를 변경하려면 드래그하거나 사진 2장을 선택하세요.</div>
-                                </div> <!----> <!----> <!---->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -414,7 +417,7 @@
                                             {{ form.thumb_img }}
                                         </div>
                                     </span>
-                                </div> <!---->
+                                </div>
                                 <div class="morder-field">
                                     <span class="s1">제목</span>
                                     <span class="s2">
@@ -717,6 +720,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const addTransportButton = document.getElementById('add-transport');
             const transportContainer = document.getElementById('transport-container');
+            const totalForms = document.getElementById('id_transports-TOTAL_FORMS');
 
             function updateButtonStates() {
                 const transportDivs = document.querySelectorAll('.transport-box');
@@ -741,14 +745,13 @@
             addTransportButton.addEventListener('click', function() {
                 const newIndex = document.querySelectorAll('.transport-box').length;
                 const newTransportDiv = document.createElement('div');
-                newTransportDiv.classList.add('transport-box', 'morder-group', 'lr');
-
+                newTransportDiv.classList.add('morder-group', 'lr', 'transport-box');
                 newTransportDiv.innerHTML = `
                     <div>
                         <div class="morder-field">
                             <span class="s1 m-hide">교통수단</span>
                             <span class="s2 m-w100">
-                                <input type="text" name="form-${newIndex}-name" class="inorder_txt transportation-input" style="width: calc(100% - 22px);" placeholder="버스">
+                                <input type="text" name="transports-${newIndex}-name" class="inorder_txt transportation-input" style="width: calc(100% - 22px);" placeholder="버스" required id="id_transports-${newIndex}-name">
                             </span>
                         </div>
                         <div class="morder-field">
@@ -756,7 +759,7 @@
                             <span class="s2 m-w100">
                                 <div style="max-width: 100%;">
                                     <div>
-                                        <div id="te-2pa4godv76a" contenteditable="true" class="te-textarea" style="height: 100px;"></div>
+                                        <textarea class="te-textarea" style="height: 100px;" name="transports-${newIndex}-description" cols="40" rows="10" required id="id_transports-${newIndex}-description"></textarea>
                                     </div>
                                 </div>
                             </span>
@@ -791,6 +794,8 @@
                 `;
 
                 transportContainer.appendChild(newTransportDiv);
+                // 총 폼 수 업데이트
+                totalForms.setAttribute('value', newIndex + 1);
 
                 // 위로 이동 버튼 클릭 이벤트 리스너 추가
                 newTransportDiv.querySelector('.move-up').addEventListener('click', function() {
@@ -818,9 +823,6 @@
                     transportContainer.removeChild(currentDiv);
                     updateButtonStates();
                 });
-
-                // 총 폼 수 업데이트
-                // document.getElementById('id_form-TOTAL_FORMS').value = newIndex + 1;
 
                 updateButtonStates();
             });
@@ -853,7 +855,7 @@
             document.querySelectorAll('.remove').forEach(function(button) {
                 button.addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
-                    trasportContainer.removeChild(currentDiv);
+                    transportContainer.removeChild(currentDiv);
                     updateButtonStates();
                 });
             });

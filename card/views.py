@@ -1,10 +1,6 @@
-import os, environ, requests
-from pathlib import Path
-
-from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from card.forms import CardCreationForm
+from card.forms import CardCreationForm, TransportFormSet
 from card.models import Card
 from guest_book.forms import GuestBookCreationForm
 
@@ -19,18 +15,23 @@ def list_card(request):
 def create_card(request):
     if request.method == 'POST':
         form = CardCreationForm(request.POST, request.FILES)
-        if form.is_valid():
+        transport_formset = TransportFormSet(request.POST, instance=Card())
+
+        if form.is_valid() and transport_formset.is_valid():
             card = form.save(commit=False)
             card.user = request.user
             card.wedding_hall_address = form.cleaned_data['wedding_hall_address']
             card.save()
+            transport_formset.instance = card
+            transport_formset.save()
             return redirect('card:list')
         else:
             for field in form:
                 print('오류 발생: ', field.name, field.errors)
             return redirect('card:create')
     form = CardCreationForm()
-    return render(request, 'card/create_card.html', {"form": form})
+    transport_formset = TransportFormSet(instance=Card())
+    return render(request, 'card/create_card.html', {"form": form, 'transport_formset': transport_formset, })
 
 
 def detail_card(request, pk):
