@@ -26,7 +26,11 @@
     <b>신부님 호칭: </b>{{ card.bride_position }}
 </div>
 <hr>
-<div><img src="{{ card.main_img.url }}"></div>
+{% if card.main_img %}
+    <div><img src="{{ card.main_img.url }}"></div>
+{% else %}
+    <div>사진 없음</div>
+{% endif %}
 <hr>
 <div><b>모시는 글 내용: </b>{{ card.invitation_content }}</div>
 <hr>
