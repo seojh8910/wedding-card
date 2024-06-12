@@ -242,7 +242,7 @@
                                     <span data-v-41b0ff6a="" class="s1">주소</span>
                                     <span data-v-41b0ff6a="" class="s2" style="width: calc(100% - 80px); max-width: 400px; position: relative;">
                                         {{ form.wedding_hall_address }}
-                                        <input id="submit" type="button"  class="morder-btn" style="position: absolute; right: 0px;" value="검색" />
+                                        <input id="submit" type="button" onclick="address_search()" class="morder-btn" style="position: absolute; right: 0px;" value="검색" />
                                     </span>
                                     <br>
                                     <br>
@@ -603,6 +603,23 @@
 {% endblock %}
 
 {% block script %}
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function address_search() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    if (data.userSelectedType == 'R'){
+                        $('#address').val(data.roadAddress)
+                    } else {
+                        $('#address').val(data.jibunAddress)
+                    }
+                    searchAddressToCoordinate($('#address').val());
+                }
+            }).open();
+        }
+    </script>
+
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
     <script>
         // 이미지 미리보기 기능 (1)

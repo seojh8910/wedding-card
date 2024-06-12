@@ -15,7 +15,7 @@ class CardCreationForm(forms.ModelForm):
             'main_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview':'preview1', 'class': 'image-input'}),
             'wedding_hall_name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
             'wedding_hall_floor': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
-            'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);'}),
+            'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);', 'onclick': 'address_search()'}),
 
             'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
             'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'contenteditable': 'true', 'style': 'height: 120px; text-align: center;'}),
