@@ -94,8 +94,20 @@ class Card(models.Model):
 
 
 class Transport(models.Model):
-    card = models.ForeignKey(Card, related_name='transports', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+    card = models.ForeignKey(Card, related_name='transports', on_delete=models.CASCADE) # 연결된 청첩장
+    name = models.CharField(max_length=100, null=True, blank=True) # 교통수단 이름
+    description = models.TextField(null=True, blank=True) # 가는 길 설명
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+
+class Account(models.Model):
+    card = models.ForeignKey(Card, related_name='accounts', on_delete=models.CASCADE) # 연결된 청첩장
+    group = models.CharField(max_length=10, null=True, blank=True) # 그룹명
+    bank = models.CharField(max_length=10, null=True, blank=True) # 은행
+    number = models.CharField(max_length=30, null=True, blank=True) # 계좌 번호
+    holder = models.CharField(max_length=10, null=True, blank=True) # 예금주
+
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
