@@ -14,7 +14,7 @@
             <form id="cardform" action="{% url 'card:create' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="morder-table">
-                    <div class="st">
+                    <div class="st" style="display: none;">
                         <div class="th">
                             <div>테마</div>
                             <div data-v-72618a6e="">
