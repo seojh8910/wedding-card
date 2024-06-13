@@ -3,7 +3,6 @@ from django.db import models
 from account.models import User
 
 
-
 # Create your models here.
 class Card(models.Model):
 
@@ -66,8 +65,33 @@ class Card(models.Model):
 
     guests_comment = models.CharField(max_length=20, null=True, default='temp')  # 하객 방명록
 
+    contact_groom_title_1 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 호칭 1
+    contact_groom_name_1 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 이름 1
+    contact_groom_phone_number_1 = models.CharField(max_length=13, null=True, blank=True) # 신랑쪽 연락처 1
+
+    contact_groom_title_2 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 호칭 2
+    contact_groom_name_2 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 이름 2
+    contact_groom_phone_number_2 = models.CharField(max_length=13, null=True, blank=True) # 신랑쪽 연락처 2
+
+    contact_groom_title_3 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 호칭 3
+    contact_groom_name_3 = models.CharField(max_length=10, null=True, blank=True) # 신랑쪽 이름 3
+    contact_groom_phone_number_3 = models.CharField(max_length=13, null=True, blank=True) # 신랑쪽 연락처 3
+
+    contact_bride_title_1 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 호칭 1
+    contact_bride_name_1 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 이름 1
+    contact_bride_phone_number_1 = models.CharField(max_length=13, null=True, blank=True) # 신부쪽 연락처 1
+
+    contact_bride_title_2 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 호칭 2
+    contact_bride_name_2 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 이름 2
+    contact_bride_phone_number_2 = models.CharField(max_length=13, null=True, blank=True) # 신부쪽 연락처 2
+
+    contact_bride_title_3 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 호칭 3
+    contact_bride_name_3 = models.CharField(max_length=10, null=True, blank=True) # 신부쪽 이름 3
+    contact_bride_phone_number_3 = models.CharField(max_length=13, null=True, blank=True) # 신부쪽 연락처 3
+
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)  # 청첩장 생성일
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)  # 청첩장 수정일
+
 
 class Transport(models.Model):
     card = models.ForeignKey(Card, related_name='transports', on_delete=models.CASCADE)
