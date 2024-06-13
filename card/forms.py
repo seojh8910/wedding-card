@@ -30,6 +30,30 @@ class CardCreationForm(forms.ModelForm):
             'bride_father_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
             'bride_position': forms.Select(attrs={'class': 'inorder_txt'}),
 
+            'contact_groom_title_1': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신랑', 'style': 'width: 80px;'}),
+            'contact_groom_name_1': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_groom_phone_number_1': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel', 'style': 'width: 100px;'}),
+
+            'contact_groom_title_2': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신랑 아버지', 'style': 'width: 80px;'}),
+            'contact_groom_name_2': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_groom_phone_number_2': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel', 'style': 'width: 100px;'}),
+
+            'contact_groom_title_3': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신랑 어머니', 'style': 'width: 80px;'}),
+            'contact_groom_name_3': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_groom_phone_number_3': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel', 'style': 'width: 100px;'}),
+
+            'contact_bride_title_1': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신부', 'style': 'width: 80px;'}),
+            'contact_bride_name_1': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_bride_phone_number_1': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel', 'style': 'width: 100px;'}),
+
+            'contact_bride_title_2': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신부 아버지', 'style': 'width: 80px;'}),
+            'contact_bride_name_2': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_bride_phone_number_2': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel','style': 'width: 100px;'}),
+
+            'contact_bride_title_3': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '신부 어머니', 'style': 'width: 80px;'}),
+            'contact_bride_name_3': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '', 'style': 'width: 60px;'}),
+            'contact_bride_phone_number_3': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel','style': 'width: 100px;'}),
+
             'thumb_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview': 'preview2', 'class': 'image-input'}),
             'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥이신부 결혼합니다', 'style': 'max-width: 260px; width: calc(100% - 22px);'}),
             'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분', 'style': 'width: 100%; max-width: 260px; height: 80px;'}),
