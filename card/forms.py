@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import DateTimeInput, inlineformset_factory
 
-from card.models import Card, Transport
+from card.models import Card, Transport, Account
 
 
 class CardCreationForm(forms.ModelForm):
@@ -91,4 +91,16 @@ class TransportForm(forms.ModelForm):
         }
 
 
+class AccountForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ['group', 'holder', 'bank', 'number']
+        widgets = {
+            'group': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
+            'bank': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '은행', 'style': 'width: calc(100% - 27px);'}),
+            'number': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '계좌번호', 'style': 'width: calc(100% - 22px);'}),
+            'holder': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
+        }
+
 TransportFormSet = inlineformset_factory(Card, Transport, form=TransportForm, extra=1)
+AccountFormSet = inlineformset_factory(Card, Account, form=AccountForm, extra=1)
