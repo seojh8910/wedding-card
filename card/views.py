@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from card.forms import CardCreationForm, TransportFormSet, AccountFormSet
@@ -5,13 +6,13 @@ from card.models import Card
 from guest_book.forms import GuestBookCreationForm
 
 
+@login_required
 def list_card(request):
     card_list = Card.objects.order_by('-created_at')
     context = {'cards': card_list}
     return render(request, 'card/list_card.html', context)
 
 
-# Create your views here.
 def create_card(request):
     if request.method == 'POST':
         form = CardCreationForm(request.POST, request.FILES)
