@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 
 from card.forms import CardCreationForm, TransportFormSet, AccountFormSet
 from card.models import Card
@@ -9,9 +12,25 @@ from guest_book.forms import GuestBookCreationForm
 @login_required
 def list_card(request):
     user = request.user
+    today = timezone.now()
+    one_month_ago = today - timedelta(days=30)
+
+    # 예식일 30일 지난 카드 삭제
+    expired_cards = Card.objects.filter(user=user,
+                                        wedding_date__isnull=False,
+                                        wedding_date__lt=one_month_ago)
+    expired_cards.delete()
+
     card_list = Card.objects.filter(user=user).order_by('-created_at')
     context = {'cards': card_list}
     return render(request, 'card/list_card.html', context)
+
+
+def remove_wedding_after_one_month_card(card_list):
+    today = timezone.now()
+    for card in card_list:
+        if card.wedding_date and card.wedding_date + timedelta(days=30) < today:
+            card.delete()
 
 
 def create_card(request):
@@ -37,7 +56,8 @@ def create_card(request):
     form = CardCreationForm()
     transport_formset = TransportFormSet(instance=Card())
     account_formset = AccountFormSet(instance=Card())
-    return render(request, 'card/create_card.html', {"form": form, 'transport_formset': transport_formset, 'account_formset': account_formset, })
+    return render(request, 'card/create_card.html',
+                  {"form": form, 'transport_formset': transport_formset, 'account_formset': account_formset, })
 
 
 def detail_card(request, pk):
