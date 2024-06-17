@@ -8,7 +8,8 @@ from guest_book.forms import GuestBookCreationForm
 
 @login_required
 def list_card(request):
-    card_list = Card.objects.order_by('-created_at')
+    user = request.user
+    card_list = Card.objects.filter(user=user).order_by('-created_at')
     context = {'cards': card_list}
     return render(request, 'card/list_card.html', context)
 
