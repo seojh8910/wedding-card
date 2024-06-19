@@ -17,8 +17,8 @@
                     <div class="st" style="display: none;">
                         <div class="th">
                             <div>테마</div>
-                            <div data-v-72618a6e="">
-                                <svg data-v-72618a6e="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
                                     <polyline points="18 15 12 9 6 15"></polyline>
                                 </svg>
                             </div>
@@ -42,7 +42,7 @@
                         <div class="th">
                             <div>인트로</div>
                             <div>
-                                <svg data-v-11b6c47c="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
                                     <polyline points="18 15 12 9 6 15"></polyline>
                                 </svg>
                             </div>
@@ -213,34 +213,34 @@
                             </div>
                         </div>
                     </div>
-                    <div data-v-41b0ff6a="" class="st">
-                        <div data-v-41b0ff6a="" class="th">
-                            <div data-v-41b0ff6a="">
-                                <span data-v-41b0ff6a="" class="title">예식장소</span>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">예식장소</span>
                             </div>
-                            <div data-v-41b0ff6a="">
-                                <svg data-v-41b0ff6a="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
                                     <polyline points="18 15 12 9 6 15"></polyline>
                                 </svg>
                             </div>
                         </div>
-                        <div data-v-41b0ff6a="" class="td">
-                            <div data-v-41b0ff6a="" class="morder-group">
-                                <div data-v-41b0ff6a="" class="morder-field">
-                                    <span data-v-41b0ff6a="" class="s1">예식장명</span>
-                                    <span data-v-41b0ff6a="" class="s2">
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">예식장명</span>
+                                    <span class="s2">
                                         {{ form.wedding_hall_name }}
                                     </span>
                                 </div>
-                                <div data-v-41b0ff6a="" class="morder-field">
-                                    <span data-v-41b0ff6a="" class="s1">층과 홀</span>
-                                    <span data-v-41b0ff6a="" class="s2">
+                                <div class="morder-field">
+                                    <span class="s1">층과 홀</span>
+                                    <span class="s2">
                                         {{ form.wedding_hall_floor }}
                                     </span>
                                 </div> <!---->
-                                <div data-v-41b0ff6a="" class="morder-field">
-                                    <span data-v-41b0ff6a="" class="s1">주소</span>
-                                    <span data-v-41b0ff6a="" class="s2" style="width: calc(100% - 80px); max-width: 400px; position: relative;">
+                                <div class="morder-field">
+                                    <span class="s1">주소</span>
+                                    <span class="s2" style="width: calc(100% - 80px); max-width: 400px; position: relative;">
                                         {{ form.wedding_hall_address }}
                                         <input id="submit" type="button" onclick="address_search()" class="morder-btn" style="position: absolute; right: 0px;" value="검색" />
                                     </span>
@@ -342,14 +342,12 @@
                             <div class="morder-group" style="border-top: 0px; padding-top: 0px;">
                                 <div>
                                     <div class="gallery-upload">
-                                        <input type="file" accept="image/*" multiple="multiple" hidden="hidden">
-                                        <div class="button">사진 업로드</div>
-                                        <div>또는 사진을 끌어서 놓으세요</div>
+                                        <input type="file" name="gallery_img" id="gallery-input" accept="image/*" multiple="multiple" hidden="hidden">
+                                        <div id="upload-button" class="button">사진 업로드</div>
                                     </div>
                                     <div class="gallery-drag-container">
-                                        <div class="swipe-container">
-                                            <div class="items">
-                                            </div>
+                                        <div class="tile-container">
+                                            <div id="preview-container" class="items"></div>
                                         </div>
                                     </div>
                                     <div class="gallery-toolbar">
@@ -603,7 +601,6 @@
 {% endblock %}
 
 {% block script %}
-
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         function address_search() {
@@ -619,10 +616,9 @@
             }).open();
         }
     </script>
-
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
     <script>
-        // 이미지 미리보기 기능 (1)
+        // 이미지 미리보기 기능 (1): hidden input 트리거
         document.querySelectorAll('.upload-box').forEach(box => {
             box.addEventListener('click', () => {
                 const input = box.querySelector('.image-input');
@@ -630,7 +626,7 @@
             });
         });
 
-        // 이미지 미리보기 기능 (2)
+        // 이미지 미리보기 기능 (2): 이미지 미리보기 표시
         function previewImage(event) {
             const input = event.target;
             const previewId = input.getAttribute('data-preview');
@@ -648,7 +644,7 @@
             reader.readAsDataURL(event.target.files[0]);
         }
 
-        // 이미지 미리보기 기능 (3)
+        // 이미지 미리보기 기능 (3): 이미지 미리보기 삭제
         function deleteImage(event, previewId) {
             event.stopPropagation();
             const output = document.getElementById(previewId);
@@ -987,6 +983,69 @@
             updateButtonStates();
         });
 
+        // 갤러리 이미지 처리
+        const galleryInput = document.getElementById('gallery-input');
+        const preview = document.getElementById('preview-container');
+        const cardForm = document.getElementById('cardform');
 
+        let imageFiles = [];
+
+        // 사진 업로드 트리거
+        $('#upload-button').click(function() {
+            $('#gallery-input').click();
+        });
+
+        // 갤러리 미리보기 구현
+        galleryInput.addEventListener('change', (event) => {
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+                imageFiles.push(files[i]);
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const newPreviewDiv = `
+                        <div class='item'>
+                            <div class='thm-container gallery'>
+                                <img src="${e.target.result}">
+                                <div class="thm-btn-wrap">
+                                    <div class="thm-btn-edit">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    $('#preview-container').append(newPreviewDiv);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        });
+
+        // 갤러리 이미지 저장
+        cardForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // 폼 제출 방지
+
+            const formData = new FormData(cardForm);
+            imageFiles.forEach((file) => {
+                formData.append('images', file);
+            });
+
+            fetch(cardForm.action, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
+                    window.location.href = data.redirect_url; // 제작 내역 페이지로 이동
+                } else {
+                    alert('갤러리 사진 업로드에 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
     </script>
 {% endblock %}

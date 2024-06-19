@@ -1,11 +1,12 @@
 from datetime import timedelta
-
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from card.forms import CardCreationForm, TransportFormSet, AccountFormSet
-from card.models import Card
+from card.models import Card, Gallery
 from guest_book.forms import GuestBookCreationForm
 
 
@@ -44,20 +45,32 @@ def create_card(request):
             card.user = request.user
             card.wedding_hall_address = form.cleaned_data['wedding_hall_address']
             card.save()
+
             transport_formset.instance = card
             transport_formset.save()
+
             account_formset.instance = card
             account_formset.save()
-            return redirect('card:list')
+
+            images = request.FILES.getlist('images')
+            for image in images:
+                Gallery.objects.create(card=card, gallery_img=image)
+
+            return JsonResponse({'status': 200, 'redirect_url': reverse('card:list')})
         else:
             for field in form:
                 print('오류 발생: ', field.name, field.errors)
             return redirect('card:create')
+
     form = CardCreationForm()
     transport_formset = TransportFormSet(instance=Card())
     account_formset = AccountFormSet(instance=Card())
-    return render(request, 'card/create_card.html',
-                  {"form": form, 'transport_formset': transport_formset, 'account_formset': account_formset, })
+
+    return render(request, 'card/create_card.html', {
+        "form": form,
+        'transport_formset': transport_formset,
+        'account_formset': account_formset,
+    })
 
 
 def detail_card(request, pk):
