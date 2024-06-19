@@ -1000,6 +1000,7 @@
             const files = event.target.files;
             for (let i = 0; i < files.length; i++) {
                 imageFiles.push(files[i]);
+
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const newPreviewDiv = `
@@ -1020,6 +1021,15 @@
                 };
                 reader.readAsDataURL(files[i]);
             }
+        });
+
+        // 갤러리 미리보기 삭제
+        $('#preview-container').on('click', '.thm-btn-wrap', function() {
+            const itemDiv = $(this).closest('.item');
+            const imgIndex = itemDiv.index();
+
+            imageFiles.splice(imgIndex, 1);
+            itemDiv.remove();
         });
 
         // 갤러리 이미지 저장
