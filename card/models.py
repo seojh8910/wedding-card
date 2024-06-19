@@ -38,7 +38,7 @@ class Card(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='card', null=True)
-    theme = models.CharField(max_length=20, choices=THEME_TYPE, default='클래식')  # 청첩장 테마
+    theme = models.CharField(max_length=20, choices=THEME_TYPE, default='클래식', null=True, blank=True)  # 청첩장 테마
 
     wedding_date = models.DateTimeField(null=True, blank=True)  # 결혼식 날짜
     wedding_hall_name = models.CharField(max_length=100, null=True, blank=True)  # 예식장명
@@ -49,12 +49,12 @@ class Card(models.Model):
     groom_name = models.CharField(max_length=20, null=True, blank=True)  # 신랑 이름
     groom_mother_name = models.CharField(max_length=20, null=True, blank=True)  # 신랑 어머니 성함
     groom_father_name = models.CharField(max_length=20, null=True, blank=True)  # 신랑 아버지 성함
-    groom_position = models.CharField(max_length=10, choices=GROOM_POSITION, default='아들')  # 신랑 호칭 ex) 아들, 장남, 차남 등
+    groom_position = models.CharField(max_length=10, choices=GROOM_POSITION, default='아들', null=True, blank=True)  # 신랑 호칭 ex) 아들, 장남, 차남 등
 
     bride_name = models.CharField(max_length=20, null=True, blank=True)  # 신부 이름
     bride_mother_name = models.CharField(max_length=20, null=True, blank=True)  # 신부 어머니 성함
     bride_father_name = models.CharField(max_length=20, null=True, blank=True)  # 신부 아버지 성함
-    bride_position = models.CharField(max_length=10, choices=BRIDE_POSITION, default='딸')  # 신부 호칭 ex) 딸, 장녀, 차녀 등
+    bride_position = models.CharField(max_length=10, choices=BRIDE_POSITION, default='딸', null=True, blank=True)  # 신부 호칭 ex) 딸, 장녀, 차녀 등
 
     invitation_title = models.CharField(max_length=20, null=True, blank=True)  # 모시는 글 제목
     invitation_content = models.TextField(null=True, blank=True)  # 모시는 글 내용
@@ -108,6 +108,14 @@ class Account(models.Model):
     bank = models.CharField(max_length=10, null=True, blank=True) # 은행
     number = models.CharField(max_length=30, null=True, blank=True) # 계좌 번호
     holder = models.CharField(max_length=10, null=True, blank=True) # 예금주
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+
+class Gallery(models.Model):
+    card = models.ForeignKey(Card, related_name='galleries', on_delete=models.CASCADE)
+    gallery_img = models.ImageField(upload_to='card/gallery/')
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
