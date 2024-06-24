@@ -197,100 +197,30 @@
                         <div class="col-12 mt-4">
                             <div class="row row-cols-1 row-cols-md-2 g-5 d-flex align-items-center">
 
+                                {% for review in review_list %}
                                 <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
                                     <div class="card p-4 mt-3 border-0">
                                         <div class="card-body">
                                             <blockquote class="blockquote">
-                                                <p>"후기 내용입니다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다."</p>
+                                                <p>{{ review.content }}</p>
                                             </blockquote>
                                             <div class="d-flex justify-content-between border-top pt-3">
                                                 <div style="display: flex;">
                                                     <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
                                                         <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        <span class="h6 fw-5" style="margin: auto 0;">아이디</span>
+                                                        {% if review.writer.username|length < 5 %}
+                                                        <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-2' }}**</p>
+                                                        {% else %}
+                                                        <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-3' }}***</p>
+                                                        {% endif %}
                                                     </div>
-                                                    <small class="text-muted" style="margin: auto 0;">작성일</small>
+                                                    <small class="text-muted" style="margin: auto 0;">{{ review.created_at|date:'y.m.d' }}</small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
-                                    <div class="card p-4 mt-3 border-0">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote">
-                                                <p>"후기 내용입니다. 후기 내용입니다. 내용입니다.후기 내용입니다."</p>
-                                            </blockquote>
-                                            <div class="d-flex justify-content-between border-top pt-3">
-                                                <div style="display: flex;">
-                                                    <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
-                                                        <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        <span class="h6 fw-5" style="margin: auto 0;">아이디</span>
-                                                    </div>
-                                                    <small class="text-muted" style="margin: auto 0;">작성일</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
-                                    <div class="card p-4 mt-3 border-0">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote">
-                                                <p>"후기 내용입니후기 내용입니다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다."</p>
-                                            </blockquote>
-                                            <div class="d-flex justify-content-between border-top pt-3">
-                                                <div style="display: flex;">
-                                                    <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
-                                                        <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        <span class="h6 fw-5" style="margin: auto 0;">아이디</span>
-                                                    </div>
-                                                    <small class="text-muted" style="margin: auto 0;">작성일</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
-                                    <div class="card p-4 mt-3 border-0">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote">
-                                                <p>"후기 내용입니다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다."</p>
-                                            </blockquote>
-                                            <div class="d-flex justify-content-between border-top pt-3">
-                                                <div style="display: flex;">
-                                                    <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
-                                                        <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        <span class="h6 fw-5" style="margin: auto 0;">아이디</span>
-                                                    </div>
-                                                    <small class="text-muted" style="margin: auto 0;">작성일</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
-                                    <div class="card p-4 mt-3 border-0">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote">
-                                                <p>"후기 내용입니다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다. 후기 내용입니다. 후기 내용입니다. 후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다.후기 내용입니다."</p>
-                                            </blockquote>
-                                            <div class="d-flex justify-content-between border-top pt-3">
-                                                <div style="display: flex;">
-                                                    <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
-                                                        <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        <span class="h6 fw-5" style="margin: auto 0;">아이디</span>
-                                                    </div>
-                                                    <small class="text-muted" style="margin: auto 0;">작성일</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
 
                             </div>
                         </div>
