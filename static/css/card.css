@@ -11,12 +11,30 @@ audio, canvas, img, svg, video {
     display: flex;
     max-width: 1020px;
     margin: 20px auto 0;
+    height: 100vh;
 }
 
 .morder-preview {
     min-width: 390px;
     margin: 0 4px 0 15px;
-    border: solid 1px;
+}
+
+.preview {
+    width: 390px;
+    height: calc(100vh - 90px);
+    border: 0;
+}
+
+#preview-wrap {
+    width: 390px;
+    height: 635px;
+    background: #eee;
+}
+
+#preview-iframe {
+    transition: all .5s ease-out;
+    border-radius: 6px;
+    height: 100%;
 }
 
 @media (max-width: 900px) {
@@ -32,6 +50,7 @@ audio, canvas, img, svg, video {
 .morder-list-content {
     max-width: 640px;
     width: 640px;
+    height: 100%;
     margin: auto;
     padding: 0 15px;
 }
@@ -580,4 +599,1234 @@ audio, canvas, img, svg, video {
 
 .upload-box span {
     position: absolute;
+}
+
+#app, html {
+    height: 100%;
+}
+
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    border: 1px solid #e4e4e4;
+    height: 100%;
+}
+
+.container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+}
+
+.mcard-view {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    padding: 0;
+    margin: auto;
+    color: rgb(108, 103, 103);
+    background: #fbfbfb;
+    -ms-overflow-style: none;
+    line-height: 2rem;
+    font-family: MaruBuri;
+    letter-spacing: -0.2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .04);
+    background-color: rgb(251, 251, 251);
+}
+
+.mcard-intro {
+    position: relative;
+    padding: 0 0 40px;
+    --intro-text-color: #49413a;
+    --intro-text-light-color: #595959;
+}
+
+.mcard-intro .title {
+    padding: 48px 0 30px;
+    color: #49413a;
+    font-family: Crimson Pro;
+    line-height: 21px;
+    border-color: #000;
+}
+
+.mcard-intro .title .dates {
+    font-size: 0;
+}
+
+.mcard-intro .title .dates>span {
+    display: inline-block;
+    padding: 0 8px .1rem;
+    border-right-width: 1px;
+    border-right-style: solid;
+    font-size: 30px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.mcard-intro .title .dates>span:last-child {
+    border: 0;
+}
+
+.mcard-intro .wod {
+    letter-spacing: 2px;
+    font-size: 16px;
+}
+
+.mcard-intro .photo-wrap.simple:not(.overlay) {
+    padding: 0 24px;
+}
+
+.mcard-intro .photo {
+    line-height: 0;
+}
+
+.gradient-none {
+    -webkit-mask-image: linear-gradient(180deg, #000, #000);
+    mask-image: linear-gradient(180deg, #000, #000);
+}
+
+.intro-blend-wrap {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.intro-blend-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.img-blur {
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+}
+
+.mcard-intro .bottom {
+    margin-top: 30px;
+    font-size: .9rem;
+}
+
+.mcard-intro .name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 0;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.mcard-intro .name>div.groom {
+    text-align: right;
+}
+
+.mcard-intro .name>div {
+    display: inline-block;
+    text-align: right;
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+.mcard-intro .name>div.divider {
+    position: relative;
+    top: .5px;
+    display: inline-block;
+    content: "";
+    width: 1px;
+    height: 1.1rem;
+    background: #000;
+    opacity: .85;
+}
+
+.mcard-intro .name>div.bride {
+    text-align: left;
+}
+
+.mcard-intro .datetime {
+    line-height: 1.8rem;
+}
+
+.greetings-wrap {
+    margin: 1px 0;
+    padding: 40px 0;
+}
+
+.greetings-wrap .text {
+    display: inline-block;
+    margin: 16px 1rem 1.2rem;
+    font-size: .9rem;
+}
+
+.greetings-wrap svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: -2px;
+    fill: #cec3c3;
+    vertical-align: middle;
+}
+
+.fade-in {
+    transition: all .8s ease-out;
+    box-sizing: border-box;
+    animation: fade-in 2s;
+}
+
+.m-title {
+    color: #89757a;
+    letter-spacing: .5px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.m-subtitle {
+    font-size: .7rem;
+    color: rgb(208, 196, 196);
+    font-family: Crimson Pro, serif;
+    letter-spacing: 3px;
+    line-height: 20px;
+}
+
+.members-wrap {
+    padding: 1.2rem 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.members-wrap .relation {
+    font-size: .8rem;
+    color: #8a857f;
+}
+
+.calendar-wrap {
+    padding: 30px 0;
+}
+
+.calendar-inner {
+    padding: 3.6rem 0 3.8rem;
+    border-left: 0;
+    border-right: 0;
+    background: rgb(246, 245, 245);
+    background-image: url('	https://mcard.fromtoday.co.kr/mcard/assets/images/bg_paper_00.png');
+}
+
+.calendar-wrap .date {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    letter-spacing: 3px;
+    color: #524548;
+    opacity: .8;
+    font-family: Crimson Pro;
+}
+
+.calendar-wrap .hours {
+    margin-bottom: 1.25rem;
+    letter-spacing: 1px;
+    font-size: .9rem;
+    color: #524548;
+}
+
+.c-calendar {
+    padding: 1.5rem 1rem;
+    margin: 0 36px;
+    border: 1px solid #e8dfdf;
+    border-left: 0;
+    border-right: 0;
+}
+
+.c-calendar-eday {
+    color: #fff;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.c-calendar-eday>div {
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 30px;
+    background: #cec3c3;
+}
+
+#app .c-calendar-table {
+    line-height: 1.8rem;
+}
+
+.c-calendar-table {
+    margin: auto;
+    width: 100%;
+    font-size: .875rem;
+    line-height: 2.375rem;
+}
+
+.c-calendar-holiday,
+.c-calendar-table>tbody tr td:first-child,
+.c-calendar-table>thead tr th:first-child {
+    color: #c6472b;
+}
+
+.c-calendar-table>tbody tr td:first-child,
+.c-calendar-table>thead tr th:first-child {
+    color: #c6472b !important;
+}
+
+.c-calendar-table>thead tr th {
+    font-weight: unset;
+}
+
+.c-calendar-table>thead tr th {
+    padding-bottom: 8px;
+}
+
+.dday-wrap {
+    margin: 0 auto;
+    padding: 1.25rem 0 0;
+    font-size: .9rem;
+}
+
+.dday-wrap span[pink] {
+    color: #ea7664;
+}
+
+.dday-wrap span[small] {
+    font-size: .7rem;
+}
+
+.map-wrap {
+    margin: 1px 0;
+    padding: 40px 0;
+}
+
+.location-wrap {
+    margin: 18px 0 26px;
+}
+
+.location-hall {
+    color: #000;
+}
+
+.location-address {
+    font-size: .95rem;
+    color: #797979;
+}
+
+.map-inner {
+    margin: 0 20px 10px;
+}
+
+#map {
+    margin: auto;
+    width: 100%;
+    height: 240px;
+}
+
+#app #preview-map {
+    height: 15rem;
+}
+
+#app .c-map-navi {
+    background: #f2eeee;
+    padding: 8px 10px;
+}
+
+.c-map-navi {
+    text-align: left;
+    padding: 6px 10px;
+    display: flex;
+    background: #f6f5f5;
+    color: #000;
+    font-size: .8rem;
+    height: 2.8rem;
+}
+
+.c-map-navi>div {
+    flex: 1.2;
+    margin: auto;
+    height: 1.1rem;
+    line-height: 1.1rem;
+    border-right: 1px solid rgba(97, 80, 67, .15);
+    text-align: center;
+    cursor: pointer;
+}
+
+.c-map-navi>div:last-child {
+    flex: 1;
+    border-right: 0;
+}
+
+.c-map-navi img {
+    position: relative;
+    top: -1px;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+    border-radius: 16%;
+}
+
+.gothic {
+    font-family: NanumSquare;
+    letter-spacing: -0.2px;
+}
+
+.waytocome-wrap {
+    padding: 0 2rem;
+    text-align: left;
+}
+
+.waytocome-wrap .title {
+    font-size: 1rem;
+    color: #89757a;
+}
+
+.waytocome-wrap .title>span {
+    vertical-align: middle;
+}
+
+.waytocome-wrap .content {
+    font-size: .85rem;
+    line-height: 1.5rem;
+}
+
+.waytocome-wrap .box {
+    display: flex;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid #e9e5e5;
+}
+
+.waytocome-wrap .box .left {
+    flex: 40px;
+    padding: 10px 10px 0 0;
+}
+
+.waytocome-wrap .box .icon-circle {
+    background: #f2eeee;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 0;
+    padding: 8px;
+    text-align: center;
+    border-radius: 64px;
+    opacity: .7;
+}
+
+.waytocome-wrap .box svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #fff;
+    fill: #89757a;
+}
+
+.waytocome-wrap .box .right {
+    flex: 999;
+}
+
+.footer-wrap {
+    margin-top: 60px;
+    padding: 30px 0;
+    background: #f2eeee;;
+    background-image: url('https://mcard.fromtoday.co.kr/mcard/assets/images/bg_paper_00.png');
+    border-top: 0 solid #e8dfdf;
+    color: #434343;
+}
+
+.kakao-wrap {
+    font-size: .8rem;
+    line-height: 24px;
+}
+
+.kakao-wrap .btn-kakao:first-child {
+    margin: 0 auto;
+}
+
+.kakao-wrap .btn-kakao {
+    width: 250px;
+    margin: 0 auto;
+    line-height: 2rem;
+    cursor: pointer;
+}
+
+.kakao-wrap svg {
+    margin: -1px 6px 0 0;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.copyright-wrap {
+    margin-top: 12px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.copyright-wrap .copyright {
+    margin: 0 auto;
+    width: 80%;
+    min-width: 280px;
+    font-size: 10px;
+    color: rgba(0, 0, 0, .4);
+    letter-spacing: .5px;
+    font-family: Crimson Pro, serif;
+}
+
+.copyright-wrap .brand {
+    color: rgba(0, 0, 0, .7);
+    cursor: pointer;
+}
+
+@keyframes fade-in{
+    0%{
+        opacity: 0;
+        transform: translate(0px, 0px);
+    }
+    to{
+        opacity: 1;
+        transform: translate(0px, 30px);
+    }
+}
+
+.gallery-wrap {
+    margin: 1px 0;
+    padding: 50px 0;
+}
+
+.gallery-container {
+    margin: 40px 0 0;
+}
+
+.gallery-square {
+    margin: 0 16px;
+    line-height: 0;
+    text-align: left;
+}
+
+.gallery-square .item {
+    width: calc(33.3% - 11px);
+    margin: 4px;
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+    background: #eee;
+    overflow: hidden;
+}
+
+.gallery-square .ph {
+    position: relative;
+    padding-bottom: 100%;
+    background: rgba(0, 0, 0, .02);
+}
+
+.gallery-square img {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    cursor: pointer;
+}
+
+.img-blur {
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+}
+
+.modal-mask {
+    display: none;
+    position: fixed;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+    background: rgba(0, 0, 0, .9);
+}
+
+.modal-wrapper {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    max-width: 420px;
+}
+
+.modal-container {
+    transition: all 3s ease;
+}
+
+.carousel-wrap {
+    margin: 0;
+    position: relative;
+}
+
+.carousel-card {
+    width: 100%;
+    background: hsla(0, 0%, 100%, .005) !important;
+}
+
+.carousel-card>div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-card>div>img {
+    width: 100%;
+    pointer-events: none;
+}
+
+.modal-btn-simple {
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    z-index: 999;
+}
+
+.modal-btn-simple>span {
+    display: inline-block;
+    line-height: 0;
+    padding: 16px;
+    background: #000;
+    border-radius: 64px;
+    cursor: pointer;
+}
+
+.modal-btn-simple>span:first-child>svg {
+    right: 1px;
+}
+
+.modal-btn-simple svg {
+    position: relative;
+    margin: 0 auto;
+    width: 12px;
+    height: 12px;
+    fill: hsla(0, 0%, 100%, .9);
+    z-index: 102;
+}
+
+.modal-btn-simple>span:nth-child(2)>svg {
+    left: 1px;
+}
+
+.morder-toolbar {
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    z-index: 201;
+    height: 50px;
+}
+
+.morder-toolbar-inner {
+    max-width: 1000px;
+    padding: 9px 10px;
+    margin: auto;
+}
+
+.morder-toolbar-title {
+    float: left;
+    margin-left: 5px;
+    color: #565656;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 33px;
+}
+
+.morder-toolbar-title>svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1px;
+    margin-right: 5px;
+    margin-top: -2px;
+}
+
+.morder-toolbar-actions {
+    float: right;
+}
+
+.save-btn {
+    display: inline-block;
+    min-width: 98px;
+    padding: 0 10px;
+    line-height: 31px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .05);
+    color: #fff;
+    background: #343a40;
+    border: 1px solid #343a40;
+    border-radius: 4px;
+}
+
+.fixed {
+    position: fixed;
+    top: 90px;
+}
+
+.contact-box {
+    margin: 0 auto;
+    max-width: 220px;
+    color: #978686;
+    border: 1px solid #d1c8c8;
+    border-radius: 32px;
+    text-align: center;
+    font-size: .85rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.v--modal-overlay {
+    position: fixed;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 635px;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    opacity: 1;
+}
+
+.v--modal-overlay .v--modal-background-click {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+}
+
+.v--modal-top-right {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.v--modal-overlay .v--modal-box {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.v--modal {
+    background-color: white;
+    text-align: left;
+    border-radius: 3px;
+    box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);
+    padding: 0;
+}
+
+.vue-dialog div {
+    box-sizing: border-box;
+}
+
+.contact-modal-wrap {
+    display: flex;
+    text-align: left;
+    background: #fbfbfb;
+}
+
+.contact-modal-wrap .title {
+    display: block;
+    padding: 16px 0 12px;
+    text-align: center;
+    line-height: 1.5rem;
+    letter-spacing: 3px;
+    color: #89757a;
+    background: #f6f5f5;
+}
+
+.contact-modal-wrap .content {
+    padding: 1rem;
+    display: block;
+}
+
+.contact-modal-wrap .content>div {
+    display: flex;
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+.contact-modal-wrap .content>div>.cell {
+    flex: 1.5;
+    text-align: center;
+    letter-spacing: .5px;
+}
+
+.contact-modal-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.phone-square {
+    display: inline-block;
+    margin-top: -2px;
+    width: 30px;
+    height: 20px;
+    vertical-align: middle;
+    line-height: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.phone-square svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+}
+
+.account-wrap {
+    margin: 1px auto;
+    padding: 40px 2rem;
+}
+
+.account-wrap svg {
+    width: 15px;
+    height: 14px;
+}
+
+.account-wrap .s-subtitle {
+    display: inline-block;
+    content: "";
+    width: 24px;
+    height: 38px;
+    background-image: url(https://mcard.fromtoday.co.kr/mcard/1006/icon_flower_01.png?6bde95268944da57c8346f559bd5a06e);
+    background-size: cover;
+    filter: hue-rotate(330deg) saturate(.15);
+}
+
+.c-account {
+    max-width: 100%;
+    margin: 2rem auto 0;
+    font-size: .9rem;
+    padding: 0 1.1rem;
+}
+
+.c-account .item {
+    margin-top: 12px;
+}
+
+.c-account .item:first-child {
+    border: 0;
+}
+
+.c-account .title {
+    position: relative;
+    margin: 0 auto;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    z-index: 999;
+    color: #52454;
+    background: #f2eeee;
+    border-radius: 6px;
+}
+
+.c-account .title.expand {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.c-account .title>.arrow {
+    position: absolute;
+    top: 9px;
+    right: 18px;
+    transform: rotate(0);
+    transition-duration: .5s;
+    transform-origin: center center;
+}
+
+.c-account .title>.arrow.rotate {
+    top: 8px;
+    transform: rotate(180deg);
+    transition-duration: .5s;
+}
+
+.c-account svg {
+    width: .75rem;
+    height: .75rem;
+    margin-top: -6px;
+}
+
+.c-account .text {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    transition: height .5s ease-out;
+    font-size: min(.85rem,16px);
+    border-top: 1px solid rgba(0, 0, 0, .05);
+}
+
+.c-account .text.click {
+    display: block;
+    height: 78px;
+}
+
+.c-account .text:nth-child(2) {
+    border-top: 0;
+}
+
+.c-account .text:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.c-account .text>.inner {
+    padding: .75rem 0 .75rem .85rem;
+    line-height: 26px;
+    letter-spacing: 0;
+    text-align: left;
+    background: #fff;
+}
+
+.c-account .bank:after {
+    content: "";
+    margin: -1px 2px 0 6px;
+    width: 1px;
+    height: 12px;
+    background: #e5e5e5;
+    border-radius: 10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.c-account .btn-action {
+    position: absolute;
+    top: calc(.75rem - 1px);
+    right: .75rem;
+    width: 54px;
+    cursor: pointer;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #e1e1e1;
+    color: #333;
+    letter-spacing: .5px;
+    text-align: center;
+    line-height: 24px;
+}
+
+.c-account .btn-action>svg {
+    margin: -2px 2px 0 0;
+    height: 12px;
+    width: 12px;
+    vertical-align: middle;
+    fill: #999;
+}
+
+.guestbook-wrap {
+    padding-top: 40px;
+    margin-bottom: 40px;
+}
+
+.c-guestbook {
+    margin: 0;
+    font-size: .86rem;
+}
+
+.c-guestbook .comments {
+    padding: 0 2rem;
+    border: 0 solid #e8dfdf;
+    border-left: 0;
+    border-right: 0;
+}
+
+.c-guestbook .item {
+    position: relative;
+    padding: .75rem 1rem;
+    text-align: left;
+    line-height: 1.5rem;
+    background: hsla(0, 0%, 100%, .75);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    box-shadow: 1px 1px 2px rgb(0 0 0 / 5%);
+}
+
+.c-guestbook .item:last-child {
+    margin-bottom: 0;
+}
+
+.c-guestbook .item.empty {
+    text-align: center;
+    color: #aaa;
+    padding: 40px 0;
+}
+
+.c-guestbook .item.empty svg {
+    width: 24px;
+    height: 24px;
+    fill: #aaa;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.c-guestbook .pagination-wrap {
+    width: calc(100% - 6rem);
+    display: inline-block;
+}
+
+.c-guestbook .tools {
+    padding: 10px 2rem;
+}
+
+.c-guestbook .tools>.writing {
+    display: inline-block;
+    width: 5.5rem;
+    padding: 8px 0;
+}
+
+.c-guestbook .tools>.writing>button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    line-height: 0;
+}
+
+.m-button {
+    display: inline-block;
+    text-decoration: none;
+    height: 2rem;
+    line-height: 2rem;
+    background: #fff;
+    padding: 0 26px;
+    background: rgba(0,0,0,0);
+    color: #978686;
+    border: 1px solid #d1c8c8;
+    border-radius: 32px;
+    font-size: .86rem;
+    font-weight: 400;
+    cursor: pointer;
+    letter-spacing: 0 !important;
+}
+
+.m-button.dark {
+    border: 1px solid #d0b9b9;
+    background: #d0b9b9;
+    color: #fff;
+}
+
+.c-guestbook-header {
+    padding: 16px 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.c-guestbook-header .btn-close {
+    float: right;
+    cursor: pointer;
+    margin: -1px 0 0 16px;
+}
+
+.c-guestbook-header .btn-close svg {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+}
+
+.c-guestbook-modal-wrap {
+    display: flex;
+    text-align: left;
+    background: #fff;
+    font-size: 1rem;
+    color: #544f4d;
+}
+
+.c-guestbook-modal-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.c-guestbook-modal-inner table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.c-guestbook-modal-inner tr {
+    border-top: 1px solid #eee;
+}
+
+.c-guestbook-modal-inner th {
+    padding: 0 0 0 20px;
+    height: 60px;
+    vertical-align: middle;
+    font-size: .9rem;
+    font-weight: 500;
+    color: #989898;
+}
+
+.c-guestbook-modal-inner td {
+    padding: 0;
+}
+
+.c-guestbook-modal-inner td input,
+.c-guestbook-modal-inner td textarea {
+    border: none;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    height: 40px;
+    color: #000;
+    font-size: 16px;
+    font-family: NanumSquare;
+    letter-spacing: -0.2px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: none;
+    -webkit-border-radius: 0;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.c-guestbook-modal-inner td textarea {
+    width: calc(100% - 40px);
+    height: 96px;
+    margin: 20px;
+    padding: 12px 16px;
+    resize: vertical;
+    background: #fcfcfc;
+    line-height: 24px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.c-guestbook-modal-inner .btn-submit {
+    display: block;
+    margin: 0;
+    height: auto;
+    line-height: 60px;
+    background: var(--secondary-color);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+}
+
+#app .c-guestbook-delete-modal button {
+    background: var(--btn-dark-bg-color);
+}
+
+.c-guestbook-header {
+    padding: 16px 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.c-guestbook-header .btn-close {
+    float: right;
+    cursor: pointer;
+    margin: 5px 0 0 16px;
+}
+
+.c-guestbook-header .btn-close svg {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+}
+
+.c-guestbook-modal-wrap {
+    display: flex;
+    text-align: left;
+    background: #fff;
+    font-size: 1rem;
+    color: #544f4d;
+}
+
+.c-guestbook-modal-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.c-guestbook-modal-inner table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.c-guestbook-modal-inner tr {
+    border-top: 1px solid #eee;
+}
+
+.c-guestbook-modal-inner th {
+    padding: 0 0 0 20px;
+    height: 60px;
+    vertical-align: middle;
+    font-size: .9rem;
+    font-weight: 500;
+    color: #989898;
+}
+
+.c-guestbook-modal-inner td {
+    padding: 0;
+}
+
+.c-guestbook-modal-inner td input,
+.c-guestbook-modal-inner td textarea {
+    border: none;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    height: 40px;
+    color: #000;
+    font-size: 16px;
+    font-family: NanumSquare;
+    letter-spacing: -0.2px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: none;
+    -webkit-border-radius: 0;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.c-guestbook-modal-inner td textarea {
+    width: calc(100% - 40px);
+    height: 96px;
+    margin: 20px;
+    padding: 12px 16px;
+    resize: vertical;
+    background: #fcfcfc;
+    line-height: 24px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.c-guestbook-modal-inner .btn-submit {
+    display: block;
+    margin: 0;
+    height: auto;
+    line-height: 60px;
+    background: #d0b9b9;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+}
+
+#app .c-guestbook-delete-modal button {
+    background: #d0b9b9;
 }
