@@ -315,5 +315,5 @@ pip-selfcheck.json
 .history
 .ionide
 .idea/
-
+wedding_card.pem
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,django,venv
