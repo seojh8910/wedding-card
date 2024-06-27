@@ -1,7 +1,18 @@
+// 미리보기 지도
+var previewMap = new naver.maps.Map("preview-map", {
+    center: new naver.maps.LatLng(37.3595316, 127.1052133),
+    zoom: 15,
+});
+
+var previewMarker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: previewMap
+});
+
+// 검색용 지도
 var map = new naver.maps.Map("map", {
     center: new naver.maps.LatLng(37.3595316, 127.1052133),
     zoom: 15,
-    mapTypeControl: true
 });
 
 var marker = new naver.maps.Marker({
@@ -12,7 +23,6 @@ var marker = new naver.maps.Marker({
 map.setCursor('pointer');
 
 function searchCoordinateToAddress(latlng) {
-
     naver.maps.Service.reverseGeocode({
         coords: latlng,
         orders: [
@@ -65,7 +75,6 @@ function searchAddressToCoordinate(address) {
         if (item.englishAddress) {
             htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
         }
-
 
         // 기존 마커 제거
         marker.setMap(null);
