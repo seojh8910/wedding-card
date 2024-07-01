@@ -1861,3 +1861,31 @@ audio, canvas, img, svg, video {
     border: 1px solid rgb(210, 105, 30);
     color: rgb(210, 105, 30);
 }
+
+.getBtn {
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    transition: transform .45s cubic-bezier(.2,.7,.3,1);
+    box-shadow: 0 .125rem .25rem rgb(0 0 0 / 30%);
+}
+
+.getBtn.emp {
+    color: #3a1d1d;
+    font-weight: 700;
+}
+
+.fa-link:before {
+    content: "\f0c1";
+}
