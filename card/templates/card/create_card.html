@@ -82,16 +82,31 @@
                                                 축복해 주시면 감사하겠습니다.
                                             </div>
                                         </div>
-                                        <div class="members-wrap fade-in">
-                                            <span>
-                                                <span class="relation">신랑</span>
-                                                <span>최신랑</span>
-                                            </span>
-                                            <span>&nbsp;·&nbsp;</span>
-                                            <span>
-                                                <span class="relation">신부</span>
-                                                <span>이신부</span>
-                                            </span>
+                                        <div class="members-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <div>
+                                                <span>
+                                                    <span>최재만</span>
+                                                    <span>·</span>
+                                                    <span>서미숙</span>
+                                                </span>
+                                                <span class="relation">
+                                                    <span>의</span>
+                                                    <span>아들</span>
+                                                </span>
+                                                <span class="lname">도현</span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    <span>이승태</span>
+                                                    <span>·</span>
+                                                    <span>정선화</span>
+                                                </span>
+                                                <span class="relation">
+                                                    <span>의</span>
+                                                    <span>딸</span>
+                                                </span>
+                                                <span class="lname">하나</span>
+                                            </div>
                                         </div>
                                         <div class="contact-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
                                             <div class="contact-box">
@@ -1967,6 +1982,27 @@
                 alert('샘플에서는 제공하지 않는 기능입니다.');
             });
         });
+
+        // 신랑측, 신부측 정보 입력하면 미리보기에 나오도록 추가
+        function bindInputToElement(inputSelector, elementSelector) {
+            const input = document.querySelector(inputSelector);
+            const element = document.querySelector(elementSelector);
+
+            input.addEventListener("input", () => {
+                element.innerText = input.value;
+            });
+        }
+
+        bindInputToElement('#id_groom_father_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(1)');
+        bindInputToElement('#id_groom_mother_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(3)');
+        bindInputToElement('#id_groom_position', '.members-wrap.fade-in > div:nth-child(1) > .relation > span:nth-child(2)');
+        bindInputToElement('#id_groom_name', '.members-wrap.fade-in > div:nth-child(1) > .lname');
+
+        bindInputToElement('#id_bride_father_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(1)');
+        bindInputToElement('#id_bride_mother_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(3)');
+        bindInputToElement('#id_bride_position', '.members-wrap.fade-in > div:nth-child(2) > .relation > span:nth-child(2)');
+        bindInputToElement('#id_bride_name', '.members-wrap.fade-in > div:nth-child(2) > .lname');
+
 
 
     </script>
