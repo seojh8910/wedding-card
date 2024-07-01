@@ -1832,11 +1832,10 @@ audio, canvas, img, svg, video {
 }
 
 .footer .footer-about .logo span {
-    color: #32353a;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 1px;
-    font-family: Cafe24Classictype;
+    font-family: NanumSquare;
 }
 
 .footer .footer-top {
