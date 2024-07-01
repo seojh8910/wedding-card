@@ -4,7 +4,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-layers-half" viewbox="0 0 16 16">
                 <path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/>
             </svg>
-            <span class="ms-1 fw-bolder">Wedding Card</span>
+            <span class="ms-1" style="font-family: Cafe24Classictype; font-weight: 700;">Wedding Card</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,17 +35,14 @@
             {% if not user.is_authenticated %}
                 <a href="{% url 'account:login' %}" data-splitbee-event="Login" aria-label="Login" class="link-dark pb-1 link-fancy me-2">
                     Login
-
                 </a>
                 <span>&nbsp&nbsp</span>
                 <a href="{% url 'account:sign_up' %}" data-splitbee-event="Sign up" aria-label="Sign up" class="link-dark pb-1 link-fancy me-2">
                     Sign up
-
                 </a>
             {% else %}
                 <a href="{% url 'account:logout' %}?next={{ request.path }}" data-splitbee-event="Logout" aria-label="Logout" class="link-dark pb-1 link-fancy me-2">
                     Logout
-
                 </a>
             {% endif %}
         </div>
