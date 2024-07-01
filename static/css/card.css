@@ -1830,3 +1830,34 @@ audio, canvas, img, svg, video {
 #app .c-guestbook-delete-modal button {
     background: #d0b9b9;
 }
+
+.footer .footer-about .logo span {
+    color: #32353a;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: Cafe24Classictype;
+}
+
+.footer .footer-top {
+    padding-top: 10px;
+}
+
+.footer .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, #212529, transparent 50%);
+    font-size: 16px;
+    color: color-mix(in srgb, #212529, transparent 50%);
+    margin: 0 12px;
+    transition: 0.3s;
+}
+
+.footer .social-links a:hover {
+    border: 1px solid rgb(210, 105, 30);
+    color: rgb(210, 105, 30);
+}

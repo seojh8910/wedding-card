@@ -1,10 +1,10 @@
+<!DOCTYPE html>
 {% load static %}
-<!doctype html>
 <html lang="en">
     {% include 'head.html' %}
-    <body>
+    <body style="font-family: NanumSquare;">
         {% include 'header.html' %}
-        <main  {% if request.path != '/' %}style="margin-top: 108px;{% endif %}">
+        <main  {% if request.path != '/' %} style="margin-top: 108px;" {% endif %}>
             {% for message in messages %}
             <div class="text-center">
                 <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
@@ -18,7 +18,13 @@
             {% endblock %}
             </div>
         </main>
-<!--        {% include 'footer.html' %}-->
+        {% url 'card:create' as create_card_url %}
+        {% url 'card:update' as update_card_url %}
+        {% url 'card:detail' as detail_card_url %}
+
+        {% if request.path != create_card_url and request.path != update_card_url and request.path != detail_card_url %}
+            {% include 'footer.html' %}
+        {% endif %}
     </body>
     {% block script %}
     {% endblock %}
