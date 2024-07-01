@@ -1400,6 +1400,7 @@
     </script>
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
     <script>
+        // [우측 부분]
         // 이미지 미리보기 기능 (1): hidden input 트리거
         document.querySelectorAll('.upload-box').forEach(box => {
             box.addEventListener('click', () => {
@@ -1415,6 +1416,7 @@
             const output = document.getElementById(previewId);
             const span = output.previousElementSibling;
             const deleteIcon = output.nextElementSibling;
+            const leftPreview = document.querySelector('.intro-blend-wrap.photo.gradient-none > img');
 
             var reader = new FileReader();
             reader.onload = function() {
@@ -1422,6 +1424,7 @@
                 output.style.display = 'block';
                 span.style.display = 'none';
                 deleteIcon.style.display = 'block';
+                leftPreview.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
         }
@@ -1433,12 +1436,14 @@
             const span = output.previousElementSibling;
             const deleteIcon = output.nextElementSibling;
             const input = output.nextElementSibling.nextElementSibling;
+            const leftPreview = document.querySelector('.intro-blend-wrap.photo.gradient-none > img');
 
             output.src = '';
             output.style.display = 'none';
             span.style.display = 'block';
             deleteIcon.style.display = 'none';
             input.value = '';
+            leftPreview.src = 'https://mcard.fromtoday.co.kr/mcard/assets/images/mcard_preview_intro_noimage.jpg';
         }
 
         // 글상자 옵션 선택 시 스크롤 위치 이동 방지
