@@ -2,6 +2,21 @@
 {% load static %}
 
 {% block content %}
+    <style>
+        .swiper-container {overflow: visible;}
+        .swiper-slide {
+            opacity:0.4;
+            transition:opacity 0.3s;
+        }
+        .swiper-slide-active,
+        .swiper-slide-active + .swiper-slide,
+        .swiper-slide-active + .swiper-slide + .swiper-slide,
+        .swiper-slide-active + .swiper-slide + .swiper-slide + .swiper-slide {opacity:1}
+
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <div data-bs-spy="scroll" data-bs-target="#navScroll">
         <main>
             <div class="w-100 overflow-hidden bg-gray-100" id="top">
@@ -71,44 +86,39 @@
                 </div>
             <hr>
 
-            <div class="bg-light w-100 overflow-hidden" id="testimonials">
-                <div class="container py-vh-6">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-lg-10 col-xl-8 text-center">
-                            <h2 class="display-6">고객후기</h2>
-                            <p class="lead">고객분들의 솔직한 후기입니다.</p>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <div class="row row-cols-1 row-cols-md-2 g-5 d-flex align-items-center">
 
-                                {% for review in review_list %}
-                                <div class="col-12 col-lg-6 col-xl-4" data-aos="fade-right">
-                                    <div class="card p-4 mt-3 border-0">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote">
-                                                <p>{{ review.content }}</p>
-                                            </blockquote>
-                                            <div class="d-flex justify-content-between border-top pt-3">
-                                                <div style="display: flex;">
-                                                    <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
-                                                        <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
-                                                        {% if review.writer.username|length < 5 %}
-                                                        <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-2' }}**</p>
-                                                        {% else %}
-                                                        <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-3' }}***</p>
-                                                        {% endif %}
-                                                    </div>
-                                                    <small class="text-muted" style="margin: auto 0;">{{ review.created_at|date:'y.m.d' }}</small>
-                                                </div>
+            <div class="col-12 col-lg-10 col-xl-8">
+                <h2 class="display-6" style="font-weight: bolder">고객후기</h2>
+                <p class="lead">고객분들의 솔직한 후기입니다.</p>
+            </div>
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for review in review_list %}
+                        <div class="col-12 col-lg-6 col-xl-4 swiper-slide" style="border: 1px solid #e0e0e0; border-radius: 10px;">
+                            <div class="card p-4 border-0">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between border-bottom pb-3">
+                                        <div style="display: flex;">
+                                            <div style="display: flex; color: chocolate; align-content: center; align-items: center; margin-right: 0.3rem;">
+                                                <span class="material-icons" style="margin-right: 0.4rem;">face_6</span>
+                                                {% if review.writer.username|length < 5 %}
+                                                <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-2' }}**</p>
+                                                {% else %}
+                                                <p style="margin-right: 1rem; margin: auto 0;">{{ review.writer.username|slice:':-3' }}***</p>
+                                                {% endif %}
                                             </div>
+                                            <small class="text-muted" style="margin: auto 0;">{{ review.created_at|date:'y.m.d' }}</small>
                                         </div>
                                     </div>
+                                    <blockquote class="blockquote pt-3" style="font-size: 15px; height: 40px;">
+                                        <p>{{ review.content|truncatechars:70 }}</p>
+                                    </blockquote>
                                 </div>
-                                {% endfor %}
-
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </main>
@@ -139,5 +149,24 @@
 
         console.log(scrollpos)
         })
+
+
+
+        const swiper = new Swiper('.swiper', {
+            slidesPerView: 2.3,
+            slidesPerGroup: 1,
+            // Optional parameters
+            loop: true,
+            observer: true,
+            observeParents: true,
+            spaceBetween: 10,
+
+
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
     </script>
 {% endblock %}
