@@ -52,8 +52,7 @@
                                                 <div class="bride">이신부</div>
                                             </div>
                                             <div class="datetime">
-                                                2024년 6월 20일 목요일
-                                                <span>오후 1시 30분</span>
+                                                <span>2024년 6월 20일 목요일 오후 1시 30분</span>
                                                 <br>
                                                 <div>더리버사이드 호텔 몽블랑홀</div>
                                             </div>
@@ -1983,7 +1982,7 @@
             });
         });
 
-        // 신랑측, 신부측 정보 입력하면 미리보기에 나오도록 추가
+        // input 값 변화에 따라 미리보기에 나오도록 구현
         function bindInputToElement(inputSelector, elementSelector) {
             const input = document.querySelector(inputSelector);
             const element = document.querySelector(elementSelector);
@@ -1993,6 +1992,7 @@
             });
         }
 
+        // 신랑측, 신부측 정보 입력하면 미리보기에 나오도록 추가
         bindInputToElement('#id_groom_father_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(1)');
         bindInputToElement('#id_groom_mother_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(3)');
         bindInputToElement('#id_groom_position', '.members-wrap.fade-in > div:nth-child(1) > .relation > span:nth-child(2)');
@@ -2013,6 +2013,44 @@
         // 모시는 글 입력하면 미리보기에 나오도록 추가
         bindInputToElement('#id_invitation_title', '.greetings-wrap .greetings-title');
         bindInputToElement('#id_invitation_content', '.greetings-wrap .text.fade-in.center > div');
+
+        const id_wedding_date = document.querySelector('#id_wedding_date');
+        id_wedding_date.addEventListener('input', () => {
+            // 입력된 날짜를 JavaScript Date 객체로 변환
+            var date = new Date(id_wedding_date.value);
+
+            // 원하는 형식으로 날짜와 시간을 포맷
+            var year = date.getFullYear()
+            var month = ('0' + (date.getMonth() + 1)).slice(-2); // 월을 두 자리 숫자로 변환
+            var day = ('0' + date.getDate()).slice(-2); // 일을 두 자리 숫자로 변환
+
+            var formattedDate = `${year}년 ${month}월 ${day}일 `;
+            var dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'][date.getDay()];
+            var dayOfWeekEng = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'][date.getDay()];
+            formattedDate += `${dayOfWeek}요일 `;
+
+            var hour = date.getHours();
+            var ampm = hour >= 12 ? '오후' : '오전';
+            hour = hour % 12;
+            hour = hour ? hour : 12; // 0시를 12시로 표시
+            var minutes = ('0' + date.getMinutes()).slice(-2); // 분을 두 자리로 표시
+
+            formattedDate += `${ampm} ${hour}시 ${minutes}분`;
+
+            // 예식 일시 미리보기 구현
+            document.querySelector('.mcard-intro > .bottom > .datetime > span').innerText = formattedDate;
+
+            // 청첩장 타이틀 날짜 미리보기 구현
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(1)').innerText = date.getFullYear();
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(2)').innerText = month;
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
+            document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
+
+            // 달력 날짜 미리보기 구현
+            document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
+            document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
+        });
+
 
 
     </script>
