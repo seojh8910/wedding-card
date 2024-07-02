@@ -18,7 +18,7 @@ class CardCreationForm(forms.ModelForm):
             'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);', 'onclick': 'address_search()'}),
 
             'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
-            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'contenteditable': 'true', 'style': 'height: 120px; text-align: center;'}),
+            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'contenteditable': 'true', 'style': 'height: 120px; text-align: center;', 'onkeydown': 'enterkeydown()'}),
 
             'groom_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
             'groom_mother_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함'}),
