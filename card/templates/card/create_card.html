@@ -134,7 +134,7 @@
                                                     목요일 오후 1시 30분
                                                 </div>
                                             </div>
-                                            <div class="c-calendar fade-in">
+                                            <div id="calendarContainer" class="c-calendar fade-in">
                                                 <table cellspacing="0" class="c-calendar-table fade-in">
                                                     <thead>
                                                         <tr>
@@ -2014,6 +2014,67 @@
         bindInputToElement('#id_invitation_title', '.greetings-wrap .greetings-title');
         bindInputToElement('#id_invitation_content', '.greetings-wrap .text.fade-in.center > div');
 
+        // 미리보기의 달력 생성 구현
+        function generateCalendar(year, month, day) {
+            // 해당 년도(year)과 월(month)에 맞는 달력을 생성하는 함수
+            var startDate = new Date(year, month - 1, 1); // 월은 0부터 시작하므로 -1
+            var endDate = new Date(year, month, 0); // 다음 달의 첫 날의 전날을 구해서 해당 월의 마지막 날짜를 구함
+
+            var startDay = startDate.getDay(); // 해당 월의 첫 날의 요일(0: 일요일, 1: 월요일, ..., 6: 토요일)
+            var totalDays = endDate.getDate(); // 해당 월의 총 날짜 수
+
+            var calendarTable = document.createElement('table');
+            calendarTable.className = 'c-calendar-table';
+
+            // 테이블 헤더 (요일 표시)
+            var thead = calendarTable.createTHead();
+            var headerRow = thead.insertRow();
+            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            for (var i = 0; i < 7; i++) {
+                var th = document.createElement('th');
+                th.textContent = daysOfWeek[i];
+                headerRow.appendChild(th);
+            }
+
+            // 테이블 본문 (날짜 표시)
+            var tbody = calendarTable.createTBody();
+            var date = 1;
+            for (var i = 0; i < 6; i++) { // 최대 6주(행)까지 표시
+                var row = tbody.insertRow();
+                for (var j = 0; j < 7; j++) { // 일주일(열)은 7일
+                    if (i === 0 && j < startDay) {
+                        // 첫 주의 시작 요일 이전은 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date > totalDays) {
+                        // 날짜가 총 날짜 수를 초과하면 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date == day) {
+                        var cell = row.insertCell();
+                        var div1 = document.createElement('div');
+                        var div2 = document.createElement('div');
+                        var span = document.createElement('span');
+                        div1.classList.add('c-calendar-eday');
+                        div2.textContent = date;
+                        span.textContent = date;
+                        div1.appendChild(div2);
+                        cell.appendChild(div1);
+                        cell.appendChild(span);
+                        cell.style.position = 'relative';
+                        date++
+                    } else {
+                        // 정상적인 날짜 표시
+                        var cell = row.insertCell();
+                        var span = document.createElement('span');
+                        span.textContent = date;
+                        cell.appendChild(span);
+                        date++;
+                    }
+                }
+            }
+
+            return calendarTable;
+        }
+
         const id_wedding_date = document.querySelector('#id_wedding_date');
         id_wedding_date.addEventListener('input', () => {
             // 입력된 날짜를 JavaScript Date 객체로 변환
@@ -2046,10 +2107,17 @@
             document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
             document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
 
-            // 달력 날짜 미리보기 구현
+            // 달력의 날짜 미리보기 구현
             document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
             document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
+
+            // 달력의 모양 미리보기 구현
+            var calendar = generateCalendar(year, month, day);
+            var calendarContainer = document.getElementById('calendarContainer');
+            calendarContainer.innerHTML = ''; // 기존 달력 삭제
+            calendarContainer.appendChild(calendar);
         });
+
 
 
 
