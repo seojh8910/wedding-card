@@ -212,12 +212,13 @@
                                             <div class="dday-wrap fade-in">
                                                 <div>
                                                     <span>
-                                                        신랑
+                                                        <span>도현</span>
                                                         <span pink="" small="">♥</span>
-                                                        신부의 결혼식이
+                                                        <span>하나</span>의 결혼식이
                                                     </span>
                                                     <span>
-                                                        <span pink="">오늘</span>입니다.
+                                                        <span pink="">102일</span>
+                                                        <span>남았습니다.</span> <!---->
                                                     </span>
                                                 </div>
                                             </div>
@@ -1996,12 +1997,16 @@
         bindInputToElement('#id_groom_father_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(1)');
         bindInputToElement('#id_groom_mother_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(3)');
         bindInputToElement('#id_groom_position', '.members-wrap.fade-in > div:nth-child(1) > .relation > span:nth-child(2)');
-        bindInputToElement('#id_groom_name', '.members-wrap.fade-in > div:nth-child(1) > .lname');
+        bindInputToElement('#id_groom_name', '.members-wrap.fade-in > div:nth-child(1) > .lname'); // 모시는 글
+        bindInputToElement('#id_groom_name', '.dday-wrap > div > span:nth-child(1) > span:nth-child(1)'); // 달력
+        bindInputToElement('#id_groom_name', '.mcard-intro > .bottom > .name > .groom'); // 타이틀
 
         bindInputToElement('#id_bride_father_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(1)');
         bindInputToElement('#id_bride_mother_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(3)');
         bindInputToElement('#id_bride_position', '.members-wrap.fade-in > div:nth-child(2) > .relation > span:nth-child(2)');
         bindInputToElement('#id_bride_name', '.members-wrap.fade-in > div:nth-child(2) > .lname');
+        bindInputToElement('#id_bride_name', '.dday-wrap > div > span:nth-child(1) > span:nth-child(3)');
+        bindInputToElement('#id_bride_name', '.mcard-intro > .bottom > .name > .bride');
 
         // 모시는 글 입력할 때 엔터키 입력이 작동 안해서 따로 추가
         function enterkeydown() {
@@ -2107,7 +2112,7 @@
             document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
             document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
 
-            // 달력의 날짜 미리보기 구현
+            // 달력에 있는 날짜 미리보기 구현
             document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
             document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
 
@@ -2116,6 +2121,19 @@
             var calendarContainer = document.getElementById('calendarContainer');
             calendarContainer.innerHTML = ''; // 기존 달력 삭제
             calendarContainer.appendChild(calendar);
+
+            // 달력의 디데이 미리보기 구현
+            var today = new Date();
+            var timeDiff = date.getTime() - today.getTime();
+            var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (dayDiff == 0) {
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = '오늘';
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '입니다.';
+            } else {
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = `${dayDiff}일`;
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '남았습니다.';
+            }
         });
 
 
