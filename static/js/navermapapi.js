@@ -78,6 +78,7 @@ function searchAddressToCoordinate(address) {
 
         // 기존 마커 제거
         marker.setMap(null);
+        previewMarker.setMap(null); // 미리보기 지도 마커
 
         var item = response.v2.addresses[0],
             point = new naver.maps.Point(item.x, item.y);
@@ -88,7 +89,14 @@ function searchAddressToCoordinate(address) {
             map: map
         })
 
+        // 미리보기 지도 마커 추가
+        previewMarker = new naver.maps.Marker({
+            position: point,
+            map: previewMap
+        });
+
         map.setCenter(point);
+        previewMap.setCenter(point); // 미리보기 지도 위치 수정
     });
 }
 

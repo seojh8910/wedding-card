@@ -54,7 +54,10 @@
                                             <div class="datetime">
                                                 <span>2024년 6월 20일 목요일 오후 1시 30분</span>
                                                 <br>
-                                                <div>더리버사이드 호텔 몽블랑홀</div>
+                                                <div>
+                                                    <span>더리버사이드 호텔</span>
+                                                    <span>몽블랑홀</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +262,10 @@
                                         <div>
                                             <div class="location-wrap">
                                                 <div class="location-hall fade-in">
-                                                    <div>더리버사이드 호텔 몽블랑홀</div>
+                                                    <div>
+                                                        <span>더리버사이드 호텔</span>
+                                                        <span>몽블랑홀</span>
+                                                    </div>
                                                 </div>
                                                 <div class="location-address fade-in">
                                                     <div>서울 서초구 강남대로 107길</div>
@@ -1404,9 +1410,11 @@
             new daum.Postcode({
                 oncomplete: function(data) {
                     if (data.userSelectedType == 'R'){
-                        $('#address').val(data.roadAddress)
+                        $('#address').val(data.roadAddress);
+                        $('.map-wrap .location-address > div').text(data.roadAddress); // 미리보기에 예식장 주소 추가
                     } else {
-                        $('#address').val(data.jibunAddress)
+                        $('#address').val(data.jibunAddress);
+                        $('.map-wrap .location-address > div').text(data.jibunAddress); // 미리보기에 예식장 주소 추가
                     }
                     searchAddressToCoordinate($('#address').val());
                 }
@@ -2103,16 +2111,16 @@
 
             formattedDate += `${ampm} ${hour}시 ${minutes}분`;
 
-            // 예식 일시 미리보기 구현
+            // 예식일시 미리보기 구현
             document.querySelector('.mcard-intro > .bottom > .datetime > span').innerText = formattedDate;
 
-            // 청첩장 타이틀 날짜 미리보기 구현
+            // 청첩장 타이틀 예식일시 미리보기 구현
             document.querySelector('.mcard-intro > .title > .dates > span:nth-child(1)').innerText = date.getFullYear();
             document.querySelector('.mcard-intro > .title > .dates > span:nth-child(2)').innerText = month;
             document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
             document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
 
-            // 달력에 있는 날짜 미리보기 구현
+            // 달력에 있는 예식일시 미리보기 구현
             document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
             document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
 
@@ -2136,6 +2144,11 @@
             }
         });
 
+        // 예식장소(예식장명, 층과 홀) 미리보기 구현
+        bindInputToElement('#id_wedding_hall_name', '.mcard-intro .datetime > div > span:nth-child(1)');
+        bindInputToElement('#id_wedding_hall_name', '.map-wrap .location-hall > div > span:nth-child(1)');
+        bindInputToElement('#id_wedding_hall_floor', '.mcard-intro .datetime > div > span:nth-child(2)');
+        bindInputToElement('#id_wedding_hall_floor', '.map-wrap .location-hall > div > span:nth-child(2)');
 
 
 
