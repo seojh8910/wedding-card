@@ -86,8 +86,8 @@ class TransportForm(forms.ModelForm):
         model = Transport
         fields = ['name', 'description']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);', 'placeholder': '버스'}),
-            'description': forms.TextInput(attrs={'class': 'te-textarea', 'style': 'height: 100px;'}),
+            'name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);', 'placeholder': '버스, 지하철, 자가용 등'}),
+            'description': forms.Textarea(attrs={'class': 'te-textarea', 'style': 'height: 100px;'}),
         }
 
 
@@ -101,6 +101,7 @@ class AccountForm(forms.ModelForm):
             'number': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '계좌번호', 'style': 'width: calc(100% - 22px);'}),
             'holder': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
         }
+
 
 TransportFormSet = inlineformset_factory(Card, Transport, form=TransportForm, extra=1)
 AccountFormSet = inlineformset_factory(Card, Account, form=AccountForm, extra=1)

@@ -291,8 +291,8 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="waytocome-wrap">
-                                                <div class="box fade-in">
+                                            <div id="waytocome-wrap" class="waytocome-wrap">
+                                                <div class="box fade-in" id="transports-box-0-preview">
                                                     <div class="left">
                                                         <div class="icon-circle">
                                                             <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 32 32" fill="#222F3D" style="font-size: 2.88em;">
@@ -303,49 +303,14 @@
                                                     </div>
                                                     <div class="right">
                                                         <div class="title">
-                                                            <span>지하철</span>
+                                                            <span id="id_transports-0-name-preview"></span>
                                                         </div>
                                                         <div class="content">
-                                                            <div>테스트</div>
+                                                            <div id="id_transports-0-description-preview"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="box fade-in">
-                                                    <div class="left">
-                                                        <div class="icon-circle">
-                                                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 32 32" fill="#222F3D" style="font-size: 2.88em;">
-                                                                <path d="M9 4C6.8 4 5 5.8 5 8v5H3v3h2v11c0 .55.45 1 1 1h3l.344-1h13.312L23 28h3c.55 0 1-.45 1-1V16h2v-3h-2V8c0-2.2-1.8-4-4-4zm0 2h14c1.117 0 2 .883 2 2H7c0-1.117.883-2 2-2zm-2 4h8v7H7zm10 0h8v7h-8zM7 19h18v6H7zm1 2v2h4v-2zm12 0v2h4v-2z">
-                                                                </path>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                    <div class="right">
-                                                        <div class="title">
-                                                            <span>버스</span>
-                                                        </div>
-                                                        <div class="content">
-                                                            <div>테스트</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="box fade-in">
-                                                    <div class="left">
-                                                        <div class="icon-circle">
-                                                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 512 512" fill="#222F3D" class="ov-icon" style="font-size: 2.88em;">
-                                                                <path d="M447.68 220.78a16 16 0 00-1-3.08l-37.78-88.16C400.19 109.17 379 96 354.89 96H157.11c-24.09 0-45.3 13.17-54 33.54L65.29 217.7A15.72 15.72 0 0064 224v176a16 16 0 0016 16h32a16 16 0 0016-16v-16h256v16a16 16 0 0016 16h32a16 16 0 0016-16V224a16.15 16.15 0 00-.32-3.22zM144 320a32 32 0 1132-32 32 32 0 01-32 32zm224 0a32 32 0 1132-32 32 32 0 01-32 32zM104.26 208l28.23-65.85C136.11 133.69 146 128 157.11 128h197.78c11.1 0 21 5.69 24.62 14.15L407.74 208z">
-                                                                </path>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                    <div class="right">
-                                                        <div class="title">
-                                                            <span>자가용</span>
-                                                        </div>
-                                                        <div class="content">
-                                                            <div>테스트</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -1073,7 +1038,7 @@
                             <div id="transport-container">
                                 {{ transport_formset.management_form }}
                                 {% for form in transport_formset %}
-                                    <div class="morder-group lr transport-box">
+                                    <div class="morder-group lr transport-box" id="transports-box-0">
                                         <div>
                                             <div class="morder-field">
                                                 <span class="s1 m-hide">교통수단</span>
@@ -1121,7 +1086,7 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <div class="morder-group">
+                            <div class="morder-group" style="border-bottom: 0; margin: 0; padding: 0;">
                                 <div class="morder-field">
                                     <div style="text-align: center;">
                                         <div id="add-transport" class="morder-btn large">+ 교통수단 추가</div>
@@ -1423,7 +1388,16 @@
     </script>
     <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
     <script>
-        // [우측 부분]
+        // 우측의 input 변화를 좌측의 미리보기에 나오도록 구현
+        function bindInputToElement(inputSelector, elementSelector) {
+            const input = document.querySelector(inputSelector);
+            const element = document.querySelector(elementSelector);
+
+            input.addEventListener("input", () => {
+                element.innerText = input.value;
+            });
+        }
+
         // 이미지 미리보기 기능 (1): hidden input 트리거
         document.querySelectorAll('.upload-box').forEach(box => {
             box.addEventListener('click', () => {
@@ -1487,10 +1461,15 @@
             });
         });
 
+        // 사전에 교통수단 첫 번째 input 이벤트 연결
+        bindInputToElement('#id_transports-0-name', '#id_transports-0-name-preview'); // 교통수단
+        bindInputToElement('#id_transports-0-description', '#id_transports-0-description-preview'); // 설명
+
         // 교통수단 추가 버튼 눌렀을 때 입력란 생성
         document.addEventListener('DOMContentLoaded', function() {
             const addTransportButton = document.getElementById('add-transport');
             const transportContainer = document.getElementById('transport-container');
+            const transportPreviewContainer = document.getElementById('waytocome-wrap'); // 미리보기
             const totalForms = document.getElementById('id_transports-TOTAL_FORMS');
 
             function updateButtonStates() {
@@ -1517,12 +1496,13 @@
                 const newIndex = document.querySelectorAll('.transport-box').length;
                 const newTransportDiv = document.createElement('div');
                 newTransportDiv.classList.add('morder-group', 'lr', 'transport-box');
+                newTransportDiv.id = `transports-box-${newIndex}`;
                 newTransportDiv.innerHTML = `
                     <div>
                         <div class="morder-field">
                             <span class="s1 m-hide">교통수단</span>
                             <span class="s2 m-w100">
-                                <input type="text" name="transports-${newIndex}-name" class="inorder_txt transportation-input" style="width: calc(100% - 22px);" placeholder="버스" required id="id_transports-${newIndex}-name">
+                                <input type="text" name="transports-${newIndex}-name" class="inorder_txt transportation-input" style="width: calc(100% - 22px);" placeholder="버스, 지하철, 자가용 등" required id="id_transports-${newIndex}-name">
                             </span>
                         </div>
                         <div class="morder-field">
@@ -1563,8 +1543,34 @@
                         </span>
                     </div>
                 `;
-
                 transportContainer.appendChild(newTransportDiv);
+
+                // 교통수단 미리보기 구현
+                const newTransportPreviewDiv = document.createElement('div');
+                newTransportPreviewDiv.classList.add('box');
+                newTransportPreviewDiv.id = `transports-box-${newIndex}-preview`;
+                newTransportPreviewDiv.innerHTML = `
+                    <div class="left">
+                        <div class="icon-circle">
+                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 32 32" fill="#222F3D" style="font-size: 2.88em;">
+                                <path d="M10 4C7.25 4 5 6.25 5 9v12a6.012 6.012 0 003.531 5.469L6 29h2.344l2.031-2.031c.2.02.418.031.625.031h10c.207 0 .426-.012.625-.031L23.656 29H26l-2.531-2.531A6.012 6.012 0 0027 21V9c0-2.75-2.25-5-5-5zm0 2h12c1.32 0 2.438.828 2.844 2H7.156A2.992 2.992 0 0110 6zm-3 4h8v6H7zm10 0h8v6h-8zM7 18h18v3c0 2.219-1.781 4-4 4H11c-2.219 0-4-1.781-4-4zm3.5 2a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm11 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="title">
+                            <span id="id_transports-${newIndex}-name-preview"></span>
+                        </div>
+                        <div class="content">
+                            <div id="id_transports-${newIndex}-description-preview"></div>
+                        </div>
+                    </div>`;
+                transportPreviewContainer.appendChild(newTransportPreviewDiv);
+
+                bindInputToElement(`#id_transports-${newIndex}-name`, `#id_transports-${newIndex}-name-preview`); // 교통수단
+                bindInputToElement(`#id_transports-${newIndex}-description`, `#id_transports-${newIndex}-description-preview`); // 설명
+
                 // 총 폼 수 업데이트
                 totalForms.setAttribute('value', newIndex + 1);
 
@@ -1572,8 +1578,11 @@
                 newTransportDiv.querySelector('.move-up').addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
                     const preDiv = currentDiv.previousElementSibling;
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    const preDivPreview = currentDivPreview.previousElementSibling; // 미리보기
                     if (preDiv) {
                         transportContainer.insertBefore(currentDiv, preDiv);
+                        transportPreviewContainer.insertBefore(currentDivPreview, preDivPreview); // 미리보기
                         updateButtonStates();
                     }
                 });
@@ -1582,8 +1591,11 @@
                 newTransportDiv.querySelector('.move-down').addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
                     const nextDiv = currentDiv.nextElementSibling;
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    const nextDivPreview = currentDivPreview.nextElementSibling; // 미리보기
                     if (nextDiv) {
                         transportContainer.insertBefore(nextDiv, currentDiv);
+                        transportPreviewContainer.insertBefore(nextDivPreview, currentDivPreview); // 미리보기
                         updateButtonStates();
                     }
                 });
@@ -1591,14 +1603,16 @@
                 // 삭제 버튼 클릭 이벤트 리스너 추가
                 newTransportDiv.querySelector('.remove').addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
                     transportContainer.removeChild(currentDiv);
+                    transportPreviewContainer.removeChild(currentDivPreview); // 미리보기
                     updateButtonStates();
                 });
 
                 updateButtonStates();
             });
 
-            // 초기 로드된 요소에 대해 위로 이동 버튼 클릭 이벤트 리스너 추가
+            // 초기 로드된 요소에 대해 위로 이동버튼 클릭 시 이벤트 리스너 추가
             document.querySelectorAll('.move-up').forEach(function(button) {
                 button.addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
@@ -1610,7 +1624,7 @@
                 });
             });
 
-            // 초기 로드된 요소에 대해 아래로 이동 버튼 클릭 이벤트 리스너 추가
+            // 초기 로드된 요소에 대해 아래로 이동버튼 클릭 시 이벤트 리스너 추가
             document.querySelectorAll('.move-down').forEach(function(button) {
                 button.addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
@@ -1622,11 +1636,13 @@
                 });
             });
 
-            // 초기 로드된 요소에 대해 삭제 버튼 클릭 이벤트 리스너 추가
+            // 초기 로드된 요소에 대해 삭제버튼 클릭 시 이벤트 리스너 추가
             document.querySelectorAll('.remove').forEach(function(button) {
                 button.addEventListener('click', function() {
                     const currentDiv = this.closest('.transport-box');
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
                     transportContainer.removeChild(currentDiv);
+                    transportPreviewContainer.removeChild(currentDivPreview); // 미리보기
                     updateButtonStates();
                 });
             });
@@ -1990,16 +2006,6 @@
                 alert('샘플에서는 제공하지 않는 기능입니다.');
             });
         });
-
-        // input 값 변화에 따라 미리보기에 나오도록 구현
-        function bindInputToElement(inputSelector, elementSelector) {
-            const input = document.querySelector(inputSelector);
-            const element = document.querySelector(elementSelector);
-
-            input.addEventListener("input", () => {
-                element.innerText = input.value;
-            });
-        }
 
         // 신랑측, 신부측 정보 입력하면 미리보기에 나오도록 추가
         bindInputToElement('#id_groom_father_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(1)');
