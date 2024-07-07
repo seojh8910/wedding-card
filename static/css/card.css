@@ -109,9 +109,9 @@ audio, canvas, img, svg, video {
 }
 
 .morder-table .morder-group {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd; */
     font-size: 0;
     position: relative;
 }
@@ -1136,7 +1136,9 @@ audio, canvas, img, svg, video {
     top: -1px;
     left: -1px;
     width: calc(100% + 2px);
+    height: 100%;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .img-blur {
