@@ -1,22 +1,22 @@
 // 미리보기 지도
 var previewMap = new naver.maps.Map("preview-map", {
-    center: new naver.maps.LatLng(37.3595316, 127.1052133),
-    zoom: 15,
+    center: new naver.maps.LatLng(37.5187347, 127.0180825),
+    zoom: 17,
 });
 
 var previewMarker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    position: new naver.maps.LatLng(37.5187347, 127.0180825),
     map: previewMap
 });
 
 // 검색용 지도
 var map = new naver.maps.Map("map", {
-    center: new naver.maps.LatLng(37.3595316, 127.1052133),
-    zoom: 15,
+    center: new naver.maps.LatLng(37.5187347, 127.0180825),
+    zoom: 17,
 });
 
 var marker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    position: new naver.maps.LatLng(37.5187347, 127.0180825),
     map: map
 });
 
@@ -119,7 +119,7 @@ function initGeocoder() {
         searchAddressToCoordinate($('#address').val());
     });
 
-    searchAddressToCoordinate('정자동 178-1');
+    searchAddressToCoordinate('서울 서초구 강남대로107길 6');
 }
 
 function makeAddress(item) {
