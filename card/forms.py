@@ -17,8 +17,9 @@ class CardCreationForm(forms.ModelForm):
             'wedding_hall_floor': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
             'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);', 'onclick': 'address_search()'}),
 
-            'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
-            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'contenteditable': 'true', 'style': 'height: 120px; text-align: center;', 'onkeydown': 'enterkeydown()'}),
+            'invitation_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '초대합니다', 'style': 'width: calc(100% - 22px);'}),
+            'invitation_content': forms.Textarea(attrs={'class': 'te-textarea', 'placeholder': '살랑이는 바람결에\n사랑이 묻어나는 계절입니다.\n여기 곱고 예쁜 두 사람이 사랑을 맺어\n인생의 반려자가 되려 합니다.\n새 인생을 시작하는 이 자리에 오셔서\n축복해 주시면 감사하겠습니다.',
+                                                        'contenteditable': 'true', 'style': 'height: 120px; text-align: center;', 'onkeydown': 'enterkeydown()'}),
 
             'groom_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함', 'style': 'width: calc(100% - 22px); max-width: 150px;'}),
             'groom_mother_name': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '성함', 'style': 'width: calc(100% - 22px); max-width: 150px;'}),

@@ -284,9 +284,8 @@
                                                 <div class="box fade-in" id="transports-box-0-preview">
                                                     <div class="left">
                                                         <div class="icon-circle">
-                                                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 32 32" fill="#222F3D" style="font-size: 2.88em;">
-                                                                <path d="M10 4C7.25 4 5 6.25 5 9v12a6.012 6.012 0 003.531 5.469L6 29h2.344l2.031-2.031c.2.02.418.031.625.031h10c.207 0 .426-.012.625-.031L23.656 29H26l-2.531-2.531A6.012 6.012 0 0027 21V9c0-2.75-2.25-5-5-5zm0 2h12c1.32 0 2.438.828 2.844 2H7.156A2.992 2.992 0 0110 6zm-3 4h8v6H7zm10 0h8v6h-8zM7 18h18v3c0 2.219-1.781 4-4 4H11c-2.219 0-4-1.781-4-4zm3.5 2a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm11 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z">
-                                                                </path>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -1551,9 +1550,8 @@
                 newTransportPreviewDiv.innerHTML = `
                     <div class="left">
                         <div class="icon-circle">
-                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0 0 32 32" fill="#222F3D" style="font-size: 2.88em;">
-                                <path d="M10 4C7.25 4 5 6.25 5 9v12a6.012 6.012 0 003.531 5.469L6 29h2.344l2.031-2.031c.2.02.418.031.625.031h10c.207 0 .426-.012.625-.031L23.656 29H26l-2.531-2.531A6.012 6.012 0 0027 21V9c0-2.75-2.25-5-5-5zm0 2h12c1.32 0 2.438.828 2.844 2H7.156A2.992 2.992 0 0110 6zm-3 4h8v6H7zm10 0h8v6h-8zM7 18h18v3c0 2.219-1.781 4-4 4H11c-2.219 0-4-1.781-4-4zm3.5 2a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm11 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z">
-                                </path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                             </svg>
                         </div>
                     </div>
@@ -1926,7 +1924,7 @@
             });
         });
 
-        // 스크롤 내릴 때 왼쪽(미리보기)에 fixed 속성 추가
+        // 스크롤 내릴 때 왼쪽(청첩장 미리보기)에 fixed 속성 추가
         const left = document.getElementById('preview-wrap');
         let isFixed = false;
 
@@ -1955,7 +1953,7 @@
             }
         });
 
-        // 마음 전하실 곳 토글 이벤트 추가
+        // 계좌번호 토글 이벤트 추가
         const accountToggleItem = document.querySelectorAll('.c-account .title');
         let isRotated = false;
 
@@ -2191,6 +2189,21 @@
         bindInputToElement('#id_contact_bride_name_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(2) > span'); // 신부 어머니 성함
         bindInputToElementHref('#id_contact_bride_phone_number_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신부 어머니 전화번호 1
         bindInputToElementHref('#id_contact_bride_phone_number_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신부 어머니 전화번호 2
+
+        // 우측 정보입력창 여닫기
+        let isClosed = false;
+
+        $('.morder-table .st').on('click', '.th', function() {
+            const morderTableTd = this.nextElementSibling;
+            if (!isClosed) {
+                morderTableTd.style.display = 'none';
+                $('.morder-table .st .th > div:nth-child(2)').html('<svg data-v-72618a6e="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            } else if (isClosed) {
+                morderTableTd.style.display = 'block';
+                $('.morder-table .st .th > div:nth-child(2)').html('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>');
+            }
+            isClosed = !isClosed;
+        });
 
     </script>
 {% endblock %}
