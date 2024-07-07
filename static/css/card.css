@@ -578,7 +578,7 @@ audio, canvas, img, svg, video {
 }
 
 .upload-box {
-    width: 200px;
+    max-width: 200px;
     height: 200px;
     border: 1px solid #ddd;
     display: flex;
