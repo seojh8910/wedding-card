@@ -97,10 +97,10 @@ class AccountForm(forms.ModelForm):
         model = Account
         fields = ['group', 'holder', 'bank', 'number']
         widgets = {
-            'group': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
+            'group': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '그룹명', 'style': 'width: calc(100% - 22px);'}),
             'bank': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '은행', 'style': 'width: calc(100% - 27px);'}),
             'number': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '계좌번호', 'style': 'width: calc(100% - 22px);'}),
-            'holder': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 22px);'}),
+            'holder': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '예금주', 'style': 'width: calc(100% - 22px);'}),
         }
 
 

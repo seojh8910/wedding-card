@@ -65,6 +65,7 @@ audio, canvas, img, svg, video {
     letter-spacing: -.025em;
     border-collapse: separate;
     border-spacing: 0;
+    padding-bottom: 1px;
 }
 
 .morder-table>.st {
@@ -1279,7 +1280,7 @@ audio, canvas, img, svg, video {
 
 .fixed {
     position: fixed;
-    top: 90px;
+    top: 86px;
 }
 
 .contact-box {
@@ -1889,4 +1890,12 @@ audio, canvas, img, svg, video {
 
 .fa-link:before {
     content: "\f0c1";
+}
+
+#add-transport {
+    margin-top: 10px;
+}
+
+.morder-group.account-box {
+    margin-bottom: 25px;
 }
