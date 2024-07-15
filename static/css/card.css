@@ -1444,6 +1444,7 @@ audio, canvas, img, svg, video {
 .c-account .title.expand {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    height: 48px;
 }
 
 .c-account .title>.arrow {

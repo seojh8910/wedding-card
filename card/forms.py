@@ -5,6 +5,9 @@ from card.models import Card, Transport, Account
 
 
 class CardCreationForm(forms.ModelForm):
+    delete_main_img = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput())
+    delete_thumb_img = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput())
+
     class Meta:
         model = Card
         fields = '__all__'
@@ -12,7 +15,7 @@ class CardCreationForm(forms.ModelForm):
         widgets = {
             'theme': forms.Select(attrs={'class': 'inorder_txt'}),
             'wedding_date': forms.DateTimeInput(attrs={'class': 'inorder_txt', 'type': 'datetime-local', 'style': 'width: calc(100% - 22px); max-width: 180px;'}),
-            'main_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview':'preview1', 'class': 'image-input'}),
+            'main_img': forms.FileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview':'preview1', 'class': 'image-input'}),
             'wedding_hall_name': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
             'wedding_hall_floor': forms.TextInput(attrs={'class': 'inorder_txt', 'style': 'width: calc(100% - 20px); max-width: 378px;'}),
             'wedding_hall_address': forms.TextInput(attrs={'id': 'address', 'class': 'inorder_txt', 'style': 'width: calc(100% - 87px);', 'onclick': 'address_search()'}),
@@ -55,7 +58,7 @@ class CardCreationForm(forms.ModelForm):
             'contact_bride_name_3': forms.TextInput(attrs={'class': 'inorder_txt black', 'placeholder': '성함', 'style': 'width: 60px;'}),
             'contact_bride_phone_number_3': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '전화번호', 'type': 'tel','style': 'width: 100px;'}),
 
-            'thumb_img': forms.ClearableFileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview': 'preview2', 'class': 'image-input'}),
+            'thumb_img': forms.FileInput(attrs={'onchange': 'previewImage(event)', 'style': 'display:none;', 'data-preview': 'preview2', 'class': 'image-input'}),
             'thumb_title': forms.TextInput(attrs={'class': 'inorder_txt', 'placeholder': '김신랑♥이신부 결혼합니다', 'style': 'max-width: 260px; width: calc(100% - 22px);'}),
             'thumb_content': forms.Textarea(attrs={'class': 'inorder_txt', 'placeholder': '5월 30일 목요일 오후 1시 30분', 'style': 'width: calc(100% - 22px); max-width: 260px; height: 80px;'}),
         }

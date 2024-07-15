@@ -18,13 +18,11 @@
             {% endblock %}
             </div>
         </main>
-        {% url 'card:create' as create_card_url %}
-        {% url 'card:update' as update_card_url %}
-        {% url 'card:detail' as detail_card_url %}
 
-        {% if request.path != create_card_url and request.path != update_card_url and request.path != detail_card_url %}
+        {% if request.resolver_match.url_name != 'create' and request.resolver_match.url_name != 'update' and request.resolver_match.url_name != 'detail' %}
             {% include 'footer.html' %}
         {% endif %}
+
     </body>
     {% block script %}
     {% endblock %}

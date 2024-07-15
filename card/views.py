@@ -34,6 +34,7 @@ def remove_wedding_after_one_month_card(card_list):
             card.delete()
 
 
+@login_required
 def create_card(request):
     if request.method == 'POST':
         form = CardCreationForm(request.POST, request.FILES)
@@ -79,22 +80,71 @@ def detail_card(request, pk):
     return render(request, 'card/detail_card.html', {"form": form, "card": card})
 
 
+@login_required
 def update_card(request, pk):
     card = get_object_or_404(Card, pk=pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = CardCreationForm(request.POST, request.FILES, instance=card)
-        if form.is_valid():
+        transport_formset = TransportFormSet(request.POST, instance=card)
+        account_formset = AccountFormSet(request.POST, instance=card)
+
+        if form.is_valid() and transport_formset.is_valid() and account_formset.is_valid():
             card = form.save(commit=False)
+            card.user = request.user
+            card.wedding_hall_address = form.cleaned_data['wedding_hall_address']
             card.save()
-            return redirect('/cards/detail/' + str(pk))
+
+            transport_formset.instance = card
+            transport_formset.save()
+
+            account_formset.instance = card
+            account_formset.save()
+
+            images = request.FILES.getlist('images')
+            for image in images:
+                Gallery.objects.create(card=card, gallery_img=image)
+
+            # 메인 이미지 삭제했을 때 DB에서도 삭제
+            if form.cleaned_data.get('delete_main_img'):
+                if card.main_img:
+                    card.main_img.delete()
+                card.main_img = None
+
+            # 카카오톡 썸네일 이미지 삭제했을 때 DB에서도 삭제
+            if form.cleaned_data.get('delete_thumb_img'):
+                if card.thumb_img:
+                    card.thumb_img.delete()
+                card.thumb_img = None
+
+            return JsonResponse({'status': 200, 'redirect_url': f'/cards/detail/{pk}'})
         else:
-            return redirect('/cards/list/')
+            errors = {
+                'form_errors': form.errors,
+                'transport_formset_errors': transport_formset.errors,
+                'account_formset_errors': account_formset.errors,
+            }
+            return JsonResponse({'status': 400, 'errors': errors})
+
     else:
         form = CardCreationForm(instance=card)
-        context = {'form': form, 'card': card}
+        transport_formset = TransportFormSet(instance=card)
+        account_formset = AccountFormSet(instance=card)
+        main_img = card.main_img
+        galleries = Gallery.objects.filter(card=card)
+        thumb_img = card.thumb_img
+        context = {
+            'form': form,
+            'transport_formset': transport_formset,
+            'account_formset': account_formset,
+            'card': card,
+            'main_img': main_img,
+            'galleries': galleries,
+            'thumb_img': thumb_img,
+        }
         return render(request, 'card/update_card.html', context)
 
 
+@login_required
 def delete_card(request, pk):
     card = get_object_or_404(Card, pk=pk)
     card.delete()

@@ -1389,6 +1389,24 @@
                     event.preventDefault();
                 }
             });
+
+            // 결혼식 날짜를 현재 날짜로 설정
+            function getCurrentDateTime() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+
+            // 결혼식 날짜 input 필드의 기본값 설정
+            const weddingDateInput = document.getElementById('id_wedding_date');
+            id_wedding_date.value = getCurrentDateTime();
+            var event = new Event('input', { bubbles: true });
+            weddingDateInput.dispatchEvent(event);
+
         });
 
         // 사전에 교통수단 첫 번째 input 이벤트 연결

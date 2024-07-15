@@ -119,7 +119,7 @@ function initGeocoder() {
         searchAddressToCoordinate($('#address').val());
     });
 
-    searchAddressToCoordinate('서울 서초구 강남대로107길 6');
+//    searchAddressToCoordinate('서울 서초구 강남대로107길 6');
 }
 
 function makeAddress(item) {

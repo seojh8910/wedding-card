@@ -1,25 +1,2596 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-
+    <div id="morder-toolbar" class="morder-toolbar" style="position: relative; top: 0px; width: 100%;">
+        <div class="morder-toolbar-inner">
+            <div class="morder-toolbar-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-mail">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                모바일 청첩장
+            </div>
+            <div class="morder-toolbar-actions">
+                <div class="btn-primary btn-dark">
+                    <input type="submit" form="cardform" class="save-btn" value="저장하기">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="morder-editor">
         <div class="morder-preview">
-            미리보기
+            <div id="preview-wrap" class="preview">
+                <div id="preview-iframe" class="preview" style="opacity: 1; filter: blur(0px);">
+                    <div id="app" style="background-color: rgb(238, 238, 238);">
+                        <div class="mcard-view">
+                            <div class="inner">
+                                <div>
+                                </div>
+                                <div>
+                                    <div class="mcard-intro">
+                                        <div class="title">
+                                            <div class="dates">
+                                                <span>24</span>
+                                                <span>12</span>
+                                                <span>25</span>
+                                            </div>
+                                            <div class="wod">WEDNESDAY</div>
+                                        </div>
+                                        <div>
+                                            <div class="photo-wrap simple">
+                                                <div class="intro-blend-wrap photo gradient-none">
+                                                    {% if main_img %}
+                                                        <img src="{{ main_img.url }}" class="intro-blend-image img-blur">
+                                                        <div></div>
+                                                    {% else %}
+                                                        <img src="https://mcard.fromtoday.co.kr/mcard/assets/images/mcard_preview_intro_noimage.jpg" class="intro-blend-image img-blur">
+                                                        <div></div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bottom">
+                                            <div class="name">
+                                                <div class="groom">신랑</div>
+                                                <div class="divider"></div>
+                                                <div class="bride">신부</div>
+                                            </div>
+                                            <div class="datetime">
+                                                <span>2024년 12월 25일 수요일 오후 1시 30분</span>
+                                                <br>
+                                                <div>
+                                                    <span>더리버사이드 호텔</span>
+                                                    <span>몽블랑홀</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div><!---->
+                                </div>
+                                <div>
+                                    <div class="greetings-wrap">
+                                        <div class="m-title fade-in">
+                                            <div class="m-subtitle">
+                                                INVITATION
+                                            </div>
+                                            <div class="greetings-title">
+                                                초대합니다
+                                            </div>
+                                        </div>
+                                        <div class="text fade-in center">
+                                            <div>
+                                                살랑이는 바람결에<br>
+                                                사랑이 묻어나는 계절입니다.<br>
+                                                여기 곱고 예쁜 두 사람이 사랑을 맺어<br>
+                                                인생의 반려자가 되려 합니다.<br>
+                                                새 인생을 시작하는 이 자리에 오셔서<br>
+                                                축복해 주시면 감사하겠습니다.
+                                            </div>
+                                        </div>
+                                        <div class="members-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <div>
+                                                <span>
+                                                    <span>아버지</span>
+                                                    <span>·</span>
+                                                    <span>어머니</span>
+                                                </span>
+                                                <span class="relation">
+                                                    <span>의</span>
+                                                    <span>아들</span>
+                                                </span>
+                                                <span class="lname">신랑</span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    <span>아버지</span>
+                                                    <span>·</span>
+                                                    <span>어머니</span>
+                                                </span>
+                                                <span class="relation">
+                                                    <span>의</span>
+                                                    <span>딸</span>
+                                                </span>
+                                                <span class="lname">신부</span>
+                                            </div>
+                                        </div>
+                                        <div class="contact-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <div class="contact-box">
+                                                <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="icon">
+                                                        <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                        <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                        <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                    </g>
+                                                </svg>
+                                                연락하기
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="calendar-wrap fade-in">
+                                        <div class="calendar-inner">
+                                            <div class="title fade-in">
+                                                <div class="date" style="margin-bottom: 0px;">
+                                                    <div>
+                                                        2024.12.25
+                                                    </div>
+                                                </div>
+                                                <div class="hours">
+                                                    수요일 오후 1시 30분
+                                                </div>
+                                            </div>
+                                            <div id="calendarContainer" class="c-calendar fade-in">
+                                                <table class="c-calendar-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>일</th>
+                                                            <th>월</th>
+                                                            <th>화</th>
+                                                            <th>수</th>
+                                                            <th>목</th>
+                                                            <th>금</th>
+                                                            <th>토</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><span>1</span></td>
+                                                        <td><span>2</span></td>
+                                                        <td><span>3</span></td>
+                                                        <td><span>4</span></td>
+                                                        <td><span>5</span></td>
+                                                        <td><span>6</span></td>
+                                                        <td><span>7</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span>8</span></td>
+                                                        <td><span>9</span></td>
+                                                        <td><span>10</span></td>
+                                                        <td><span>11</span></td>
+                                                        <td><span>12</span></td>
+                                                        <td><span>13</span></td>
+                                                        <td><span>14</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span>15</span></td>
+                                                        <td><span>16</span></td>
+                                                        <td><span>17</span></td>
+                                                        <td><span>18</span></td>
+                                                        <td><span>19</span></td>
+                                                        <td><span>20</span></td>
+                                                        <td><span>21</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span>22</span></td>
+                                                        <td><span>23</span></td>
+                                                        <td><span>24</span></td>
+                                                        <td style="position: relative;">
+                                                            <div class="c-calendar-eday">
+                                                                <div>25</div>
+                                                            </div>
+                                                            <span>25</span>
+                                                        </td>
+                                                        <td><span>26</span></td>
+                                                        <td><span>27</span></td>
+                                                        <td><span>28</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span>29</span></td>
+                                                        <td><span>30</span></td>
+                                                        <td><span>31</span></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="dday-wrap fade-in">
+                                                <div>
+                                                    <span>
+                                                        <span>신랑</span>
+                                                        <span pink="" small="">♥</span>
+                                                        <span>신부</span>의 결혼식이
+                                                    </span>
+                                                    <span>
+                                                        <span pink="">171일</span>
+                                                        <span>남았습니다.</span> <!---->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="gallery-wrap">
+                                        <div class="m-title fade-in">
+                                            <div class="m-subtitle">GALLERY</div>
+                                            <div class="greetings-title">갤러리</div>
+                                        </div>
+                                        <div class="gallery-container fade-in">
+                                            <div class="gallery-square">
+                                                {% for gallery in galleries %}
+                                                    <div id="gallery-box-{{ forloop.counter0 }}-preview" class="item">
+                                                        <div class="ph"></div>
+                                                        <img src="{{ gallery.gallery_img.url }}" class="img-blur">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div></div>
+                                <div>
+                                    <div class="map-wrap">
+                                        <div class="m-title fade-in">
+                                            <div class="m-subtitle">LOCATION</div>
+                                            <div class="greetings-title">오시는 길</div>
+                                        </div>
+                                        <div>
+                                            <div class="location-wrap">
+                                                <div class="location-hall fade-in">
+                                                    <div>
+                                                        <span>더리버사이드 호텔</span>
+                                                        <span>몽블랑홀</span>
+                                                    </div>
+                                                </div>
+                                                <div class="location-address fade-in">
+                                                    <div>서울 서초구 강남대로107길 6</div>
+                                                </div>
+                                            </div>
+                                            <div class="map-inner fade-in">
+                                                <div>
+                                                    <div id="preview-map" tabindex="0" style="position: relative; overflow: hidden; background: rgb(248, 249, 250); width:100%;">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="c-map-navi gothic">
+                                                        <div class="navi" onclick="window.open('https://map.naver.com/')">
+                                                            <img src="{% static 'img/icons/navermap_icon.png' %}">
+                                                            <span>네이버 지도</span>
+                                                        </div>
+                                                        <div class="navi" onclick="window.open('https://map.kakao.com/')">
+                                                            <img src="{% static 'img/icons/kakaonavi_icon.png' %}">
+                                                            <span>카카오 내비</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div id="waytocome-wrap" class="waytocome-wrap">
+                                                <div class="box fade-in" id="transports-box-0-preview">
+                                                    <div class="left">
+                                                        <div class="icon-circle">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="right">
+                                                        <div class="title">
+                                                            <span id="id_transports-0-name-preview"></span>
+                                                        </div>
+                                                        <div class="content">
+                                                            <div id="id_transports-0-description-preview"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div>
+                                    <div class="account-wrap">
+                                        <div class="s-subtitle fade-in white" style="opacity: 1; transform: translate(0px, 0px);"></div>
+                                        <div class="m-title fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <span>마음 전하실 곳</span>
+                                        </div> <!---->
+                                        <div id="c-account" class="c-account fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <div class="item" id="accounts-box-0-preview" >
+                                                <div class="title expand">
+                                                    <div id="id_accounts-0-group-preview">그룹명</div>
+                                                    <div class="arrow rotate">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div id="id_accounts-0-text-preview" class="text gothic click">
+                                                    <div class="inner">
+                                                        <span>
+                                                            <span id="id_accounts-0-bank-preview" class="bank">은행</span>
+                                                            <span id="id_accounts-0-number-preview">계좌번호</span>
+                                                        </span>
+                                                        <br>
+                                                        <span id="id_accounts-0-holder-preview">예금주</span>
+                                                    </div>
+                                                    <div>
+                                                        <div class="btn-action">
+                                                            <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0.48 0.48 23.04 23.04" fill="#222F3D" class="ov-icon" style="font-size: 2.88em;">
+                                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                                                            </svg>
+                                                            복사
+                                                        </div> <!---->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="guestbook-wrap">
+                                        <div class="m-title fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                            <div class="m-subtitle">GUESTBOOK</div>
+                                            <div class="greetings-title">방명록</div>
+                                        </div>
+                                        <div class="c-guestbook gothic">
+                                            <div class="comments fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                                <div class="item empty white">
+                                                    <svg height="436pt" viewBox="-6 0 436 436" width="436pt" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="m405.269531 95.183594c-15.378906-15.332032-38.886719-19.011719-58.214843-9.109375v-36.074219c-.03125-27.601562-22.398438-49.96875-50-50h-247.054688c-27.601562.03125-49.96875 22.398438-50 50v336c.03125 27.601562 22.398438 49.96875 50 50h247.054688c27.601562-.03125 49.96875-22.398438 50-50v-153.125l62.601562-62.601562c19.527344-19.527344 19.527344-51.183594 0-70.710938zm-220.289062 187.9375 36.425781 36.761718-49.578125 13.152344zm55.722656 27.820312-46.8125-47.242187 135.117187-134.730469 46.835938 46.832031zm86.351563 75.058594c-.019532 16.5625-13.4375 29.980469-30 30h-247.054688c-16.5625-.019531-29.980469-13.4375-30-30v-336c.019531-16.5625 13.4375-29.980469 30-30h247.054688c16.5625.019531 29.984374 13.4375 30 30v52.664062l-154.34375 153.90625c-1.257813 1.253907-2.160157 2.820313-2.609376 4.535157l-21.992187 83.457031c-.90625 3.441406.085937 7.105469 2.605469 9.625 2.519531 2.515625 6.183594 3.5 9.628906 2.585938l82.890625-21.992188c1.703125-.449219 3.257813-1.34375 4.507813-2.59375l79.3125-79.3125zm68.457031-229.867188-5.527344 5.527344-46.816406-46.816406 5.574219-5.558594c11.730468-11.65625 30.675781-11.636718 42.386718.039063l4.382813 4.382812c11.699219 11.722657 11.695312 30.703125 0 42.425781zm0 0"></path>
+                                                    </svg>
+                                                    첫 번째 축하 글을 남겨주세요
+                                                </div>
+                                            </div>
+                                            <div class="tools fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                                <div class="pagination-wrap"><!----></div>
+                                                <div class="writing">
+                                                    <button class="m-button dark gothic">작성하기</button>
+                                                </div>
+                                            </div> <!---->
+                                            <div aria-expanded="true" data-modal="c-guestbook-delete-modal" class="v--modal-overlay" style="display:none; background: rgba(0, 0, 0, 0.7); border-radius: 0px;">
+                                                <div class="v--modal-background-click">
+                                                    <div class="v--modal-top-right"></div>
+                                                    <div class="v--modal-box v--modal vue-dialog c-guestbook-delete-modal" style="top: 179px; left: 15px; width: 360px; height: auto;">
+                                                        <div class="c-guestbook-header">
+                                                            <span>방명록</span>
+                                                            <div class="btn-close">
+                                                                <span class="icon">
+<!--                                                                    <svg width="15px" height="15px" viewBox="0 0 15 15" fill="black" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7929 7.49998L1.14645 1.85353L1.85356 1.14642L7.50001 6.79287L13.1465 1.14642L13.8536 1.85353L8.20711 7.49998L13.8536 13.1464L13.1465 13.8535L7.50001 8.20708L1.85356 13.8535L1.14645 13.1464L6.7929 7.49998Z"></path>-->
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div onselectstart="return false" class="c-guestbook-modal-wrap">
+                                                            <div class="c-guestbook-modal-inner">
+                                                                <table>
+                                                                    <colgroup>
+                                                                        <col style="width: 100px;">
+                                                                        <col>
+                                                                    </colgroup>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th>이름</th>
+                                                                        <td><input type="text" maxlength="12" placeholder=""></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>비밀번호</th>
+                                                                        <td><input type="password" maxlength="15"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="2">
+                                                                            <textarea maxlength="100" placeholder="100자 이내로 작성해주세요"></textarea>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <button class="btn-submit">작성하기</button>
+                                                            </div>
+                                                        </div> <!---->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div><!----></div>
+                                <div><!----></div>
+                                <div class="footer-wrap">
+                                    <div class="kakao-wrap">
+                                        <div class="btn-kakao">
+                                            <svg id="Bold" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                                <path d="m9.462 9.306-.692 1.951h1.383z"></path>
+                                                <path d="m12 1c-6.627 0-12 4.208-12 9.399 0 3.356 2.246 6.301 5.625 7.963-1.299 4.45-1.333 4.47-1.113 4.599.276.161.634-.005 5.357-3.311.692.097 1.404.148 2.131.148 6.627 0 12-4.208 12-9.399s-5.373-9.399-12-9.399zm-5.942 12.023c0 .362-.311.657-.692.657s-.692-.295-.692-.657v-4.086h-1.08c-.375 0-.679-.302-.679-.673s.303-.674.678-.674h3.545c.375 0 .679.302.679.673s-.305.674-.679.674h-1.08zm5.378.648c-.72 0-.587-.565-.919-1.195h-2.111c-.329.625-.2 1.195-.919 1.195-.693.001-.815-.421-.604-1.071l1.656-4.33c.117-.33.471-.669.922-.679.452.01.807.349.923.679 1.093 3.39 2.654 5.402 1.052 5.401zm3.939-.092h-2.221c-1.159 0-.454-1.565-.663-5.301 0-.379.317-.688.707-.688s.707.308.707.688v4.04h1.471c.366 0 .663.283.663.63-.001.348-.298.631-.664.631zm5.419-.518c-.025.181-.122.344-.269.454-.955.721-1.661-1.381-2.593-2.271l-.24.239v1.5c0 .38-.31.688-.693.688-.382 0-.692-.308-.692-.688v-4.705c0-.379.31-.688.692-.688s.692.308.692.688v1.478c1.277-.958 1.985-2.67 2.792-1.869.792.786-.848 1.474-1.527 2.422 1.604 2.212 1.909 2.267 1.838 2.752z"></path>
+                                            </svg>
+                                            <span>카카오톡 공유하기</span>
+                                        </div>
+                                        <div class="btn-kakao">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            <span>링크주소 복사하기</span>
+                                        </div>
+                                    </div>
+                                </div> <!----> <!----> <!----> <!----> <!---->
+                                <div aria-expanded="true" data-modal="parent-contact-modal" class="v--modal-overlay" style="display:none; background: rgba(0, 0, 0, 0.7);">
+                                    <div class="v--modal-background-click">
+                                        <div class="v--modal-top-right"></div>
+                                        <div class="v--modal-box v--modal vue-dialog" style="top: 181px; left: 10px; width: 370px; height: auto;">
+                                            <div onselectstart="return false" class="contact-modal-wrap">
+                                                <div class="contact-modal-inner">
+                                                    <div class="title">
+                                                        <div class="m-subtitle">CONTACT</div>
+                                                        연락하기
+                                                    </div>
+                                                    <div class="content gothic">
+                                                        <div>
+                                                            <div class="cell" style="flex: 1.5 1 0%;"><span style="color: rgb(102, 142, 170);">신랑</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                                        <g id="icon">
+                                                                            <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                            <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                            <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                        </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="cell"><span style="color: rgb(102, 142, 170);">신랑 아버지</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                                            <g id="icon">
+                                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="cell"><span style="color: rgb(102, 142, 170);">신랑 어머니</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                                            <g id="icon">
+                                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.4931.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+                                                            <div class="cell" style="flex: 1.5 1 0%;"><span style="color: rgb(206, 131, 131);">신부</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                                            <g id="icon">
+                                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="cell"><span style="color: rgb(206, 131, 131);">신부 아버지</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                                            <g id="icon">
+                                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="cell"><span style="color: rgb(206, 131, 131);">신부 어머니</span></div>
+                                                            <div class="cell"><span></span></div>
+                                                            <div class="cell">
+                                                                <span class="phone-square">
+                                                                    <a href="tel:010-1234-5678">
+                                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                                            <g id="icon">
+                                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="phone-square">
+                                                                    <a href="sms:010-1234-5678">
+                                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                                        </svg>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-mask">
+                                    <div class="modal-wrapper" style="top: 97px;">
+                                        <div class="modal-container">
+                                            <div style="overflow: hidden;">
+                                                <div class="carousel-wrap img-blur"><!----> <!----> <!---->
+                                                    <div>
+                                                        <div class="gallery-viewport" style="position: relative; z-index: 100; overflow: hidden; min-height: 100%; width: 100%; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-drag: none; height: 390px;">
+                                                            <div class="gallery-camera" style="width: 100%; height: 100%; will-change: transform; transform: translate3d(0px, 0px, 0px);">
+                                                                <div class="carousel-card gallery-panel" style="height: 390px; background: transparent; position: absolute; left: 0px;">
+                                                                    <div>
+                                                                        <img src="https://s3.ap-northeast-2.amazonaws.com/mcard.fromtoday.co.kr/w/386Muw/photos/386Muw_mcard_2024-06-21_0164972d97cd427d91438456f6144c1b_w1280.jpg" loading="lazy">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-btn-simple">
+                                                <span>
+                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55.753 55.753" xml:space="preserve">
+                                                        <g>
+                                                            <path d="M12.745,23.915c0.283-0.282,0.59-0.52,0.913-0.727L35.266,1.581c2.108-2.107,5.528-2.108,7.637,0.001
+                                                                c2.109,2.108,2.109,5.527,0,7.637L24.294,27.828l18.705,18.706c2.109,2.108,2.109,5.526,0,7.637
+		                                                        c-1.055,1.056-2.438,1.582-3.818,1.582s-2.764-0.526-3.818-1.582L13.658,32.464c-0.323-0.207-0.632-0.445-0.913-0.727
+		                                                        c-1.078-1.078-1.598-2.498-1.572-3.911C11.147,26.413,11.667,24.994,12.745,23.915z">
+                                                            </path>
+                                                        </g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                    </svg>
+                                                </span>
+                                                <span>
+                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55.752 55.752" xml:space="preserve">
+                                                        <g>
+                                                            <path d="M43.006,23.916c-0.28-0.282-0.59-0.52-0.912-0.727L20.485,1.581c-2.109-2.107-5.527-2.108-7.637,0.001
+                                                                c-2.109,2.108-2.109,5.527,0,7.637l18.611,18.609L12.754,46.535c-2.11,2.107-2.11,5.527,0,7.637c1.055,1.053,2.436,1.58,3.817,1.58
+                                                                s2.765-0.527,3.817-1.582l21.706-21.703c0.322-0.207,0.631-0.444,0.912-0.727c1.08-1.08,1.598-2.498,1.574-3.912
+                                                                C44.605,26.413,44.086,24.993,43.006,23.916z">
+                                                            </path>
+                                                        </g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                        <g></g>
+                                                    </svg>
+                                                </span>
+                                                <span>
+                                                    <svg data-name="Layer 1" id="Layer_1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                                        <title></title>
+                                                        <path d="M8.25,0,32,23.75,55.75,0,64,8.25,40.25,32,64,55.75,55.75,64,32,40.25,8.25,64,0,55.75,23.75,32,0,8.25Z" data-name="<Compound Path>" id="_Compound_Path_">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!---->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="morder-list-content">
-            <form action="{% url 'card:update' pk=card.pk %}" method="POST" enctype="multipart/form-data">
+            <form id="cardform" action="{% url 'card:update' card.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <table>
-                    {{ form.as_table }}
-                </table>
-                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+                <div class="morder-table">
+                    <div class="st" style="display: none;">
+                        <div class="th">
+                            <div>테마</div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">테마</span>
+                                    <span class="s2">
+                                        <div style="display:flex; gap:6px;">
+                                            <div>
+                                                {{ form.theme }}
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>인트로</div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td" style="padding: 0px; border: 0px; top: 0px; background: rgba(0, 0, 0, 0);">
+                            <div class="td" style="padding-top: 30px;">
+                                <div class="morder-group">
+                                    <div class="morder-field" style="margin-bottom: 16px;">
+                                        <span class="s1">사진</span>
+                                        <span class="s2">
+                                            <div class="upload-box" data-preview-target="preview1">
+                                                {% if main_img %}
+                                                    <span style="display: none;">클릭 후 업로드</span>
+                                                    <img id="preview1" src="{{ main_img.url }}" style="display: block;">
+                                                    <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview1')">
+                                                        <div class="thm-btn-edit">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                                <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                                <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                {% else %}
+                                                    <span>클릭 후 업로드</span>
+                                                    <img id="preview1" src=""/>
+                                                    <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview1')" style="display:none;">
+                                                        <div class="thm-btn-edit">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                                <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                                <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {{ form.main_img }}
+                                                {{ form.delete_main_img }}
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>신랑측 정보</div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">아버님</span>
+                                    <span class="s2">
+                                        {{ form.groom_father_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">어머님</span>
+                                    <span class="s2">
+                                        {{ form.groom_mother_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">신랑님</span>
+                                    <span class="s2">
+                                        {{ form.groom_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">관계</span>
+                                    <span class="s2">
+                                        {{ form.groom_position }}
+                                    </span>
+<!--                                    <div class="morder-desc">-->
+<!--                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">-->
+<!--                                            <circle cx="12" cy="12" r="10"></circle>-->
+<!--                                            <line x1="12" x2="12" y1="16" y2="12"></line>-->
+<!--                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>-->
+<!--                                        </svg>-->
+<!--                                        <span>아버님·어머님 성함은 생략할 수 있습니다.</span>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>신부측 정보</div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">아버님</span>
+                                    <span class="s2">
+                                        {{ form.bride_father_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">어머님</span>
+                                    <span class="s2">
+                                        {{ form.bride_mother_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">신부님</span>
+                                    <span class="s2">
+                                        {{ form.bride_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">관계</span>
+                                    <span class="s2">
+                                        {{ form.bride_position }}
+                                    </span>
+<!--                                    <div class="morder-desc">-->
+<!--                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">-->
+<!--                                            <circle cx="12" cy="12" r="10"></circle>-->
+<!--                                            <line x1="12" x2="12" y1="16" y2="12"></line>-->
+<!--                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>-->
+<!--                                        </svg>-->
+<!--                                        <span>아버님·어머님 성함은 생략할 수 있습니다.</span>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>모시는 글</div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">제목</span>
+                                    <span class="s2">
+                                        {{ form.invitation_title }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">내용</span>
+                                    <span class="s2">
+                                        <div style="max-width: 100%;">
+                                            <div>
+                                                {{ form.invitation_content }}
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>예식일시</div>
+                            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                <polyline points="18 15 12 9 6 15"></polyline>
+                            </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">예식일</span>
+                                    <span class="s2" style="position: relative;">
+                                        {{ form.wedding_date }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">예식장소</span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">예식장명</span>
+                                    <span class="s2">
+                                        {{ form.wedding_hall_name }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">층과 홀</span>
+                                    <span class="s2">
+                                        {{ form.wedding_hall_floor }}
+                                    </span>
+                                </div> <!---->
+                                <div class="morder-field">
+                                    <span class="s1">주소</span>
+                                    <span class="s2" style="width: calc(100% - 80px); max-width: 400px; position: relative;">
+                                        {{ form.wedding_hall_address }}
+                                        <input id="submit" type="button" onclick="address_search()" class="morder-btn" style="position: absolute; right: 0px;" value="검색" />
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <div id="wrap" class="section map-wrapper">
+                                        <div id="map" style="width:100%;height:300px;">
+                                        </div>
+                                        <code id="snippet" class="snippet"></code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">교통수단</span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div id="transport-container">
+                                {{ transport_formset.management_form }}
+                                {% for form in transport_formset %}
+                                    <div class="morder-group lr transport-box" id="transports-box-{{ forloop.counter0 }}">
+                                        <div>
+                                            {{ form.id }}
+                                            <div class="morder-field">
+                                                <span class="s1 m-hide">교통수단</span>
+                                                <span class="s2 m-w100">
+                                                    {{ form.name }}
+                                                </span>
+                                            </div>
+                                            <div class="morder-field">
+                                                <span class="s1 m-hide">설명</span>
+                                                <span class="s2 m-w100">
+                                                    <div style="max-width: 100%;">
+                                                        <div>
+                                                            {{ form.description }}
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                <div class="close move-up disabled">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                                            <polyline points="18 15 12 9 6 15"></polyline>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="close move-down">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="close remove">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="morder-group" style="border-bottom: 0; margin: 0; padding: 0;">
+                                <div class="morder-field">
+                                    <div style="text-align: center;">
+                                        <div id="add-transport" class="morder-btn large">+ 교통수단 추가</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">갤러리</span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group" style="border-top: 0px; padding-top: 0px;">
+                                <div>
+                                    <div class="gallery-upload">
+                                        <input type="file" name="gallery_img" id="gallery-input" accept="image/*" multiple="multiple" hidden="hidden">
+                                        <div id="upload-button" class="button">사진 업로드</div>
+                                    </div>
+                                    <div class="gallery-drag-container">
+                                        <div class="tile-container">
+                                            <div id="preview-container" class="items">
+                                                {% for gallery in galleries %}
+                                                    <div id="gallery-box-{{ forloop.counter0 }}" class="item">
+                                                        <div class="thm-container gallery">
+                                                            <img src="{{ gallery.gallery_img.url }}">
+                                                            <div class="thm-btn-wrap">
+                                                                <div class="thm-btn-edit">
+                                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-toolbar">
+                                        <div>
+                                            <span></span>
+                                            <span class="total"></span>
+                                        </div>
+                                    </div>
+                                    <div style="line-height: 0;">
+                                        <img id="drag-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="morder-desc">-->
+<!--                                <div>-->
+<!--                                    <div>-->
+<!--                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">-->
+<!--                                            <circle cx="12" cy="12" r="10"></circle>-->
+<!--                                            <line x1="12" x2="12" y1="16" y2="12"></line>-->
+<!--                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div>사진은 최대 20장까지 첨부할 수 있습니다.</div>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <div>-->
+<!--                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">-->
+<!--                                            <circle cx="12" cy="12" r="10"></circle>-->
+<!--                                            <line x1="12" x2="12" y1="16" y2="12"></line>-->
+<!--                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div>사진 순서를 변경하려면 드래그하거나 사진 2장을 선택하세요.</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">카카오톡 공유 썸네일</span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s1">사진</span>
+                                    <span class="s2">
+                                        <div class="upload-box" data-preview-target="preview2">
+                                            {% if thumb_img %}
+                                                <span style="display: none;">클릭 후 업로드</span>
+                                                <img id="preview2" src="{{ thumb_img.url }}" style="display: block;">
+                                                <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview2')">
+                                                    <div class="thm-btn-edit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <span>클릭 후 업로드</span>
+                                                <img id="preview2" src=""/>
+                                                <div class="thm-btn-wrap" onclick="deleteImage(event, 'preview2')" style="display:none;">
+                                                    <div class="thm-btn-edit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {{ form.thumb_img }}
+                                            {{ form.delete_thumb_img }}
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">제목</span>
+                                    <span class="s2">
+                                        {{ form.thumb_title }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s1">내용</span>
+                                    <span class="s2">
+                                        {{ form.thumb_content }}
+                                    </span>
+                                    <div class="morder-desc">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">
+                                            <circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line>
+                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>
+                                        </svg>
+                                        <span>청첩장 하단의 [카카오톡 공유하기]로 전달할 때 표시됩니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">
+                                    <span>연락하기</span>
+                                </span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_groom_title_1 }}
+                                        {{ form.contact_groom_name_1 }}
+                                        {{ form.contact_groom_phone_number_1 }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_groom_title_2 }}
+                                        {{ form.contact_groom_name_2 }}
+                                        {{ form.contact_groom_phone_number_2 }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_groom_title_3 }}
+                                        {{ form.contact_groom_name_3 }}
+                                        {{ form.contact_groom_phone_number_3 }}
+                                    </span>
+                                </div>
+                                <div class="morder-field" style="margin-top: 16px;">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_bride_title_1 }}
+                                        {{ form.contact_bride_name_1 }}
+                                        {{ form.contact_bride_phone_number_1 }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_bride_title_2 }}
+                                        {{ form.contact_bride_name_2 }}
+                                        {{ form.contact_bride_phone_number_2 }}
+                                    </span>
+                                </div>
+                                <div class="morder-field">
+                                    <span class="s2 m-w100">
+                                        {{ form.contact_bride_title_3 }}
+                                        {{ form.contact_bride_name_3 }}
+                                        {{ form.contact_bride_phone_number_3 }}
+                                    </span>
+                                </div>
+                            </div>
+<!--                            <div class="morder-desc">-->
+<!--                                <div>-->
+<!--                                    <div>-->
+<!--                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-info">-->
+<!--                                            <circle cx="12" cy="12" r="10"></circle>-->
+<!--                                            <line x1="12" x2="12" y1="16" y2="12"></line>-->
+<!--                                            <line x1="12" x2="12.01" y1="8" y2="8"></line>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div>전화번호가 입력된 항목만 표시됩니다.</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="st">
+                        <div class="th">
+                            <div>
+                                <span class="title">계좌번호</span>
+                            </div>
+                            <div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="td">
+                            <div style="font-size: 11px; margin-bottom: 20px;">
+                                ※ 그룹명이 같은 계좌끼리는 함께 표시됩니다.
+                            </div>
+                            <div id="account-container">
+                                {{ account_formset.management_form }}
+                                {% for form in account_formset %}
+                                    <div class="morder-group lr account-box" id="accounts-box-{{ forloop.counter0 }}">
+                                        <div>
+                                            {{ form.id }}
+                                            <div class="morder-field">
+                                                <span class="s1">그룹명</span>
+                                                <span class="s2">
+                                                    {{ form.group }}
+                                                </span>
+                                            </div>
+                                            <div class="morder-field">
+                                                <span class="s1">계좌번호</span>
+                                                <span class="s2">
+                                                    <div style="display: flex;">
+                                                        <div style="flex: 1.2 1 0%;">
+                                                            {{ form.bank }}
+                                                        </div>
+                                                        <div style="flex: 3 1 0%;">
+                                                            {{ form.number }}
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="morder-field">
+                                                <span class="s1">예금주</span>
+                                                <span class="s2">
+                                                    {{ form.holder }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+<!--                                                <div class="close move-up disabled">-->
+<!--                                                    <span>-->
+<!--                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">-->
+<!--                                                            <polyline points="18 15 12 9 6 15"></polyline>-->
+<!--                                                        </svg>-->
+<!--                                                    </span>-->
+<!--                                                </div>-->
+<!--                                                <div class="close move-down">-->
+<!--                                                    <span>-->
+<!--                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">-->
+<!--                                                            <polyline points="6 9 12 15 18 9"></polyline>-->
+<!--                                                        </svg>-->
+<!--                                                    </span>-->
+<!--                                                </div>-->
+                                                <div class="close remove">
+                                                    <span>
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="morder-group">
+                                <div class="morder-field">
+                                    <div  style="text-align: center;">
+                                        <div id="add-account" class="morder-btn large">+ 계좌정보 추가</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
+{% endblock %}
 
+{% block script %}
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-        var weddingDate = "{{ card.wedding_date | date:'Y-m-d' }}";
-        document.getElementById("id_wedding_date").value = weddingDate;
+        function address_search() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    if (data.userSelectedType == 'R'){
+                        $('#address').val(data.roadAddress);
+                        $('.map-wrap .location-address > div').text(data.roadAddress); // 미리보기에 예식장 주소 추가
+                    } else {
+                        $('#address').val(data.jibunAddress);
+                        $('.map-wrap .location-address > div').text(data.jibunAddress); // 미리보기에 예식장 주소 추가
+                    }
+                    searchAddressToCoordinate($('#address').val());
+                }
+            }).open();
+        }
     </script>
+    <script id="code" src="{% static 'js/navermapapi.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("cardform");
 
+            // 엔터 키로 폼 제출 방지
+            form.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+
+            // 신랑측 input 필드의 기본값 설정
+            const groomNameInput = document.getElementById('id_groom_name');
+            const groomMotherNameInput = document.getElementById('id_groom_mother_name');
+            const groomFatherNameInput = document.getElementById('id_groom_father_name');
+
+            // 값이 비어있는 경우에만 설정
+            if (!groomNameInput.value) { groomNameInput.value = '신랑'; }
+            if (!groomMotherNameInput.value) { groomMotherNameInput.value = '어머니'; }
+            if (!groomFatherNameInput.value) { groomFatherNameInput.value = '아버지'; }
+
+            // 신부측 input 필드의 기본값 설정
+            const brideNameInput = document.getElementById('id_bride_name');
+            const brideMotherNameInput = document.getElementById('id_bride_mother_name');
+            const brideFatherNameInput = document.getElementById('id_bride_father_name');
+
+            // 값이 비어있는 경우에만 설정
+            if (!brideNameInput.value) { brideNameInput.value = '신부'; }
+            if (!brideMotherNameInput.value) { brideMotherNameInput.value = '어머니'; }
+            if (!brideFatherNameInput.value) { brideFatherNameInput.value = '아버지'; }
+
+            // 모시는 글 input 필드의 기본값 설정
+            const invitationTitleInput = document.getElementById('id_invitation_title');
+            const invitationContentInput = document.getElementById('id_invitation_content');
+
+            // 값이 비어있는 경우에만 설정
+            if (!invitationTitleInput.value) { invitationTitleInput.value = '초대합니다'; }
+            if (!invitationContentInput.value) { invitationContentInput.value = '살랑이는 바람결에\n사랑이 묻어나는 계절입니다.\n여기 곱고 예쁜 두 사람이 사랑을 맺어\n인생의 반려자가 되려 합니다.\n새 인생을 시작하는 이 자리에 오셔서\n축복해 주시면 감사하겠습니다.'; }
+
+            // 연락하기 input 필드의 기본값 설정
+            const contactGroomTitleInput1 = document.getElementById('id_contact_groom_title_1');
+            const contactGroomTitleInput2 = document.getElementById('id_contact_groom_title_2');
+            const contactGroomTitleInput3 = document.getElementById('id_contact_groom_title_3');
+
+            const contactGroomNameInput1 = document.getElementById('id_contact_groom_name_1');
+            const contactGroomNameInput2 = document.getElementById('id_contact_groom_name_2');
+            const contactGroomNameInput3 = document.getElementById('id_contact_groom_name_3');
+
+            const contactBrideTitleInput1 = document.getElementById('id_contact_bride_title_1');
+            const contactBrideTitleInput2 = document.getElementById('id_contact_bride_title_2');
+            const contactBrideTitleInput3 = document.getElementById('id_contact_bride_title_3');
+
+            const contactBrideNameInput1 = document.getElementById('id_contact_bride_name_1');
+            const contactBrideNameInput2 = document.getElementById('id_contact_bride_name_2');
+            const contactBrideNameInput3 = document.getElementById('id_contact_bride_name_3');
+
+            // 값이 비어있는 경우에만 설정
+            if (!contactGroomTitleInput1.value) { contactGroomTitleInput1.value = '신랑'; }
+            if (!contactGroomTitleInput2.value) { contactGroomTitleInput2.value = '신랑 아버지'; }
+            if (!contactGroomTitleInput3.value) { contactGroomTitleInput3.value = '신랑 어머니'; }
+
+            if (!contactGroomNameInput1.value) { contactGroomNameInput1.value = '성함'; }
+            if (!contactGroomNameInput2.value) { contactGroomNameInput2.value = '성함'; }
+            if (!contactGroomNameInput3.value) { contactGroomNameInput3.value = '성함'; }
+
+            if (!contactBrideTitleInput1.value) { contactBrideTitleInput1.value = '신부'; }
+            if (!contactBrideTitleInput2.value) { contactBrideTitleInput2.value = '신부 아버지'; }
+            if (!contactBrideTitleInput3.value) { contactBrideTitleInput3.value = '신부 어머니'; }
+
+            if (!contactBrideNameInput1.value) { contactBrideNameInput1.value = '성함'; }
+            if (!contactBrideNameInput2.value) { contactBrideNameInput2.value = '성함'; }
+            if (!contactBrideNameInput3.value) { contactBrideNameInput3.value = '성함'; }
+
+            // 예식장소 input 필드의 기본값 설정
+            const weddingHallNameInput = document.getElementById('id_wedding_hall_name');
+            const weddingHallFloorInput = document.getElementById('id_wedding_hall_floor');
+
+            // 값이 비어있는 경우에만 설정
+            if (!weddingHallNameInput.value) { weddingHallNameInput.value = '더리버사이드 호텔'; }
+            if (!weddingHallFloorInput.value) { weddingHallFloorInput.value = '몽블랑홀'; }
+
+            // 결혼식 날짜를 현재 날짜로 설정
+            function getCurrentDateTime() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            }
+
+            // 결혼식 날짜 input 필드의 기본값 설정
+            const weddingDateInput = document.getElementById('id_wedding_date');
+            if (!weddingDateInput.value) {  // 값이 비어있는 경우에만 설정
+                weddingDateInput.value = getCurrentDateTime();
+            }
+
+            // 교통수단 미리보기 구현
+            const existingTransports = {{ transport_formset.management_form.TOTAL_FORMS.value|safe }};
+            for (let i = 1; i < existingTransports; i++) {
+                const transportPreviewContainer = document.getElementById('waytocome-wrap'); // 미리보기
+                const newTransportPreviewDiv = document.createElement('div');
+                newTransportPreviewDiv.classList.add('box');
+                newTransportPreviewDiv.id = `transports-box-${i}-preview`;
+                newTransportPreviewDiv.innerHTML = `
+                    <div class="left">
+                        <div class="icon-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="title">
+                            <span id="id_transports-${i}-name-preview"></span>
+                        </div>
+                        <div class="content">
+                            <div id="id_transports-${i}-description-preview"></div>
+                        </div>
+                    </div>`;
+                transportPreviewContainer.appendChild(newTransportPreviewDiv);
+
+                bindInputToElement(`#id_transports-${i}-name`, `#id_transports-${i}-name-preview`); // 교통수단
+                bindInputToElement(`#id_transports-${i}-description`, `#id_transports-${i}-description-preview`); // 설명
+            }
+
+            // 계좌번호 미리보기 구현
+            const existingAccounts = {{ account_formset.management_form.TOTAL_FORMS.value|safe }};
+            for (let i = 1; i < existingAccounts; i++) {
+                const accountPreviewContainer = document.getElementById('c-account'); // 미리보기
+                const newAccountDivPreview = document.createElement('div');
+                newAccountDivPreview.classList.add('item');
+                newAccountDivPreview.id = `accounts-box-${i}-preview`;
+                newAccountDivPreview.innerHTML = `
+                    <div class="title expand">
+                        <div id="id_accounts-${i}-group-preview">그룹명</div>
+                        <div class="arrow rotate">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="id_accounts-${i}-text-preview" class="text gothic click">
+                        <div class="inner">
+                            <span>
+                                <span id="id_accounts-${i}-bank-preview" class="bank">은행</span>
+                                <span id="id_accounts-${i}-number-preview">계좌번호</span>
+                            </span>
+                            <br>
+                            <span id="id_accounts-${i}-holder-preview">예금주</span>
+                        </div>
+                        <div>
+                            <div class="btn-action">
+                                <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0.48 0.48 23.04 23.04" fill="#222F3D" class="ov-icon" style="font-size: 2.88em;">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                                </svg>
+                                복사
+                            </div>
+                        </div>
+                    </div>`;
+                accountPreviewContainer.appendChild(newAccountDivPreview);
+
+                bindInputToElement(`#id_accounts-${i}-group`, `#id_accounts-${i}-group-preview`); // 그룹명
+                bindInputToElement(`#id_accounts-${i}-bank`, `#id_accounts-${i}-bank-preview`); // 은행
+                bindInputToElement(`#id_accounts-${i}-number`, `#id_accounts-${i}-number-preview`); // 계좌 번호
+                bindInputToElement(`#id_accounts-${i}-holder`, `#id_accounts-${i}-holder-preview`); // 예금주
+            }
+
+            // 폼 입력 필드 이벤트 처리
+            var inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(function(input) {
+                var event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
+            });
+        });
+
+        // 네이버 지도에 나타난 주소를 기존에 입력된 주소로 변경
+        if ($('#address').val()) {
+            searchAddressToCoordinate($('#address').val());
+            $('.map-wrap .location-address > div').text($('#address').val());
+        }
+
+        // 우측의 input 변화를 좌측의 미리보기에 나오도록 구현
+        function bindInputToElement(inputSelector, elementSelector) {
+            const input = document.querySelector(inputSelector);
+            const element = document.querySelector(elementSelector);
+
+            input.addEventListener("input", () => {
+                element.innerText = input.value;
+            });
+        }
+
+        // 우측의 input 변화를 좌측의 미리보기에 나오도록 구현 (a태그 전용)
+        function bindInputToElementHref(inputSelector, elementSelector) {
+            const input = document.querySelector(inputSelector);
+            const element = document.querySelector(elementSelector);
+
+            input.addEventListener("input", () => {
+                element.href = input.value;
+            });
+        }
+
+        // 이미지 미리보기 기능 (1): hidden input 트리거
+        document.querySelectorAll('.upload-box').forEach(box => {
+            box.addEventListener('click', () => {
+                const input = box.querySelector('.image-input');
+                input.click();
+            });
+        });
+
+        // 이미지 미리보기 기능 (2): 이미지 미리보기 표시
+        function previewImage(event) {
+            const input = event.target;
+            const previewId = input.getAttribute('data-preview');
+            const output = document.getElementById(previewId);
+            const span = output.previousElementSibling;
+            const deleteIcon = output.nextElementSibling;
+            const leftPreview = document.querySelector('.intro-blend-wrap.photo.gradient-none > img');
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                output.src = reader.result;
+                output.style.display = 'block';
+                span.style.display = 'none';
+                deleteIcon.style.display = 'block';
+                leftPreview.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // 이미지 미리보기 기능 (3): 이미지 미리보기 삭제
+        function deleteImage(event, previewId) {
+            event.stopPropagation();
+            const output = document.getElementById(previewId);
+            const span = output.previousElementSibling;
+            const deleteIcon = output.nextElementSibling;
+            const input = output.nextElementSibling.nextElementSibling;
+            const leftPreview = document.querySelector('.intro-blend-wrap.photo.gradient-none > img');
+
+            output.src = '';
+            output.style.display = 'none';
+            span.style.display = 'block';
+            deleteIcon.style.display = 'none';
+            input.value = '';
+            leftPreview.src = 'https://mcard.fromtoday.co.kr/mcard/assets/images/mcard_preview_intro_noimage.jpg';
+
+            if (previewId == 'preview1') {
+                document.querySelector('input[name="delete_main_img"]').value = 'true';
+            } else if (previewId == 'preview2') {
+                document.querySelector('input[name="delete_thumb_img"]').value = 'true';
+            }
+        }
+
+        // 글상자 옵션 선택 시 스크롤 위치 이동 방지
+        function executeCommand(command, value = null) {
+            const scrollPosition = window.scrollY;
+            document.execCommand(command, false, value);
+            window.scrollTo(0, scrollPosition);
+        }
+
+        // 사전에 교통수단 첫 번째 input 이벤트 연결
+        bindInputToElement('#id_transports-0-name', '#id_transports-0-name-preview'); // 교통수단
+        bindInputToElement('#id_transports-0-description', '#id_transports-0-description-preview'); // 설명
+
+        // 교통수단 추가 버튼 눌렀을 때 입력란 생성
+        document.addEventListener('DOMContentLoaded', function() {
+            const addTransportButton = document.getElementById('add-transport');
+            const transportContainer = document.getElementById('transport-container');
+            const transportPreviewContainer = document.getElementById('waytocome-wrap'); // 미리보기
+            const totalForms = document.getElementById('id_transports-TOTAL_FORMS');
+
+            function updateButtonStates() {
+                const transportDivs = document.querySelectorAll('.transport-box');
+                transportDivs.forEach((div, index) => {
+                    const moveUpButton = div.querySelector('.move-up');
+                    const moveDownButton = div.querySelector('.move-down');
+
+                    if (index === 0) {
+                        moveUpButton.classList.add('disabled');
+                    } else {
+                        moveUpButton.classList.remove('disabled');
+                    }
+
+                    if (index === transportDivs.length - 1) {
+                        moveDownButton.classList.add('disabled');
+                    } else {
+                        moveDownButton.classList.remove('disabled');
+                    }
+                });
+            }
+
+            addTransportButton.addEventListener('click', function() {
+                const newIndex = document.querySelectorAll('.transport-box').length;
+                const newTransportDiv = document.createElement('div');
+                newTransportDiv.classList.add('morder-group', 'lr', 'transport-box');
+                newTransportDiv.id = `transports-box-${newIndex}`;
+                newTransportDiv.innerHTML = `
+                    <div>
+                        <div class="morder-field">
+                            <span class="s1 m-hide">교통수단</span>
+                            <span class="s2 m-w100">
+                                <input type="text" name="transports-${newIndex}-name" class="inorder_txt transportation-input" style="width: calc(100% - 22px);" placeholder="버스, 지하철, 자가용 등" required id="id_transports-${newIndex}-name">
+                            </span>
+                        </div>
+                        <div class="morder-field">
+                            <span class="s1 m-hide">설명</span>
+                            <span class="s2 m-w100">
+                                <div style="max-width: 100%;">
+                                    <div>
+                                        <textarea class="te-textarea" style="height: 100px;" name="transports-${newIndex}-description" cols="40" rows="10" required id="id_transports-${newIndex}-description"></textarea>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <span>
+                            <div class="close move-up">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="close move-down">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="close remove">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                `;
+                transportContainer.appendChild(newTransportDiv);
+
+                // 교통수단 미리보기 구현
+                const newTransportPreviewDiv = document.createElement('div');
+                newTransportPreviewDiv.classList.add('box');
+                newTransportPreviewDiv.id = `transports-box-${newIndex}-preview`;
+                newTransportPreviewDiv.innerHTML = `
+                    <div class="left">
+                        <div class="icon-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="title">
+                            <span id="id_transports-${newIndex}-name-preview"></span>
+                        </div>
+                        <div class="content">
+                            <div id="id_transports-${newIndex}-description-preview"></div>
+                        </div>
+                    </div>`;
+                transportPreviewContainer.appendChild(newTransportPreviewDiv);
+
+                bindInputToElement(`#id_transports-${newIndex}-name`, `#id_transports-${newIndex}-name-preview`); // 교통수단
+                bindInputToElement(`#id_transports-${newIndex}-description`, `#id_transports-${newIndex}-description-preview`); // 설명
+
+                // 총 폼 수 업데이트
+                totalForms.setAttribute('value', newIndex + 1);
+
+                // 위로 이동 버튼 클릭 이벤트 리스너 추가
+                newTransportDiv.querySelector('.transport-box .move-up').addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const preDiv = currentDiv.previousElementSibling;
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    const preDivPreview = currentDivPreview.previousElementSibling; // 미리보기
+                    if (preDiv) {
+                        transportContainer.insertBefore(currentDiv, preDiv);
+                        transportPreviewContainer.insertBefore(currentDivPreview, preDivPreview); // 미리보기
+                        updateButtonStates();
+                    }
+                });
+
+                // 아래로 이동 버튼 클릭 이벤트 리스너 추가
+                newTransportDiv.querySelector('.transport-box .move-down').addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const nextDiv = currentDiv.nextElementSibling;
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    const nextDivPreview = currentDivPreview.nextElementSibling; // 미리보기
+                    if (nextDiv) {
+                        transportContainer.insertBefore(nextDiv, currentDiv);
+                        transportPreviewContainer.insertBefore(nextDivPreview, currentDivPreview); // 미리보기
+                        updateButtonStates();
+                    }
+                });
+
+                // 삭제 버튼 클릭 이벤트 리스너 추가
+                newTransportDiv.querySelector('.transport-box .remove').addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    transportContainer.removeChild(currentDiv);
+                    transportPreviewContainer.removeChild(currentDivPreview); // 미리보기
+                    updateButtonStates();
+                });
+
+                updateButtonStates();
+            });
+
+            // 초기 로드된 요소에 대해 위로 이동버튼 클릭 시 이벤트 리스너 추가
+            document.querySelectorAll('.transport-box .move-up').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const preDiv = currentDiv.previousElementSibling;
+                    if (preDiv) {
+                        transportContainer.insertBefore(currentDiv, preDiv);
+                        updateButtonStates();
+                    }
+                });
+            });
+
+            // 초기 로드된 요소에 대해 아래로 이동버튼 클릭 시 이벤트 리스너 추가
+            document.querySelectorAll('.transport-box .move-down').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const nextDiv = currentDiv.nextElementSibling;
+                    if (nextDiv) {
+                        transportContainer.insertBefore(nextDiv, currentDiv);
+                        updateButtonStates();
+                    }
+                });
+            });
+
+            // 초기 로드된 요소에 대해 삭제버튼 클릭 시 이벤트 리스너 추가
+            document.querySelectorAll('.transport-box .remove').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.transport-box');
+                    const currentDivPreview = document.querySelector(`#${currentDiv.id}-preview`); // 미리보기
+                    transportContainer.removeChild(currentDiv);
+                    transportPreviewContainer.removeChild(currentDivPreview); // 미리보기
+                    updateButtonStates();
+                });
+            });
+
+            // 초기 로드된 상태 업데이트
+            updateButtonStates();
+        });
+
+        // 사전에 계좌번호 첫 번째 input 이벤트 연결
+        bindInputToElement(`#id_accounts-0-group`, `#id_accounts-0-group-preview`); // 그룹명
+        bindInputToElement(`#id_accounts-0-bank`, `#id_accounts-0-bank-preview`); // 은행
+        bindInputToElement(`#id_accounts-0-number`, `#id_accounts-0-number-preview`); // 계좌번호
+        bindInputToElement(`#id_accounts-0-holder`, `#id_accounts-0-holder-preview`); // 예금주
+
+        // 계좌번호 추가 버튼 눌렀을 때 입력란 생성
+        document.addEventListener('DOMContentLoaded', function() {
+            const addAccountButton = document.getElementById('add-account');
+            const accountContainer = document.getElementById('account-container');
+            const accountPreviewContainer = document.getElementById('c-account'); // 미리보기
+            const totalForms = document.getElementById('id_accounts-TOTAL_FORMS');
+
+            function updateButtonStates() {
+                const accountDivs = document.querySelectorAll('.account-box');
+                /*
+                accountDivs.forEach((div, index) => {
+                    const moveUpButton = div.querySelector('.move-up');
+                    const moveDownButton = div.querySelector('.move-down');
+
+                    if (index === 0) {
+                        moveUpButton.classList.add('disabled');
+                    } else {
+                        moveUpButton.classList.remove('disabled');
+                    }
+
+                    if (index === accountDivs.length - 1) {
+                        moveDownButton.classList.add('disabled');
+                    } else {
+                        moveDownButton.classList.remove('disabled');
+                    }
+                });
+                */
+            }
+
+            addAccountButton.addEventListener('click', function() {
+                const newIndex = document.querySelectorAll('.account-box').length;
+                const newAccountDiv = document.createElement('div');
+                newAccountDiv.classList.add('morder-group', 'lr', 'account-box');
+                newAccountDiv.id = `accounts-box-${newIndex}`;
+                newAccountDiv.innerHTML = `
+                    <div>
+                        <div class="morder-field">
+                            <span class="s1">그룹명</span>
+                            <span class="s2">
+                                <input type="text" name="accounts-${newIndex}-group" class="inorder_txt" placeholder="그룹명" style="width: calc(100% - 22px);" maxlength="10" id="id_accounts-${newIndex}-group" required>
+                            </span>
+                        </div>
+                        <div class="morder-field">
+                            <span class="s1">계좌번호</span>
+                            <span class="s2">
+                                <div style="display: flex;">
+                                    <div style="flex: 1.2 1 0%;">
+                                        <input type="text" name="accounts-${newIndex}-bank" class="inorder_txt" placeholder="은행" style="width: calc(100% - 27px);" maxlength="10" id="id_accounts-${newIndex}-bank" required>
+                                    </div>
+                                    <div style="flex: 3 1 0%;">
+                                        <input type="text" name="accounts-${newIndex}-number" class="inorder_txt" placeholder="계좌번호" style="width: calc(100% - 22px);" maxlength="30" id="id_accounts-${newIndex}-number" required>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="morder-field">
+                            <span class="s1">예금주</span>
+                            <span class="s2">
+                                <input type="text" name="accounts-${newIndex}-holder" class="inorder_txt" placeholder="예금주" style="width: calc(100% - 22px);" maxlength="10" id="id_accounts-${newIndex}-holder" required>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                        /*
+                            <div class="close move-up disabled">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="close move-down">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </span>
+                            </div>
+                        */
+                            <div class="close remove">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                accountContainer.appendChild(newAccountDiv);
+
+                const accountPreviewContainer = document.getElementById('c-account'); // 미리보기
+                const newAccountDivPreview = document.createElement('div');
+                newAccountDivPreview.classList.add('item');
+                newAccountDivPreview.id = `accounts-box-${newIndex}-preview`;
+                newAccountDivPreview.innerHTML = `
+                    <div class="title expand">
+                        <div id="id_accounts-${newIndex}-group-preview">그룹명</div>
+                        <div class="arrow rotate">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="id_accounts-${newIndex}-text-preview" class="text gothic click">
+                        <div class="inner">
+                            <span>
+                                <span id="id_accounts-${newIndex}-bank-preview" class="bank">은행</span>
+                                <span id="id_accounts-${newIndex}-number-preview">계좌번호</span>
+                            </span>
+                            <br>
+                            <span id="id_accounts-${newIndex}-holder-preview">예금주</span>
+                        </div>
+                        <div>
+                            <div class="btn-action">
+                                <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0.48 0.48 23.04 23.04" fill="#222F3D" class="ov-icon" style="font-size: 2.88em;">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                                </svg>
+                                복사
+                            </div>
+                        </div>
+                    </div>`;
+                accountPreviewContainer.appendChild(newAccountDivPreview);
+
+                const groupInput = document.querySelector(`#id_accounts-${newIndex}-group`);
+                groupInput.addEventListener('input', function() {
+                    const groupValue = groupInput.value.trim();
+                    if (groupValue) { // 그룹명 입력했을 경우
+                        const existingGroupPreviews = document.querySelectorAll(`#c-account .title`);
+                        let existingGroupPreview = null;
+                        existingGroupPreviews.forEach(preview => {
+                            if (preview.innerText.trim() === groupValue) {
+                                existingGroupPreview = preview;
+                            }
+                        });
+                        if (existingGroupPreview) { // 이미 존재하는 그룹명인 경우
+                            const parentDiv = existingGroupPreview.parentElement;
+                            const newAccountInfo = document.querySelector(`#id_accounts-${newIndex}-text-preview`);
+                            parentDiv.appendChild(newAccountInfo); // 기존 그룹에 계좌번호 추가
+                        } else { // 새로운 그룹명인 경우
+                            const newGroupTitle = document.querySelector(`#id_accounts-${newIndex}-group`).value;
+                            const newParentDiv = document.createElement('div');
+                            newParentDiv.classList.add('item');
+                            newParentDiv.id = `accounts-box-${newIndex}-preview`;
+                            newParentDiv.innerHTML = `
+                                <div class="title expand">
+                                    <div id="id_accounts-${newIndex}-group-preview">${newGroupTitle}</div>
+                                    <div class="arrow rotate">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </div>`;
+                            const newAccountInfo = document.querySelector(`#id_accounts-${newIndex}-text-preview`);
+                            if (newAccountInfo) {
+                                newParentDiv.appendChild(newAccountInfo);
+                            }
+                            accountPreviewContainer.appendChild(newParentDiv);
+                        }
+                    }
+                    const previewDivToDelete = document.querySelector(`#accounts-box-${newIndex}-preview`);
+                    if (previewDivToDelete) {
+                        const gothicDiv = previewDivToDelete.querySelector('.text.gothic');
+                        if (!gothicDiv) { // 그룹에 더 이상 계좌번호가 없다면 해당 그룹명을 삭제
+                            previewDivToDelete.remove();
+                        }
+                    }
+                });
+
+                bindInputToElement(`#id_accounts-${newIndex}-group`, `#id_accounts-${newIndex}-group-preview`); // 그룹명
+                bindInputToElement(`#id_accounts-${newIndex}-bank`, `#id_accounts-${newIndex}-bank-preview`); // 은행
+                bindInputToElement(`#id_accounts-${newIndex}-number`, `#id_accounts-${newIndex}-number-preview`); // 계좌 번호
+                bindInputToElement(`#id_accounts-${newIndex}-holder`, `#id_accounts-${newIndex}-holder-preview`); // 예금주
+
+                // 총 폼 수 업데이트
+                totalForms.setAttribute('value', newIndex + 1);
+
+                /* // 위로 이동 버튼 클릭 이벤트 리스너 추가
+                newAccountDiv.querySelector('.move-up').addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    const preDiv = currentDiv.previousElementSibling;
+                    if (preDiv) {
+                        accountContainer.insertBefore(currentDiv, preDiv);
+                        updateButtonStates();
+                    }
+                });
+
+                // 아래로 이동 버튼 클릭 이벤트 리스너 추가
+                newAccountDiv.querySelector('.move-down').addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    const nextDiv = currentDiv.nextElementSibling;
+                    if (nextDiv) {
+                        accountContainer.insertBefore(nextDiv, currentDiv);
+                        updateButtonStates();
+                    }
+                }); */
+
+                // 삭제 버튼 클릭 이벤트 리스너 추가
+                newAccountDiv.querySelector('.account-box .remove').addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    accountContainer.removeChild(currentDiv);
+
+                    const currentDivPreviewIndex = currentDiv.id.split('-')[2]
+                    const currentDivPreview = document.querySelector(`#id_accounts-${currentDivPreviewIndex}-text-preview`);
+                    currentDivPreview.remove();
+
+                    const previewDivToDelete = document.querySelector(`#accounts-box-${currentDivPreviewIndex}-preview`);
+                    const gothicDiv = document.querySelector(`#id_accounts-${currentDivPreviewIndex}-text-preview`);
+                    if (!gothicDiv) { // 그룹에 더 이상 계좌번호가 없다면 해당 그룹명을 삭제
+                        previewDivToDelete.remove();
+                    }
+                    updateButtonStates();
+                });
+
+                updateButtonStates();
+
+                // 계좌번호 미리보기 토글 이벤트 추가
+                let isRotated = true;
+                const accountItem = document.querySelector(`#accounts-box-${newIndex}-preview > .title`);
+                accountItem.addEventListener('click', function() {
+                    const accountArrowBtn = accountItem.querySelector('.arrow');
+                    const accountText = accountItem.parentElement.querySelectorAll('.text');
+                    if (!isRotated) {
+                        accountItem.classList.add('expand');
+                        accountArrowBtn.classList.add('rotate');
+                        accountText.forEach(element => {
+                            element.classList.add('click');
+                        });
+                        isRotated = true;
+                    } else if (isRotated) {
+                        accountItem.classList.remove('expand');
+                        accountArrowBtn.classList.remove('rotate');
+                        accountText.forEach(element => {
+                            element.classList.remove('click');
+                        });
+                        isRotated = false;
+                    }
+                });
+
+                // 계좌번호 복사 기능 추가
+                const accountCopyBtn = document.querySelector(`#accounts-box-${newIndex}-preview .btn-action`);
+                accountCopyBtn.addEventListener('click', function() {
+                    const accountNum = document.querySelector(`#id_accounts-${newIndex}-number-preview`).innerText;
+                    const textArea = document.createElement('textarea');
+                    document.body.appendChild(textArea);
+                    textArea.value = accountNum;
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                });
+            });
+
+            // 초기 로드된 요소에 대해 위로 이동 버튼 클릭 이벤트 리스너 추가
+            document.querySelectorAll('.account-box .move-up').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    const preDiv = currentDiv.previousElementSibling;
+                    if (preDiv) {
+                        accountContainer.insertBefore(currentDiv, preDiv);
+                        updateButtonStates();
+                    }
+                });
+            });
+
+            // 초기 로드된 요소에 대해 아래로 이동 버튼 클릭 이벤트 리스너 추가
+            document.querySelectorAll('.account-box .move-down').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    const nextDiv = currentDiv.nextElementSibling;
+                    if (nextDiv) {
+                        accountContainer.insertBefore(nextDiv, currentDiv);
+                        updateButtonStates();
+                    }
+                });
+            });
+
+            // 초기 로드된 요소에 대해 삭제 버튼 클릭 이벤트 리스너 추가
+            document.querySelectorAll('.account-box .remove').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const currentDiv = this.closest('.account-box');
+                    accountContainer.removeChild(currentDiv);
+
+                    const currentDivPreviewIndex = currentDiv.id.split('-')[2]
+                    const currentDivPreview = document.querySelector(`#id_accounts-${currentDivPreviewIndex}-text-preview`);
+                    currentDivPreview.remove();
+
+                    const previewDivToDelete = document.querySelector(`#accounts-box-${currentDivPreviewIndex}-preview`);
+                    const gothicDiv = document.querySelector(`#id_accounts-${currentDivPreviewIndex}-text-preview`);
+                    if (!gothicDiv) { // 그룹에 더 이상 계좌번호가 없다면 해당 그룹명을 삭제
+                        previewDivToDelete.remove();
+                    }
+                    updateButtonStates();
+                });
+            });
+
+            // 초기 로드된 상태 업데이트
+            updateButtonStates();
+        });
+
+        // 계좌번호 입력 이벤트 (처음부터 있었던 0번째 요소)
+        const groupInput = document.querySelector(`#id_accounts-0-group`);
+        groupInput.addEventListener('input', function() {
+            const newIndex = document.querySelectorAll('.account-box').length;
+            const groupValue = groupInput.value.trim();
+            if (groupValue) { // 그룹명 입력했을 경우
+                const existingGroupPreviews = document.querySelectorAll(`#c-account .title`);
+                let existingGroupPreview = null;
+                existingGroupPreviews.forEach(preview => {
+                    if (preview.innerText.trim() === groupValue) {
+                        existingGroupPreview = preview;
+                    }
+                });
+                if (existingGroupPreview) { // 이미 존재하는 그룹명인 경우
+                    const parentDiv = existingGroupPreview.parentElement;
+                    const newAccountInfo = document.querySelector(`#id_accounts-0-text-preview`);
+                    parentDiv.appendChild(newAccountInfo); // 기존 그룹에 계좌번호 추가
+
+                const previewDivToDelete = document.querySelector(`#accounts-box-0-preview`);
+                if (previewDivToDelete) {
+                    const gothicDiv = previewDivToDelete.querySelector('.text.gothic');
+                    if (!gothicDiv) { // 그룹에 더 이상 계좌번호가 없다면 해당 그룹명을 삭제
+                        previewDivToDelete.remove();
+                    }
+                }
+                } else { // 새로운 그룹명인 경우
+                    const accountPreviewContainer = document.getElementById('c-account'); // 미리보기
+                    const newGroupTitle = document.querySelector(`#id_accounts-0-group`).value;
+                    const newParentDiv = document.createElement('div');
+                    newParentDiv.classList.add('item');
+                    newParentDiv.id = `accounts-box-${newIndex}-preview`;
+                    newParentDiv.innerHTML = `
+                        <div class="title expand">
+                            <div id="id_accounts-${newIndex}-group-preview">${newGroupTitle}</div>
+                            <div class="arrow rotate">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>`;
+                    const newAccountInfo = document.querySelector(`#id_accounts-0-holder-preview`).parentElement.parentElement;
+                    if (newAccountInfo) {
+                        newParentDiv.appendChild(newAccountInfo);
+                    }
+                    accountPreviewContainer.appendChild(newParentDiv);
+                }
+            }
+            const previewDivToDelete = document.querySelector(`#accounts-box-${newIndex}-preview`);
+            if (previewDivToDelete) {
+                const gothicDiv = previewDivToDelete.querySelector('.text.gothic');
+                if (!gothicDiv) { // 그룹에 더 이상 계좌번호가 없다면 해당 그룹명을 삭제
+                    previewDivToDelete.remove();
+                }
+            }
+        });
+
+        // 계좌번호 토글 이벤트 추가 (처음부터 있었던 0번째 요소)
+        const accountToggleItem = document.querySelectorAll('.c-account .title');
+        let isRotated = true;
+
+        accountToggleItem.forEach(function(item, index) {
+            item.addEventListener('click', function() {
+                const accountArrowBtn = item.querySelector('.arrow');
+                const accountText = item.parentElement.querySelectorAll('.text');
+                if (!isRotated) {
+                    item.classList.add('expand');
+                    accountArrowBtn.classList.add('rotate');
+                    accountText.forEach(element => {
+                        element.classList.add('click');
+                    });
+                    isRotated = true;
+                } else if (isRotated) {
+                    item.classList.remove('expand');
+                    accountArrowBtn.classList.remove('rotate');
+                    accountText.forEach(element => {
+                        element.classList.remove('click');
+                    });
+                    isRotated = false;
+                }
+            });
+        });
+
+        // 계좌번호 복사 기능 추가 (처음부터 있었던 0번째 요소)
+            const accountCopyBtn = document.querySelector(`#accounts-box-0-preview .btn-action`);
+            accountCopyBtn.addEventListener('click', function() {
+                const accountNum = document.querySelector(`#id_accounts-0-number-preview`).innerText;
+                const textArea = document.createElement('textarea');
+                document.body.appendChild(textArea);
+                textArea.value = accountNum;
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            });
+
+        // 갤러리 이미지 처리
+        const galleryInput = document.getElementById('gallery-input');
+        const preview = document.getElementById('preview-container');
+        const cardForm = document.getElementById('cardform');
+
+        let imageFiles = [];
+
+        // 사진 업로드 트리거
+        $('#upload-button').click(function() {
+            $('#gallery-input').click();
+        });
+
+        // 갤러리 업로드 미리보기 구현
+        galleryInput.addEventListener('change', (event) => {
+            const files = event.target.files;
+            for (let i = 0; i < files.length; i++) {
+                imageFiles.push(files[i]);
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const newGalleryIndex = document.querySelectorAll('.gallery-square .item').length;
+                    const newPreviewDiv = `
+                        <div id="gallery-box-${newGalleryIndex}" class='item'>
+                            <div class='thm-container gallery'>
+                                <img src="${e.target.result}">
+                                <div class="thm-btn-wrap">
+                                    <div class="thm-btn-edit">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-x">
+                                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    const newPreviewDivPreview = `
+                        <div id="gallery-box-${newGalleryIndex}-preview" class="item">
+                            <div class="ph"></div>
+                            <img src="${e.target.result}" class="img-blur">
+                        </div>`;
+                    $('#preview-container').append(newPreviewDiv);
+                    $('.gallery-wrap .gallery-square').append(newPreviewDivPreview); // 미리보기
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        });
+
+        // 갤러리 항목 클릭 이벤트 리스너 등록
+        $('.gallery-wrap .gallery-square').on('click', '.item', function() {
+            const galleryItem = document.querySelectorAll('.gallery-square .item');
+            const galleryModal = document.getElementsByClassName('modal-mask')[0];
+            const galleryModalImg = document.querySelector('.gallery-panel div img');
+            const prevGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(1)');
+            const nextGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(2)');
+            const closeGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(3)');
+
+            let currentGalleryIndex = $(this).index();
+
+            showGalleryModal(currentGalleryIndex);
+
+            function showGalleryModal(index) {
+                let img = galleryItem[index].getElementsByTagName('img')[0];
+                galleryModal.style.display = 'block';
+                galleryModalImg.src = img.src;
+            }
+
+            closeGalleryBtn.addEventListener('click', function() {
+                galleryModal.style.display = 'none';
+            });
+
+            prevGalleryBtn.addEventListener('click', function() {
+                currentGalleryIndex = (currentGalleryIndex > 0) ? currentGalleryIndex - 1 : galleryItem.length - 1;
+                showGalleryModal(currentGalleryIndex);
+            });
+
+            nextGalleryBtn.addEventListener('click', function() {
+                currentGalleryIndex = (currentGalleryIndex < galleryItem.length - 1) ? currentGalleryIndex + 1 : 0;
+                showGalleryModal(currentGalleryIndex);
+            });
+        });
+
+        // 갤러리 업로드 미리보기 삭제
+        $('#preview-container').on('click', '.thm-btn-wrap', function() {
+            const itemDiv = $(this).closest('.item');
+            const imgIndex = itemDiv.index();
+            const itemDivPreview = document.querySelector(`#${itemDiv.attr('id')}-preview`); // 미리보기
+
+            imageFiles.splice(imgIndex, 1);
+            itemDiv.remove();
+            itemDivPreview.remove(); // 미리보기
+        });
+
+        // 갤러리 이미지 저장
+        cardForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // 폼 제출 방지
+
+            const formData = new FormData(cardForm);
+            imageFiles.forEach((file) => {
+                formData.append('images', file);
+            });
+
+            fetch(cardForm.action, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
+                    window.location.href = data.redirect_url; // 제작 내역 페이지로 이동
+                } else {
+                    alert('갤러리 사진 업로드에 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // 스크롤 내릴 때 왼쪽(청첩장 미리보기)에 fixed 속성 추가
+        const left = document.getElementById('preview-wrap');
+        let isFixed = false;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0 && !isFixed) {
+                left.classList.add('fixed');
+                isFixed = true;
+            } else if (window.scrollY === 0 && isFixed) {
+                left.classList.remove('fixed');
+                isFixed = false;
+            }
+        });
+
+        // 연락하기 모달창 on/off 기능
+        const contactModal = document.getElementsByClassName('v--modal-overlay')[1]; // 0번째 인덱스는 방명록 모달창입니다.
+        const openContactModal = document.getElementsByClassName('contact-box')[0];
+        const closeContactModal = document.getElementsByClassName('v--modal-background-click')[1]; // 0번째 인덱스는 방명록 모달창입니다.
+
+        openContactModal.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === closeContactModal) {
+                contactModal.style.display = 'none';
+            }
+        });
+
+        // 방명록 모달창 on/off 기능
+        const guestbookModal =  document.getElementsByClassName('v--modal-overlay')[0];
+        const openGuestbookModal = document.querySelector('.guestbook-wrap .writing');
+        const closeGuestbookModal = document.querySelector('.c-guestbook-header .btn-close');
+
+        openGuestbookModal.addEventListener('click', () => {
+            guestbookModal.style.display = 'flex';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === closeGuestbookModal) {
+                guestbookModal.style.display = 'none';
+            }
+        });
+
+        // 청첩장 생성 페이지에서 방명록 작성 막기
+        const guestbookSubmitBtn = document.querySelector('#app .c-guestbook-delete-modal button');
+
+        guestbookSubmitBtn.addEventListener('click', () => {
+            alert('샘플에서는 제공하지 않는 기능입니다.');
+        });
+
+        // 청첩장 생성 페이지에서 카톡 공유, 링크주소 복사 막기
+        const footerShareBtns = document.querySelectorAll('.btn-kakao');
+
+        footerShareBtns.forEach(function(item, index) {
+            item.addEventListener('click', function() {
+                alert('샘플에서는 제공하지 않는 기능입니다.');
+            });
+        });
+
+        // 신랑측, 신부측 정보 입력하면 미리보기에 나오도록 추가
+        bindInputToElement('#id_groom_father_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(1)');
+        bindInputToElement('#id_groom_mother_name', '.members-wrap.fade-in > div:nth-child(1) > span > span:nth-child(3)');
+        bindInputToElement('#id_groom_position', '.members-wrap.fade-in > div:nth-child(1) > .relation > span:nth-child(2)');
+        bindInputToElement('#id_groom_name', '.members-wrap.fade-in > div:nth-child(1) > .lname'); // 모시는 글
+        bindInputToElement('#id_groom_name', '.dday-wrap > div > span:nth-child(1) > span:nth-child(1)'); // 달력
+        bindInputToElement('#id_groom_name', '.mcard-intro > .bottom > .name > .groom'); // 타이틀
+
+        bindInputToElement('#id_bride_father_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(1)');
+        bindInputToElement('#id_bride_mother_name', '.members-wrap.fade-in > div:nth-child(2) > span > span:nth-child(3)');
+        bindInputToElement('#id_bride_position', '.members-wrap.fade-in > div:nth-child(2) > .relation > span:nth-child(2)');
+        bindInputToElement('#id_bride_name', '.members-wrap.fade-in > div:nth-child(2) > .lname');
+        bindInputToElement('#id_bride_name', '.dday-wrap > div > span:nth-child(1) > span:nth-child(3)');
+        bindInputToElement('#id_bride_name', '.mcard-intro > .bottom > .name > .bride');
+
+        // 모시는 글 입력할 때 엔터키 입력이 작동 안해서 따로 추가
+        function enterkeydown() {
+            if(window.event.keyCode == 13) {
+                 document.getElementById('id_invitation_content').value = document.getElementById('id_invitation_content').value + "\n";
+            }
+        }
+
+        // 모시는 글 입력하면 미리보기에 나오도록 추가
+        bindInputToElement('#id_invitation_title', '.greetings-wrap .greetings-title');
+        bindInputToElement('#id_invitation_content', '.greetings-wrap .text.fade-in.center > div');
+
+        // 미리보기의 달력 생성 구현
+        function generateCalendar(year, month, day) {
+            // 해당 년도(year)과 월(month)에 맞는 달력을 생성하는 함수
+            var startDate = new Date(year, month - 1, 1); // 월은 0부터 시작하므로 -1
+            var endDate = new Date(year, month, 0); // 다음 달의 첫 날의 전날을 구해서 해당 월의 마지막 날짜를 구함
+
+            var startDay = startDate.getDay(); // 해당 월의 첫 날의 요일(0: 일요일, 1: 월요일, ..., 6: 토요일)
+            var totalDays = endDate.getDate(); // 해당 월의 총 날짜 수
+
+            var calendarTable = document.createElement('table');
+            calendarTable.className = 'c-calendar-table';
+
+            // 테이블 헤더 (요일 표시)
+            var thead = calendarTable.createTHead();
+            var headerRow = thead.insertRow();
+            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            for (var i = 0; i < 7; i++) {
+                var th = document.createElement('th');
+                th.textContent = daysOfWeek[i];
+                headerRow.appendChild(th);
+            }
+
+            // 테이블 본문 (날짜 표시)
+            var tbody = calendarTable.createTBody();
+            var date = 1;
+            for (var i = 0; i < 6; i++) { // 최대 6주(행)까지 표시
+                var row = tbody.insertRow();
+                for (var j = 0; j < 7; j++) { // 일주일(열)은 7일
+                    if (i === 0 && j < startDay) {
+                        // 첫 주의 시작 요일 이전은 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date > totalDays) {
+                        // 날짜가 총 날짜 수를 초과하면 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date == day) {
+                        var cell = row.insertCell();
+                        var div1 = document.createElement('div');
+                        var div2 = document.createElement('div');
+                        var span = document.createElement('span');
+                        div1.classList.add('c-calendar-eday');
+                        div2.textContent = date;
+                        span.textContent = date;
+                        div1.appendChild(div2);
+                        cell.appendChild(div1);
+                        cell.appendChild(span);
+                        cell.style.position = 'relative';
+                        date++
+                    } else {
+                        // 정상적인 날짜 표시
+                        var cell = row.insertCell();
+                        var span = document.createElement('span');
+                        span.textContent = date;
+                        cell.appendChild(span);
+                        date++;
+                    }
+                }
+            }
+
+            return calendarTable;
+        }
+
+        const id_wedding_date = document.querySelector('#id_wedding_date');
+        id_wedding_date.addEventListener('input', () => {
+            // 입력된 날짜를 JavaScript Date 객체로 변환
+            var date = new Date(id_wedding_date.value);
+
+            // 원하는 형식으로 날짜와 시간을 포맷
+            var year = date.getFullYear()
+            var month = ('0' + (date.getMonth() + 1)).slice(-2); // 월을 두 자리 숫자로 변환
+            var day = ('0' + date.getDate()).slice(-2); // 일을 두 자리 숫자로 변환
+
+            var formattedDate = `${year}년 ${month}월 ${day}일 `;
+            var dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'][date.getDay()];
+            var dayOfWeekEng = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'][date.getDay()];
+            formattedDate += `${dayOfWeek}요일 `;
+
+            var hour = date.getHours();
+            var ampm = hour >= 12 ? '오후' : '오전';
+            hour = hour % 12;
+            hour = hour ? hour : 12; // 0시를 12시로 표시
+            var minutes = ('0' + date.getMinutes()).slice(-2); // 분을 두 자리로 표시
+
+            formattedDate += `${ampm} ${hour}시 ${minutes}분`;
+
+            // 예식일시 미리보기 구현
+            document.querySelector('.mcard-intro > .bottom > .datetime > span').innerText = formattedDate;
+
+            // 청첩장 타이틀 예식일시 미리보기 구현
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(1)').innerText = date.getFullYear();
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(2)').innerText = month;
+            document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
+            document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
+
+            // 달력에 있는 예식일시 미리보기 구현
+            document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
+            document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
+
+            // 달력의 모양 미리보기 구현
+            var calendar = generateCalendar(year, month, day);
+            var calendarContainer = document.getElementById('calendarContainer');
+            calendarContainer.innerHTML = ''; // 기존 달력 삭제
+            calendarContainer.appendChild(calendar);
+
+            // 달력의 디데이 미리보기 구현
+            var today = new Date();
+            var timeDiff = date.getTime() - today.getTime();
+            var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (dayDiff == 0) {
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = '오늘';
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '입니다.';
+            } else {
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = `${dayDiff}일`;
+                document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '남았습니다.';
+            }
+        });
+
+        // 예식장소(예식장명, 층과 홀) 미리보기 구현
+        bindInputToElement('#id_wedding_hall_name', '.mcard-intro .datetime > div > span:nth-child(1)');
+        bindInputToElement('#id_wedding_hall_name', '.map-wrap .location-hall > div > span:nth-child(1)');
+        bindInputToElement('#id_wedding_hall_floor', '.mcard-intro .datetime > div > span:nth-child(2)');
+        bindInputToElement('#id_wedding_hall_floor', '.map-wrap .location-hall > div > span:nth-child(2)');
+
+        // 연락하기 미리보기 구현
+        bindInputToElement('#id_contact_groom_title_1', '.contact-modal-inner .content > div:nth-child(1) > .cell:nth-child(1) > span'); // 신랑 호칭
+        bindInputToElement('#id_contact_groom_name_1', '.contact-modal-inner .content > div:nth-child(1) > .cell:nth-child(2) > span'); // 신랑 성함
+        bindInputToElementHref('#id_contact_groom_phone_number_1', '.contact-modal-inner .content > div:nth-child(1) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신랑 전화번호 1
+        bindInputToElementHref('#id_contact_groom_phone_number_1', '.contact-modal-inner .content > div:nth-child(1) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신랑 전화번호 2
+
+        bindInputToElement('#id_contact_groom_title_2', '.contact-modal-inner .content > div:nth-child(2) > .cell:nth-child(1) > span'); // 신랑 아버지 호칭
+        bindInputToElement('#id_contact_groom_name_2', '.contact-modal-inner .content > div:nth-child(2) > .cell:nth-child(2) > span'); // 신랑 아버지 성함
+        bindInputToElementHref('#id_contact_groom_phone_number_2', '.contact-modal-inner .content > div:nth-child(2) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신랑 아버지 전화번호 1
+        bindInputToElementHref('#id_contact_groom_phone_number_2', '.contact-modal-inner .content > div:nth-child(2) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신랑 아버지 전화번호 2
+
+        bindInputToElement('#id_contact_groom_title_3', '.contact-modal-inner .content > div:nth-child(3) > .cell:nth-child(1) > span'); // 신랑 어머니 호칭
+        bindInputToElement('#id_contact_groom_name_3', '.contact-modal-inner .content > div:nth-child(3) > .cell:nth-child(2) > span'); // 신랑 어머니 성함
+        bindInputToElementHref('#id_contact_groom_phone_number_3', '.contact-modal-inner .content > div:nth-child(3) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신랑 어머니 전화번호 1
+        bindInputToElementHref('#id_contact_groom_phone_number_3', '.contact-modal-inner .content > div:nth-child(3) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신랑 어머니 전화번호 2
+
+        bindInputToElement('#id_contact_bride_title_1', '.contact-modal-inner .content > div:nth-child(5) > .cell:nth-child(1) > span'); // 신부 호칭
+        bindInputToElement('#id_contact_bride_name_1', '.contact-modal-inner .content > div:nth-child(5) > .cell:nth-child(2) > span'); // 신부 성함
+        bindInputToElementHref('#id_contact_bride_phone_number_1', '.contact-modal-inner .content > div:nth-child(5) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신부 전화번호 1
+        bindInputToElementHref('#id_contact_bride_phone_number_1', '.contact-modal-inner .content > div:nth-child(5) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신부 전화번호 2
+
+        bindInputToElement('#id_contact_bride_title_2', '.contact-modal-inner .content > div:nth-child(6) > .cell:nth-child(1) > span'); // 신부 아버지 호칭
+        bindInputToElement('#id_contact_bride_name_2', '.contact-modal-inner .content > div:nth-child(6) > .cell:nth-child(2) > span'); // 신부 아버지 성함
+        bindInputToElementHref('#id_contact_bride_phone_number_2', '.contact-modal-inner .content > div:nth-child(6) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신부 아버지 전화번호 1
+        bindInputToElementHref('#id_contact_bride_phone_number_2', '.contact-modal-inner .content > div:nth-child(6) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신부 아버지 전화번호 2
+
+        bindInputToElement('#id_contact_bride_title_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(1) > span'); // 신부 어머니 호칭
+        bindInputToElement('#id_contact_bride_name_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(2) > span'); // 신부 어머니 성함
+        bindInputToElementHref('#id_contact_bride_phone_number_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(3) > span:nth-child(1) > a'); // 신부 어머니 전화번호 1
+        bindInputToElementHref('#id_contact_bride_phone_number_3', '.contact-modal-inner .content > div:nth-child(7) > .cell:nth-child(3) > span:nth-child(2) > a'); // 신부 어머니 전화번호 2
+
+        // 우측 정보입력창 여닫기
+        let isClosed = false;
+
+        $('.morder-table .st').on('click', '.th', function() {
+            const morderTableTd = this.nextElementSibling;
+            if (!isClosed) {
+                morderTableTd.style.display = 'none';
+                $('.morder-table .st .th > div:nth-child(2)').html('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            } else if (isClosed) {
+                morderTableTd.style.display = 'block';
+                $('.morder-table .st .th > div:nth-child(2)').html('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>');
+            }
+            isClosed = !isClosed;
+        });
+
+    </script>
 {% endblock %}
