@@ -51,14 +51,14 @@ def google_login(request):
     google_auth_api = "https://accounts.google.com/o/oauth2/v2/auth"
     scope = "https://www.googleapis.com/auth/userinfo.email " + \
             "https://www.googleapis.com/auth/userinfo.profile"
-    redirect_uri = 'http://127.0.0.1:8000/accounts/google/login/callback/'
+    redirect_uri = f'http://{request.META.get("HTTP_HOST")}/accounts/google/login/callback/'
 
     return redirect(f"{google_auth_api}?client_id={CLIENT_ID}&response_type=code&redirect_uri={redirect_uri}&scope={scope}")
 
 
 def google_login_callback(request):
     code = request.GET.get('code')
-    redirect_uri = 'http://127.0.0.1:8000/accounts/google/login/callback/'
+    redirect_uri = f'http://{request.META.get("HTTP_HOST")}/accounts/google/login/callback/'
     if not code:
         return 'code does not exists'
     token_req = requests.post(
