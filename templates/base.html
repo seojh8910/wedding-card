@@ -14,7 +14,7 @@
         {% endif %}
 
         <!-- MAIN -->
-        <main style="{% if request.path != '/' and request.resolver_match.url_name != 'detail' %} margin-top: 108px; {% else %} margin-top: 0; background-color: #333;{% endif %}">
+        <main style="{% if request.resolver_match.url_name == 'detail' %} margin-top: 0; background-color: #333; {% else %} margin-top: 108px; background-color: white; {% endif %}">
             {% for message in messages %}
                 <div class="text-center">
                     <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
