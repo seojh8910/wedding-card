@@ -3,108 +3,975 @@
 {% load static %}
 
 {% block content %}
-
-<h1>청첩장 상세보기</h1>
-<br>
-<a href="{% url 'card:update' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 수정</button></a>
-<a href="{% url 'card:delete' pk=card.pk %}" class="btn btn-dark rounded-pill col-6 mt-3"><button>청첩장 삭제</button></a>
-<hr>
-<div><b>모시는 글 제목: </b>{{ card.invitation_title }}</div>
-<div><b>결혼식 날짜: </b>{{ card.wedding_date|date:'Y-m-d' }}</div>
-<div><b>생성일: </b>{{ card.created_at|date:'Y-m-d' }} / 수정일: {{ card.updated_at|date:'Y-m-d' }}</div>
-<hr>
-<div>
-    <b>신랑님: </b>{{ card.groom_name }} |
-    <b>신랑 어머님: </b>{{ card.groom_mother_name }} |
-    <b>신랑 아버님: </b>{{ card.groom_father_name }} |
-    <b>신랑님 호칭: </b>{{ card.groom_position }}
-</div>
-<div>
-    <b>신부님: </b>{{ card.bride_name }} |
-    <b>신부 어머님: </b>{{ card.bride_mother_name }} |
-    <b>신부 아버님: </b>{{ card.bride_father_name }} |
-    <b>신부님 호칭: </b>{{ card.bride_position }}
-</div>
-<hr>
-{% if card.main_img %}
-    <div><img src="{{ card.main_img.url }}"></div>
-{% else %}
-    <div>사진 없음</div>
-{% endif %}
-<hr>
-<div><b>모시는 글 내용: </b>{{ card.invitation_content }}</div>
-<hr>
-
-{% include 'guest_book/create.html' with card=card %}
-{% if card.guestbooks %}
-    {% for guestbook in card.guestbooks.all %}
-        {% include 'guest_book/detail.html' with guestbook=guestbook %}
-        <div class="modal fade" id="deleteModal-{{ guestbook.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">방명록 삭제</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="delete-comment-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="password-{{ guestbook.pk }}">비밀번호:</label>
-                                <input type="password" class="form-control" id="password-{{ guestbook.pk }}" name="password">
+    <div id="app" style="background-color: #333; border: none;">
+        <div class="mcard-view">
+            <div class="inner">
+                <div>
+                </div>
+                <div>
+                    <div class="mcard-intro">
+                        <div class="title">
+                            <div class="dates">
+                                <span>24</span>
+                                <span>12</span>
+                                <span>25</span>
                             </div>
-                            <input type="hidden" class="guestbook-id" value="{{ guestbook.pk }}">
-                        </form>
+                            <div class="wod">WEDNESDAY</div>
+                        </div>
+                        <div>
+                            <div class="photo-wrap simple">
+                                <div class="intro-blend-wrap photo gradient-none">
+                                    {% if card.main_img %}
+                                        <img src="{{ card.main_img.url }}" class="intro-blend-image img-blur">
+                                        <div></div>
+                                    {% else %}
+                                        <img src="https://mcard.fromtoday.co.kr/mcard/assets/images/mcard_preview_intro_noimage.jpg" class="intro-blend-image img-blur">
+                                        <div></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <div class="name">
+                                <div class="groom">{{ card.groom_name }}</div>
+                                <div class="divider"></div>
+                                <div class="bride">{{ card.bride_name }}</div>
+                            </div>
+                            <div class="datetime">
+                                <span>{{ card.wedding_date }}</span>
+                                <br>
+                                <div>
+                                    <span>{{ card.wedding_hall_name }}</span>
+                                    <span>{{ card.wedding_hall_floor }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-danger confirm-delete-btn">삭제</button>
+                </div>
+                <div><!---->
+                </div>
+                <div>
+                    <div class="greetings-wrap">
+                        <div class="m-title fade-in">
+                            <div class="m-subtitle">
+                                INVITATION
+                            </div>
+                            <div class="greetings-title">
+                                {{ card.invitation_title }}
+                            </div>
+                        </div>
+                        <div class="text fade-in center">
+                            <div>
+                                {{ card.invitation_content|linebreaksbr }}
+                            </div>
+                        </div>
+                        <div class="members-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                            <div>
+                                <span>
+                                    <span>{{ card.groom_father_name }}</span>
+                                    <span>·</span>
+                                    <span>{{ card.groom_mother_name }}</span>
+                                </span>
+                                <span class="relation">
+                                    <span>의</span>
+                                    <span>{{ card.groom_position }}</span>
+                                </span>
+                                <span class="lname">{{ card.groom_name|slice:"1:" }}</span>
+                            </div>
+                            <div>
+                                <span>
+                                    <span>{{ card.bride_father_name }}</span>
+                                    <span>·</span>
+                                    <span>{{ card.bride_mother_name }}</span>
+                                </span>
+                                <span class="relation">
+                                    <span>의</span>
+                                    <span>{{ card.bride_position }}</span>
+                                </span>
+                                <span class="lname">{{ card.bride_name|slice:"1:" }}</span>
+                            </div>
+                        </div>
+                        <div class="contact-wrap fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                            <div class="contact-box">
+                                <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="icon">
+                                        <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                        <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                        <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                    </g>
+                                </svg>
+                                연락하기
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="calendar-wrap fade-in">
+                        <div class="calendar-inner">
+                            <div class="title fade-in">
+                                <div class="date" style="margin-bottom: 0px;">
+                                    <div>
+                                        2024.12.25
+                                    </div>
+                                </div>
+                                <div class="hours">
+                                    수요일 오후 1시 30분
+                                </div>
+                            </div>
+                            <div id="calendarContainer" class="c-calendar fade-in">
+                                <table class="c-calendar-table">
+                                    <thead>
+                                        <tr>
+                                            <th>일</th>
+                                            <th>월</th>
+                                            <th>화</th>
+                                            <th>수</th>
+                                            <th>목</th>
+                                            <th>금</th>
+                                            <th>토</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td><span>2</span></td>
+                                        <td><span>3</span></td>
+                                        <td><span>4</span></td>
+                                        <td><span>5</span></td>
+                                        <td><span>6</span></td>
+                                        <td><span>7</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>8</span></td>
+                                        <td><span>9</span></td>
+                                        <td><span>10</span></td>
+                                        <td><span>11</span></td>
+                                        <td><span>12</span></td>
+                                        <td><span>13</span></td>
+                                        <td><span>14</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>15</span></td>
+                                        <td><span>16</span></td>
+                                        <td><span>17</span></td>
+                                        <td><span>18</span></td>
+                                        <td><span>19</span></td>
+                                        <td><span>20</span></td>
+                                        <td><span>21</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>22</span></td>
+                                        <td><span>23</span></td>
+                                        <td><span>24</span></td>
+                                        <td style="position: relative;">
+                                            <div class="c-calendar-eday">
+                                                <div>25</div>
+                                            </div>
+                                            <span>25</span>
+                                        </td>
+                                        <td><span>26</span></td>
+                                        <td><span>27</span></td>
+                                        <td><span>28</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>29</span></td>
+                                        <td><span>30</span></td>
+                                        <td><span>31</span></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dday-wrap fade-in">
+                                <div>
+                                    <span>
+                                        <span>{{ card.groom_name|slice:"1:" }}</span>
+                                        <span pink="" small="">♥</span>
+                                        <span>{{ card.bride_name|slice:"1:" }}</span>의 결혼식이
+                                    </span>
+                                    <span>
+                                        <span pink="">171일</span>
+                                        <span>남았습니다.</span> <!---->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="gallery-wrap">
+                        <div class="m-title fade-in">
+                            <div class="m-subtitle">GALLERY</div>
+                            <div class="greetings-title">갤러리</div>
+                        </div>
+                        <div class="gallery-container fade-in">
+                            <div class="gallery-square">
+                                {% for gallery in galleries %}
+                                    <div id="gallery-box-{{ forloop.counter0 }}-preview" class="item">
+                                        <div class="ph"></div>
+                                        <img src="{{ gallery.gallery_img.url }}" class="img-blur">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+                <div>
+                    <div class="map-wrap">
+                        <div class="m-title fade-in">
+                            <div class="m-subtitle">LOCATION</div>
+                            <div class="greetings-title">오시는 길</div>
+                        </div>
+                        <div>
+                            <div class="location-wrap">
+                                <div class="location-hall fade-in">
+                                    <div>
+                                        <span>{{ card.wedding_hall_name }}</span>
+                                        <span>{{ card.wedding_hall_floor }}</span>
+                                    </div>
+                                </div>
+                                <div class="location-address fade-in">
+                                    <div>{{ card.wedding_hall_address }}</div>
+                                </div>
+                            </div>
+                            <div class="map-inner fade-in">
+                                <div>
+                                    <div id="preview-map" tabindex="0" style="position: relative; overflow: hidden; background: rgb(248, 249, 250); width:100%;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="c-map-navi gothic">
+                                        <div class="navi" onclick="window.open('https://map.naver.com/')">
+                                            <img src="{% static 'img/icons/navermap_icon.png' %}">
+                                            <span>네이버 지도</span>
+                                        </div>
+                                        <div class="navi" onclick="window.open('https://map.kakao.com/')">
+                                            <img src="{% static 'img/icons/kakaonavi_icon.png' %}">
+                                            <span>카카오 내비</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div id="waytocome-wrap" class="waytocome-wrap">
+                                {% for transport in transports %}
+                                    <div class="box fade-in" id="transports-box-{{ forloop.counter0 }}-preview">
+                                        <div class="left">
+                                            <div class="icon-circle">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="right">
+                                            <div class="title">
+                                                <span id="id_transports-{{ forloop.counter0 }}-name-preview">{{ transport.name }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <div id="id_transports-{{ forloop.counter0 }}-description-preview">{{ transport.description }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="account-wrap">
+                        <div class="s-subtitle fade-in white" style="opacity: 1; transform: translate(0px, 0px);"></div>
+                        <div class="m-title fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                            <span>마음 전하실 곳</span>
+                        </div> <!---->
+                        <div id="c-account" class="c-account fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                            {% for account in accounts %}
+                                <div class="item" id="accounts-box-{{ forloop.counter0 }}-preview" >
+                                    <div class="title expand">
+                                        <div id="id_accounts-{{ forloop.counter0 }}-group-preview">{{ account.group }}</div>
+                                        <div class="arrow rotate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div id="id_accounts-{{ forloop.counter0 }}-text-preview" class="text gothic click">
+                                        <div class="inner">
+                                            <span>
+                                                <span id="id_accounts-{{ forloop.counter0 }}-bank-preview" class="bank">{{ account.bank }}</span>
+                                                <span id="id_accounts-{{ forloop.counter0 }}-number-preview">{{ account.number }}</span>
+                                            </span>
+                                            <br>
+                                            <span id="id_accounts-0-holder-preview">{{ account.holder }}</span>
+                                        </div>
+                                        <div>
+                                            <div class="btn-action">
+                                                <svg aria-hidden="true" width="46.08" height="46.08" viewBox="0.48 0.48 23.04 23.04" fill="#222F3D" class="ov-icon" style="font-size: 2.88em;">
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                                                </svg>
+                                                복사
+                                            </div> <!---->
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'guest_book/create.html' with card=card %}
+                {% if card.guestbooks.exists %}
+                    <div>
+                        <div class="guestbook-wrap">
+                            <div class="m-title fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                <div class="m-subtitle">GUESTBOOK</div>
+                                <div class="greetings-title">방명록</div>
+                            </div>
+                            <div class="c-guestbook gothic">
+                                {% for guestbook in card.guestbooks.all %}
+                                    {% include 'guest_book/detail.html' with guestbook=guestbook %}
+                                    <div class="modal fade v--modal" id="deleteModal-{{ guestbook.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true" style="background: none; width: 360px; height: auto; position: relative; margin: 0 auto;">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content" style="border-radius: 3px;">
+                                                <div class="c-guestbook-header" style="justify-content: space-between;">
+                                                    <span class="modal-title">방명록 삭제</span>
+                                                    <div id="deleteModalLabel" class="btn-close close" data-dismiss="modal" aria-label="Close">
+                                                        <span class="icon"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="c-guestbook-modal-inner">
+                                                    <form class="delete-comment-form">
+                                                        {% csrf_token %}
+                                                        <table>
+                                                            <colgroup>
+                                                                <col style="width: 100px;">
+                                                                <col>
+                                                            </colgroup>
+                                                            <tbody>
+                                                            <tr>
+                                                                <th>비밀번호<span></span></th>
+                                                                <td><input type="password" class="form-control" id="password-{{ guestbook.pk }}" name="password"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <input type="hidden" class="guestbook-id" value="{{ guestbook.pk }}">
+                                                    </form>
+                                                </div>
+                                                <button type="button" class="btn-submit confirm-delete-btn">삭제하기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="tools fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                    <div class="pagination-wrap"><!----></div>
+                                    <div class="writing">
+                                        <button class="m-button dark gothic">작성하기</button>
+                                    </div>
+                                </div> <!---->
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div>
+                        <div class="guestbook-wrap">
+                            <div class="m-title fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                <div class="m-subtitle">GUESTBOOK</div>
+                                <div class="greetings-title">방명록</div>
+                            </div>
+                            <div class="c-guestbook gothic">
+                                <div class="comments fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                    <div class="item empty white">
+                                        <svg height="436pt" viewBox="-6 0 436 436" width="436pt" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="m405.269531 95.183594c-15.378906-15.332032-38.886719-19.011719-58.214843-9.109375v-36.074219c-.03125-27.601562-22.398438-49.96875-50-50h-247.054688c-27.601562.03125-49.96875 22.398438-50 50v336c.03125 27.601562 22.398438 49.96875 50 50h247.054688c27.601562-.03125 49.96875-22.398438 50-50v-153.125l62.601562-62.601562c19.527344-19.527344 19.527344-51.183594 0-70.710938zm-220.289062 187.9375 36.425781 36.761718-49.578125 13.152344zm55.722656 27.820312-46.8125-47.242187 135.117187-134.730469 46.835938 46.832031zm86.351563 75.058594c-.019532 16.5625-13.4375 29.980469-30 30h-247.054688c-16.5625-.019531-29.980469-13.4375-30-30v-336c.019531-16.5625 13.4375-29.980469 30-30h247.054688c16.5625.019531 29.984374 13.4375 30 30v52.664062l-154.34375 153.90625c-1.257813 1.253907-2.160157 2.820313-2.609376 4.535157l-21.992187 83.457031c-.90625 3.441406.085937 7.105469 2.605469 9.625 2.519531 2.515625 6.183594 3.5 9.628906 2.585938l82.890625-21.992188c1.703125-.449219 3.257813-1.34375 4.507813-2.59375l79.3125-79.3125zm68.457031-229.867188-5.527344 5.527344-46.816406-46.816406 5.574219-5.558594c11.730468-11.65625 30.675781-11.636718 42.386718.039063l4.382813 4.382812c11.699219 11.722657 11.695312 30.703125 0 42.425781zm0 0"></path>
+                                        </svg>
+                                        첫 번째 축하 글을 남겨주세요
+                                    </div>
+                                </div>
+                                <div class="tools fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+                                    <div class="pagination-wrap"><!----></div>
+                                    <div class="writing">
+                                        <button class="m-button dark gothic">작성하기</button>
+                                    </div>
+                                </div> <!---->
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="footer-wrap">
+                    <div class="kakao-wrap">
+                        <div class="btn-kakao">
+                            <svg id="Bold" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <path d="m9.462 9.306-.692 1.951h1.383z"></path>
+                                <path d="m12 1c-6.627 0-12 4.208-12 9.399 0 3.356 2.246 6.301 5.625 7.963-1.299 4.45-1.333 4.47-1.113 4.599.276.161.634-.005 5.357-3.311.692.097 1.404.148 2.131.148 6.627 0 12-4.208 12-9.399s-5.373-9.399-12-9.399zm-5.942 12.023c0 .362-.311.657-.692.657s-.692-.295-.692-.657v-4.086h-1.08c-.375 0-.679-.302-.679-.673s.303-.674.678-.674h3.545c.375 0 .679.302.679.673s-.305.674-.679.674h-1.08zm5.378.648c-.72 0-.587-.565-.919-1.195h-2.111c-.329.625-.2 1.195-.919 1.195-.693.001-.815-.421-.604-1.071l1.656-4.33c.117-.33.471-.669.922-.679.452.01.807.349.923.679 1.093 3.39 2.654 5.402 1.052 5.401zm3.939-.092h-2.221c-1.159 0-.454-1.565-.663-5.301 0-.379.317-.688.707-.688s.707.308.707.688v4.04h1.471c.366 0 .663.283.663.63-.001.348-.298.631-.664.631zm5.419-.518c-.025.181-.122.344-.269.454-.955.721-1.661-1.381-2.593-2.271l-.24.239v1.5c0 .38-.31.688-.693.688-.382 0-.692-.308-.692-.688v-4.705c0-.379.31-.688.692-.688s.692.308.692.688v1.478c1.277-.958 1.985-2.67 2.792-1.869.792.786-.848 1.474-1.527 2.422 1.604 2.212 1.909 2.267 1.838 2.752z"></path>
+                            </svg>
+                            <span>카카오톡 공유하기</span>
+                        </div>
+                        <div class="btn-kakao">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>링크주소 복사하기</span>
+                        </div>
+                    </div>
+                </div> <!----> <!----> <!----> <!----> <!---->
+                <div aria-expanded="true" data-modal="parent-contact-modal" class="v--modal-overlay" style="display:none; background: rgba(0, 0, 0, 0.7); height: 100vh;">
+                    <div class="v--modal-background-click">
+                        <div class="v--modal-top-right"></div>
+                        <div class="v--modal-box v--modal vue-dialog" style="top: 181px; left: 306px; width: 370px; height: auto;">
+                            <div onselectstart="return false" class="contact-modal-wrap">
+                                <div class="contact-modal-inner">
+                                    <div class="title">
+                                        <div class="m-subtitle">CONTACT</div>
+                                        연락하기
+                                    </div>
+                                    <div class="content gothic">
+                                        <div>
+                                            <div class="cell" style="flex: 1.5 1 0%;"><span style="color: rgb(102, 142, 170);">{{ card.contact_groom_title_1 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_groom_name_1 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_groom_phone_number_1 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                        <g id="icon">
+                                                            <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                            <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                            <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                        </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_groom_phone_number_1 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="cell"><span style="color: rgb(102, 142, 170);">{{ card.contact_groom_title_2 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_groom_name_2 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_groom_phone_number_2 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                            <g id="icon">
+                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_groom_phone_number_2 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="cell"><span style="color: rgb(102, 142, 170);">{{ card.contact_groom_title_3 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_groom_name_3 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_groom_phone_number_3 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(102, 142, 170);">
+                                                            <g id="icon">
+                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_groom_phone_number_3 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(102, 142, 170);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.4931.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <div class="cell" style="flex: 1.5 1 0%;"><span style="color: rgb(206, 131, 131);">{{ card.contact_bride_title_1 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_bride_name_1 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_bride_phone_number_1 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                            <g id="icon">
+                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_bride_phone_number_1 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="cell"><span style="color: rgb(206, 131, 131);">{{ card.contact_bride_title_2 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_bride_name_2 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_bride_phone_number_2 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                            <g id="icon">
+                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_bride_phone_number_2 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="cell"><span style="color: rgb(206, 131, 131);">{{ card.contact_bride_title_3 }}</span></div>
+                                            <div class="cell"><span>{{ card.contact_bride_name_3 }}</span></div>
+                                            <div class="cell">
+                                                <span class="phone-square">
+                                                    <a href="tel:{{ card.contact_bride_phone_number_3 }}">
+                                                        <svg height="512" viewBox="0 0 128 128" width="512" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(206, 131, 131);">
+                                                            <g id="icon">
+                                                                <path d="m54.048 43.653-3.928 6.122a7.725 7.725 0 0 0 .829 9.434l8.566 9.277 9.277 8.566a7.726 7.726 0 0 0 9.434.829l6.638-4.259 16.65 17.219-6.748 8.553a8.839 8.839 0 0 1 -9.277 3.039c-13.659-3.633-25.501-11.763-36.672-23.25-11.487-11.171-19.617-23.013-23.251-36.672a8.84 8.84 0 0 1 3.04-9.276l8.605-6.79z"></path>
+                                                                <path d="m85.054 73.5-1 .641 17.126 17.123.375-.475a5.5 5.5 0 0 0 -.434-7.3l-9.237-9.237a5.493 5.493 0 0 0 -6.83-.752z"></path>
+                                                                <path d="m37.212 26.445-.475.375 17.123 17.125.641-1a5.493 5.493 0 0 0 -.75-6.829l-9.237-9.237a5.5 5.5 0 0 0 -7.302-.434z"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span class="phone-square">
+                                                    <a href="sms:{{ card.contact_bride_phone_number_3 }}">
+                                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" style="width: 16px; fill: rgb(206, 131, 131);">
+                                                            <g><g><path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121C512,114.073,510.297,107.588,507.49,101.721z"></path></g></g>
+                                                            <g><g><path d="M467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51C480.412,77.703,473.927,76,467,76z"></path></g></g>
+                                                            <g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path></g></g>
+                                                            <g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path></g></g>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-mask">
+                    <div class="modal-wrapper" style="top: 150px;">
+                        <div class="modal-container">
+                            <div style="overflow: hidden;">
+                                <div class="carousel-wrap img-blur">
+                                    <div>
+                                        <div class="gallery-viewport" style="position: relative; z-index: 100; overflow: hidden; min-height: 100%; width: 100%; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-drag: none; height: 390px;">
+                                            <div class="gallery-camera" style="width: 100%; height: 100%; will-change: transform; transform: translate3d(0px, 0px, 0px);">
+                                                <div class="carousel-card gallery-panel" style="height: 390px; background: transparent; position: absolute; left: 0px;">
+                                                    <div>
+                                                        <img src="https://s3.ap-northeast-2.amazonaws.com/mcard.fromtoday.co.kr/w/386Muw/photos/386Muw_mcard_2024-06-21_0164972d97cd427d91438456f6144c1b_w1280.jpg" loading="lazy">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-btn-simple">
+                                <span>
+                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55.753 55.753" xml:space="preserve">
+                                        <g>
+                                            <path d="M12.745,23.915c0.283-0.282,0.59-0.52,0.913-0.727L35.266,1.581c2.108-2.107,5.528-2.108,7.637,0.001
+                                                c2.109,2.108,2.109,5.527,0,7.637L24.294,27.828l18.705,18.706c2.109,2.108,2.109,5.526,0,7.637
+                                                c-1.055,1.056-2.438,1.582-3.818,1.582s-2.764-0.526-3.818-1.582L13.658,32.464c-0.323-0.207-0.632-0.445-0.913-0.727
+                                                c-1.078-1.078-1.598-2.498-1.572-3.911C11.147,26.413,11.667,24.994,12.745,23.915z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55.752 55.752" xml:space="preserve">
+                                        <g>
+                                            <path d="M43.006,23.916c-0.28-0.282-0.59-0.52-0.912-0.727L20.485,1.581c-2.109-2.107-5.527-2.108-7.637,0.001
+                                                c-2.109,2.108-2.109,5.527,0,7.637l18.611,18.609L12.754,46.535c-2.11,2.107-2.11,5.527,0,7.637c1.055,1.053,2.436,1.58,3.817,1.58
+                                                s2.765-0.527,3.817-1.582l21.706-21.703c0.322-0.207,0.631-0.444,0.912-0.727c1.08-1.08,1.598-2.498,1.574-3.912
+                                                C44.605,26.413,44.086,24.993,43.006,23.916z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg data-name="Layer 1" id="Layer_1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                        <title></title>
+                                        <path d="M8.25,0,32,23.75,55.75,0,64,8.25,40.25,32,64,55.75,55.75,64,32,40.25,8.25,64,0,55.75,23.75,32,0,8.25Z" data-name="<Compound Path>" id="_Compound_Path_">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% endfor %}
-{% endif %}
+    </div>
+{% endblock %}
 
-<script>
-    $(document).ready(function() {
-        // 삭제 버튼 클릭 시
-        $('.delete-btn').on('click', function() {
-            var guestbookId = $(this).data('guestbook-id');
-            $('#deleteModal-' + guestbookId).modal('show');
+{% block script %}
+    <script>
+        // 미리보기 지도
+        var previewMap = new naver.maps.Map("preview-map", {
+            center: new naver.maps.LatLng(37.5187347, 127.0180825),
+            zoom: 17,
         });
 
-        // 삭제 확인 버튼 클릭 시
-        $('.confirm-delete-btn').on('click', function() {
-            var $modal = $(this).closest('.modal');
-            var guestbookId = $modal.find('.guestbook-id').val();
-            var password = $modal.find('.form-control[name="password"]').val();
+        var previewMarker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.5187347, 127.0180825),
+            map: previewMap
+        });
 
-            // AJAX 요청으로 방명록 삭제
-            $.ajax({
-                url: "{% url 'guestbook:delete' pk=0 %}".replace('0', guestbookId),
-                type: "POST",
-                data: {
-                    csrfmiddlewaretoken: "{{ csrf_token }}",
-                    guestbook_id: guestbookId,
-                    password: password
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-                        // 삭제 성공 시 모달 닫기
-                        $modal.modal('hide');
-                        // 페이지 새로고침 또는 다른 작업 수행
-                        location.reload();
-                    } else {
-                        // 비밀번호 일치하지 않을 때 메시지 표시
-                        alert('방명록을 삭제할 수 없습니다. 비밀번호를 다시 입력해주세요.');
+        function searchAddressToCoordinate(address) {
+            naver.maps.Service.geocode({
+                query: address
+            }, function(status, response) {
+                var htmlAddresses = [],
+                    item = response.v2.addresses[0],
+                    point = new naver.maps.Point(item.x, item.y);
+
+                previewMarker.setMap(null); // 미리보기 지도 마커
+
+                var item = response.v2.addresses[0],
+                    point = new naver.maps.Point(item.x, item.y);
+
+                // 미리보기 지도 마커 추가
+                previewMarker = new naver.maps.Marker({
+                    position: point,
+                    map: previewMap
+                });
+                previewMap.setCenter(point); // 미리보기 지도 위치 수정
+            });
+        }
+        searchAddressToCoordinate("{{ card.wedding_hall_address }}");
+    </script>
+    <script>
+        $(document).ready(function() {
+            // 삭제 버튼 클릭 시
+            $('.delete-btn').on('click', function() {
+                var guestbookId = $(this).data('guestbook-id');
+                $('#deleteModal-' + guestbookId).modal('show');
+            });
+
+            // 삭제 확인 버튼 클릭 시
+            $('.confirm-delete-btn').on('click', function() {
+                var $modal = $(this).closest('.modal');
+                var guestbookId = $modal.find('.guestbook-id').val();
+                var password = $modal.find('.form-control[name="password"]').val();
+
+                // AJAX 요청으로 방명록 삭제
+                $.ajax({
+                    url: "{% url 'guestbook:delete' pk=0 %}".replace('0', guestbookId),
+                    type: "POST",
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        guestbook_id: guestbookId,
+                        password: password
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            // 삭제 성공 시 모달 닫기
+                            $modal.modal('hide');
+                            // 페이지 새로고침 또는 다른 작업 수행
+                            location.reload();
+                        } else {
+                            // 비밀번호 일치하지 않을 때 메시지 표시
+                            alert('방명록을 삭제할 수 없습니다. 비밀번호를 다시 입력해주세요.');
+                        }
                     }
-                }
+                });
             });
         });
-    });
-</script>
 
+        // 미리보기의 달력 생성 구현
+        function generateCalendar(year, month, day) {
+            // 해당 년도(year)과 월(month)에 맞는 달력을 생성하는 함수
+            var startDate = new Date(year, month - 1, 1); // 월은 0부터 시작하므로 -1
+            var endDate = new Date(year, month, 0); // 다음 달의 첫 날의 전날을 구해서 해당 월의 마지막 날짜를 구함
+
+            var startDay = startDate.getDay(); // 해당 월의 첫 날의 요일(0: 일요일, 1: 월요일, ..., 6: 토요일)
+            var totalDays = endDate.getDate(); // 해당 월의 총 날짜 수
+
+            var calendarTable = document.createElement('table');
+            calendarTable.className = 'c-calendar-table';
+
+            // 테이블 헤더 (요일 표시)
+            var thead = calendarTable.createTHead();
+            var headerRow = thead.insertRow();
+            var daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            for (var i = 0; i < 7; i++) {
+                var th = document.createElement('th');
+                th.textContent = daysOfWeek[i];
+                headerRow.appendChild(th);
+            }
+
+            // 테이블 본문 (날짜 표시)
+            var tbody = calendarTable.createTBody();
+            var date = 1;
+            for (var i = 0; i < 6; i++) { // 최대 6주(행)까지 표시
+                var row = tbody.insertRow();
+                for (var j = 0; j < 7; j++) { // 일주일(열)은 7일
+                    if (i === 0 && j < startDay) {
+                        // 첫 주의 시작 요일 이전은 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date > totalDays) {
+                        // 날짜가 총 날짜 수를 초과하면 빈 칸으로 처리
+                        var cell = row.insertCell();
+                    } else if (date == day) {
+                        var cell = row.insertCell();
+                        var div1 = document.createElement('div');
+                        var div2 = document.createElement('div');
+                        var span = document.createElement('span');
+                        div1.classList.add('c-calendar-eday');
+                        div2.textContent = date;
+                        span.textContent = date;
+                        div1.appendChild(div2);
+                        cell.appendChild(div1);
+                        cell.appendChild(span);
+                        cell.style.position = 'relative';
+                        date++
+                    } else {
+                        // 정상적인 날짜 표시
+                        var cell = row.insertCell();
+                        var span = document.createElement('span');
+                        span.textContent = date;
+                        cell.appendChild(span);
+                        date++;
+                    }
+                }
+            }
+
+            return calendarTable;
+        }
+
+        // 입력된 날짜를 JavaScript Date 객체로 변환
+        var date = new Date(`{{ card.wedding_date|escapejs }}`);
+
+        // 원하는 형식으로 날짜와 시간을 포맷
+        var year = date.getFullYear()
+        var month = ('0' + (date.getMonth() + 1)).slice(-2); // 월을 두 자리 숫자로 변환
+        var day = ('0' + date.getDate()).slice(-2); // 일을 두 자리 숫자로 변환
+
+        var formattedDate = `${year}년 ${month}월 ${day}일 `;
+        var dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'][date.getDay()];
+        var dayOfWeekEng = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'][date.getDay()];
+        formattedDate += `${dayOfWeek}요일 `;
+
+        var hour = date.getHours();
+        var ampm = hour >= 12 ? '오후' : '오전';
+        hour = hour % 12;
+        hour = hour ? hour : 12; // 0시를 12시로 표시
+        var minutes = ('0' + date.getMinutes()).slice(-2); // 분을 두 자리로 표시
+
+        formattedDate += `${ampm} ${hour}시 ${minutes}분`;
+
+        // 예식일시 미리보기 구현
+        document.querySelector('.mcard-intro > .bottom > .datetime > span').innerText = formattedDate;
+
+        // 청첩장 타이틀 예식일시 미리보기 구현
+        document.querySelector('.mcard-intro > .title > .dates > span:nth-child(1)').innerText = date.getFullYear();
+        document.querySelector('.mcard-intro > .title > .dates > span:nth-child(2)').innerText = month;
+        document.querySelector('.mcard-intro > .title > .dates > span:nth-child(3)').innerText = day;
+        document.querySelector('.mcard-intro > .title > .wod').innerText = dayOfWeekEng;
+
+        // 달력에 있는 예식일시 미리보기 구현
+        document.querySelector('.calendar-wrap > .calendar-inner .date > div').innerText = `${year}.${month}.${day}`;
+        document.querySelector('.calendar-wrap > .calendar-inner .hours').innerText = `${dayOfWeek}요일 ${ampm} ${hour}시 ${minutes}분`;
+
+        // 달력의 모양 미리보기 구현
+        var calendar = generateCalendar(year, month, day);
+        var calendarContainer = document.getElementById('calendarContainer');
+        calendarContainer.innerHTML = ''; // 기존 달력 삭제
+        calendarContainer.appendChild(calendar);
+
+        // 달력의 디데이 미리보기 구현
+        var today = new Date();
+        var todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        var dateWithoutTime = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+        var timeDiff = dateWithoutTime - todayWithoutTime;
+        var dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        if (dayDiff == 0) {
+            document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = '오늘';
+            document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '입니다.';
+        } else {
+            document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(1)').innerText = `${dayDiff}일`;
+            document.querySelector('.dday-wrap > div > span:nth-child(2) > span:nth-child(2)').innerText = '남았습니다.';
+        }
+
+        // 연락하기 모달창 on/off 기능
+        const contactModal = document.getElementsByClassName('v--modal-overlay')[1]; // 0번째 인덱스는 방명록 모달창입니다.
+        const openContactModal = document.getElementsByClassName('contact-box')[0];
+        const closeContactModal = document.getElementsByClassName('v--modal-background-click')[1]; // 0번째 인덱스는 방명록 모달창입니다.
+
+        openContactModal.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === closeContactModal) {
+                contactModal.style.display = 'none';
+            }
+        });
+
+        // 방명록 모달창 on/off 기능
+        const guestbookModal =  document.getElementsByClassName('v--modal-overlay')[0];
+        const openGuestbookModal = document.querySelector('.guestbook-wrap .writing');
+        const closeGuestbookModal = document.querySelector('.c-guestbook-header .btn-close');
+
+        openGuestbookModal.addEventListener('click', () => {
+            guestbookModal.style.display = 'flex';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === closeGuestbookModal) {
+                guestbookModal.style.display = 'none';
+            }
+        });
+
+        // 갤러리 항목 클릭 이벤트 리스너 등록
+        $('.gallery-wrap .gallery-square').on('click', '.item', function() {
+            const galleryItem = document.querySelectorAll('.gallery-square .item');
+            const galleryModal = document.getElementsByClassName('modal-mask')[0];
+            const galleryModalImg = document.querySelector('.gallery-panel div img');
+            const prevGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(1)');
+            const nextGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(2)');
+            const closeGalleryBtn = document.querySelector('.modal-btn-simple span:nth-of-type(3)');
+
+            let currentGalleryIndex = $(this).index();
+
+            showGalleryModal(currentGalleryIndex);
+
+            function showGalleryModal(index) {
+                let img = galleryItem[index].getElementsByTagName('img')[0];
+                galleryModal.style.display = 'block';
+                galleryModalImg.src = img.src;
+            }
+
+            closeGalleryBtn.addEventListener('click', function() {
+                galleryModal.style.display = 'none';
+            });
+
+            prevGalleryBtn.addEventListener('click', function() {
+                currentGalleryIndex = (currentGalleryIndex > 0) ? currentGalleryIndex - 1 : galleryItem.length - 1;
+                showGalleryModal(currentGalleryIndex);
+            });
+
+            nextGalleryBtn.addEventListener('click', function() {
+                currentGalleryIndex = (currentGalleryIndex < galleryItem.length - 1) ? currentGalleryIndex + 1 : 0;
+                showGalleryModal(currentGalleryIndex);
+            });
+        });
+
+        // 계좌번호 미리보기 토글 이벤트 추가
+        const accountIndex = {{ accounts|length }}
+        for (i = 0; i < accountIndex; i++) {
+            (function(i) {
+                let isRotated = true;
+                const accountItem = document.querySelector(`#accounts-box-${i}-preview > .title`);
+                accountItem.addEventListener('click', function() {
+                    const accountArrowBtn = accountItem.querySelector('.arrow');
+                    const accountText = accountItem.parentElement.querySelectorAll('.text');
+                    if (!isRotated) {
+                        accountItem.classList.add('expand');
+                        accountArrowBtn.classList.add('rotate');
+                        accountText.forEach(element => {
+                            element.classList.add('click');
+                        });
+                        isRotated = true;
+                    } else if (isRotated) {
+                        accountItem.classList.remove('expand');
+                        accountArrowBtn.classList.remove('rotate');
+                        accountText.forEach(element => {
+                            element.classList.remove('click');
+                        });
+                        isRotated = false;
+                    }
+                });
+
+                // 계좌번호 복사 기능 추가
+                const accountCopyBtn = document.querySelector(`#accounts-box-${i}-preview .btn-action`);
+                accountCopyBtn.addEventListener('click', function() {
+                    const accountNum = document.querySelector(`#id_accounts-${i}-number-preview`).innerText;
+                    const textArea = document.createElement('textarea');
+                    document.body.appendChild(textArea);
+                    textArea.value = accountNum;
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                });
+            })(i);
+        }
+
+        // 링크주소 복사 기능 추가
+        const cardLinkCopyBtn = document.querySelectorAll('.kakao-wrap .btn-kakao')[1];
+        cardLinkCopyBtn.addEventListener('click', function() {
+            const cardLink = window.location.href; // 현재 청첩장 페이지 주소
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = cardLink;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert('링크가 클립보드에 복사되었습니다.');
+        });
+    </script>
 {% endblock %}

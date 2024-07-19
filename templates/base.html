@@ -1,52 +1,64 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
+    <!-- HEAD -->
     {% include 'head.html' %}
+
+    <!-- BODY -->
     <body style="font-family: NanumSquare;">
-        {% include 'header.html' %}
-        <main  {% if request.path != '/' %} style="margin-top: 108px;" {% endif %}>
+
+        <!-- HEADER (NAVBAR) -->
+        {% if request.resolver_match.url_name != 'detail' %}
+            {% include 'header.html' %}
+        {% endif %}
+
+        <!-- MAIN -->
+        <main style="{% if request.path != '/' and request.resolver_match.url_name != 'detail' %} margin-top: 108px; {% else %} margin-top: 0; background-color: #333;{% endif %}">
             {% for message in messages %}
-            <div class="text-center">
-                <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
-                    {{ message }}
+                <div class="text-center">
+                    <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
+                        {{ message }}
+                    </div>
                 </div>
-            </div>
             {% endfor %}
             <div class="container">
-            {% block content %}
-
-            {% endblock %}
+                {% block content %}
+                {% endblock %}
             </div>
         </main>
 
+        <!-- FOOTER -->
         {% if request.resolver_match.url_name != 'create' and request.resolver_match.url_name != 'update' and request.resolver_match.url_name != 'detail' %}
             {% include 'footer.html' %}
         {% endif %}
 
     </body>
+
     {% block script %}
     {% endblock %}
 
-<script src='{% static "js/bootstrap.bundle.min.js" %}'></script>
-<script src='{% static "js/aos.js" %}'></script>
-<script>
-     AOS.init({
-       duration: 800, // values from 0 to 3000, with step 50ms
-     });
-</script>
-<script>
-    let scrollpos = window.scrollY
-    const header = document.querySelector(".navbar")
-    const header_height = header.offsetHeight
-    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
-    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
+    <script src='{% static "js/bootstrap.bundle.min.js" %}'></script>
+    <script src='{% static "js/aos.js" %}'></script>
+    <script>
+         AOS.init({
+           duration: 800, // values from 0 to 3000, with step 50ms
+         });
+    </script>
+    <script>
+        let scrollpos = window.scrollY
+        const header = document.querySelector(".navbar")
+        if (header) {
+            const header_height = header.offsetHeight
+            const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
+            const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
 
-    window.addEventListener('scroll', function() {
-    scrollpos = window.scrollY;
+            window.addEventListener('scroll', function() {
+            scrollpos = window.scrollY;
 
-    if (scrollpos >= header_height - 100) { add_class_on_scroll() }
-    else { remove_class_on_scroll() }
-    })
-</script>
-
+            if (scrollpos >= header_height - 100) { add_class_on_scroll() }
+            else { remove_class_on_scroll() }
+            })
+        }
+    </script>
 </html>

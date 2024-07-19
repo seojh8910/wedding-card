@@ -1,15 +1,43 @@
-{% load bootstrap4 %}
-
-{% block content %}
-    <div style="text-align:center;margin: 4rem auto;">
-        <div class="mb-4">
-            <h4>GuestBook Create</h4>
+<div aria-expanded="true" data-modal="c-guestbook-delete-modal" class="v--modal-overlay" style="display:none; background: rgba(0, 0, 0, 0.7); border-radius: 0px; height: 100vh;">
+    <div class="v--modal-background-click">
+        <div class="v--modal-top-right"></div>
+        <div class="v--modal-box v--modal vue-dialog c-guestbook-delete-modal" style="top: 179px; width: 360px; margin: 0 auto; height: auto; font-family: NanumSquare;">
+            <div class="c-guestbook-header">
+                <span>방명록</span>
+                <div class="btn-close">
+                    <span class="icon"></span>
+                </div>
+            </div>
+            <form action="{% url 'guestbook:create' %}" method="post">
+                {% csrf_token %}
+                <div onselectstart="return false" class="c-guestbook-modal-wrap">
+                    <div class="c-guestbook-modal-inner">
+                        <table>
+                            <colgroup>
+                                <col style="width: 100px;">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>이름</th>
+                                    <td><input type="text" name="writer" maxlength="12" required="" id="id_writer"></td>
+                                </tr>
+                                <tr>
+                                    <th>비밀번호</th>
+                                    <td><input type="password" name="password" autocomplete="new-password" required="" id="id_password" maxlength="15"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <textarea name="content" cols="40" rows="10" required="" id="id_content" maxlength="100" placeholder="100자 이내로 작성해주세요"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" class="btn-submit" value="작성하기">
+                        <input type="hidden" name="card_pk" value="{{ card.pk }}">
+                    </div>
+                </div>
+            </form>
         </div>
-        <form action="{% url 'guestbook:create' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
-            <input type="hidden" name="card_pk" value="{{ card.pk }}">
-        </form>
     </div>
-{% endblock %}
+</div>

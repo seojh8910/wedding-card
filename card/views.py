@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from card.forms import CardCreationForm, TransportFormSet, AccountFormSet
-from card.models import Card, Gallery
+from card.models import Card, Gallery, Transport, Account
 from guest_book.forms import GuestBookCreationForm
 
 
@@ -77,7 +77,18 @@ def create_card(request):
 def detail_card(request, pk):
     card = get_object_or_404(Card, pk=pk)
     form = GuestBookCreationForm()
-    return render(request, 'card/detail_card.html', {"form": form, "card": card})
+    galleries = Gallery.objects.filter(card=card)
+    transports = Transport.objects.filter(card=card)
+    accounts = Account.objects.filter(card=card)
+    context = {
+        "form": form,
+        'transports': transports,
+        'accounts': accounts,
+        "card": card,
+        "wedding_date": card.wedding_date.isoformat(),
+        'galleries': galleries,
+    }
+    return render(request, 'card/detail_card.html', context)
 
 
 @login_required
@@ -116,7 +127,7 @@ def update_card(request, pk):
                     card.thumb_img.delete()
                 card.thumb_img = None
 
-            return JsonResponse({'status': 200, 'redirect_url': f'/cards/detail/{pk}'})
+            return JsonResponse({'status': 200, 'redirect_url': reverse('card:list')})
         else:
             errors = {
                 'form_errors': form.errors,

@@ -1,21 +1,27 @@
-<div style="border: 1px solid; text-align: left; padding: 4%; margin: 1rem 0; border-radius: 1rem;
-            border-color: #bbb;">
-    <div>
-        <strong>
-            {{ guestbook.writer }}
-        </strong>
-        &nbsp&nbsp&nbsp
-        <span style="color:darkgray;">{{ guestbook.created_at|date:"Y.m.d" }} {{ guestbook.created_at|time:"H:i" }}</span>
+{% if not card.guestbooks %}
+    <div class="comments fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+        <div class="item empty white">
+            <svg height="436pt" viewBox="-6 0 436 436" width="436pt" xmlns="http://www.w3.org/2000/svg">
+                <path d="m405.269531 95.183594c-15.378906-15.332032-38.886719-19.011719-58.214843-9.109375v-36.074219c-.03125-27.601562-22.398438-49.96875-50-50h-247.054688c-27.601562.03125-49.96875 22.398438-50 50v336c.03125 27.601562 22.398438 49.96875 50 50h247.054688c27.601562-.03125 49.96875-22.398438 50-50v-153.125l62.601562-62.601562c19.527344-19.527344 19.527344-51.183594 0-70.710938zm-220.289062 187.9375 36.425781 36.761718-49.578125 13.152344zm55.722656 27.820312-46.8125-47.242187 135.117187-134.730469 46.835938 46.832031zm86.351563 75.058594c-.019532 16.5625-13.4375 29.980469-30 30h-247.054688c-16.5625-.019531-29.980469-13.4375-30-30v-336c.019531-16.5625 13.4375-29.980469 30-30h247.054688c16.5625.019531 29.984374 13.4375 30 30v52.664062l-154.34375 153.90625c-1.257813 1.253907-2.160157 2.820313-2.609376 4.535157l-21.992187 83.457031c-.90625 3.441406.085937 7.105469 2.605469 9.625 2.519531 2.515625 6.183594 3.5 9.628906 2.585938l82.890625-21.992188c1.703125-.449219 3.257813-1.34375 4.507813-2.59375l79.3125-79.3125zm68.457031-229.867188-5.527344 5.527344-46.816406-46.816406 5.574219-5.558594c11.730468-11.65625 30.675781-11.636718 42.386718.039063l4.382813 4.382812c11.699219 11.722657 11.695312 30.703125 0 42.425781zm0 0"></path>
+            </svg>
+            첫 번째 축하 글을 남겨주세요
+        </div>
     </div>
-    <div style="margin: 1rem 0;">
-        {{ guestbook.content }}
+{% else %}
+    <div class="comments fade-in" style="opacity: 1; transform: translate(0px, 0px);">
+        <div class="item">
+            <div class="close">
+                <span class="date">{{ guestbook.created_at|date:"Y.m.d" }} {{ guestbook.created_at|time:"H:i" }}</span>
+                <span class="icon" data-toggle="modal" data-target="#deleteModal-{{ guestbook.pk }}">
+                    <svg data-name="Layer 1" id="Layer_1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <title></title>
+                        <path d="M8.25,0,32,23.75,55.75,0,64,8.25,40.25,32,64,55.75,55.75,64,32,40.25,8.25,64,0,55.75,23.75,32,0,8.25Z" data-name="<Compound Path>" id="_Compound_Path_">
+                        </path>
+                    </svg>
+                </span>
+            </div>
+            <div class="name">{{ guestbook.writer }}</div>
+            <div class="text">{{ guestbook.content }}</div>
+        </div>
     </div>
-    <div style="text-align: right">
-        <button
-           class="btn btn-danger rounded-pill delete-btn"\\
-           data-toggle="modal" data-target="#deleteModal-{{ guestbook.pk }}">
-            Delete
-        </button>
-    </div>
-</div>
-
+{% endif %}
