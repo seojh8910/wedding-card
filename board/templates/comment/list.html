@@ -1,30 +1,28 @@
 {% block content %}
-    <h5>전체 댓글</h5>
+    <div style="font-weight: bold;">전체 댓글</div>
     <hr>
-{% if comment_list %}
-<div>
-    {% for comment in comment_list %}
-        <div style="display: flex; margin-left: 1rem;">
-            <div style="width:15%; display: flex; align-items: center;">
-                <span class="material-icons">face_6</span>
-                <span>{{ comment.writer.username }}</span>
-            </div>
-            <p style="width: 60%; margin: auto 1rem auto 0;">{{ comment.content }}</p>
-            <p style="width: 15%; margin: auto 0;">{{ comment.created_at|date:'m.j H:i:s' }}</p>
-            {% if request.user == comment.writer or request.user.is_staff %}
-            <a style="height: 50%; width: 10%; margin: auto 0;" href="{% url 'board:comment_delete' pk=comment.pk %}"
-                class=" btn btn-danger rounded-pill">
-                삭제
-            </a>
-            {% endif %}
+    {% if comment_list %}
+        <div>
+            {% for comment in comment_list %}
+                <div style="display: flex; margin-left: 1rem;">
+                    <div style="width:15%; display: flex; align-items: center;">
+                        <span class="material-icons" style="margin: auto 5px auto 0;">face_6</span>
+                        <span>{{ comment.writer.username }}</span>
+                    </div>
+                    <p style="width: 60%; margin: auto 1rem auto 0;">{{ comment.content|linebreaksbr }}</p>
+                    <p style="width: 15%; margin: auto 1rem auto 0; color: rgba(0, 0, 0, 0.5);">{{ comment.created_at|date:'Y.m.j' }}&nbsp&nbsp{{ comment.created_at|date:'H:i:s' }}</p>
+                    {% if request.user == comment.writer or request.user.is_staff %}
+                        <a href="{% url 'board:comment_delete' pk=comment.pk %}" class="btn btn-outline-light" style="border: 1px solid #d5d5d5; border-radius: 10%; height: 38px; margin: auto 0;">
+                            삭제
+                        </a>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
         </div>
-        <hr>
-    {% endfor %}
-</div>
-{% else %}
-<div>
-    <span>댓글 없음</span>
-</div>
-{% endif %}
-
+        {% else %}
+            <div style="margin: 4rem 0; text-align: center; color: rgba(0, 0, 0, 0.5);">
+                <span>아직 작성된 댓글이 없습니다.</span>
+            </div>
+    {% endif %}
 {% endblock %}

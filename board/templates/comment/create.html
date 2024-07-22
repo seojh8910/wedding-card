@@ -1,17 +1,16 @@
 {% block content %}
-    <div style="text-align: center; width: 100%; max-width: 800px; margin: 0 auto;">
-
+    <div style="text-align: center; width: 100%; margin: 0 auto;">
         {% if user.is_authenticated %}
-        <form action="{% url 'board:comment_create' %}" method="POST">
-            {% csrf_token %}
-            <div style="width: 100%;">
+            <form action="{% url 'board:comment_create' %}" method="POST">
+                {% csrf_token %}
                 <div>
-                    <textarea style="width: 100%; height: 150px; padding: 10px;" id="content" name="content" placeholder="댓글을 입력해주세요."></textarea>
-                    <button style="display: block; width: 15%; margin-top: 1rem; margin-left: 85%;" type="submit" class="btn btn-primary">등록</button>
+                    <div style="display: flex; justify-content: space-between; position: relative; padding: 10px;">
+                        <textarea style="width: 100%; height: 150px; padding: 10px; border: 1px solid rgba(0, 0, 0, 0.5);" id="content" name="content" placeholder="댓글을 입력해주세요"></textarea>
+                        <button style="display: block; width: 15%; position: absolute; bottom: 0; right: 0; margin: 25px;" type="submit" class="save-btn">등록</button>
+                    </div>
                 </div>
-            </div>
-            <input type="hidden" name="board_pk" value="{{ board.pk }}">
-        </form>
+                <input type="hidden" name="board_pk" value="{{ board.pk }}">
+            </form>
         {% else %}
             <h6>로그인이 필요합니다.</h6>
         {% endif %}

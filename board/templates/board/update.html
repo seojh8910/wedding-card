@@ -1,15 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST" action="{% url 'board:board_update' board.pk %}">
+    <form method="POST" action="{% url 'board:board_update' board.pk %}" style="margin-bottom: 5rem;">
         {% csrf_token %}
         <div>
-            {% for msg in messages %}
-                {{ msg }}
-            {% endfor %}
+            <div style="display: flex; justify-content: space-between; align-items: center; align-content: center;">
+                <div class="board-head">
+                    <div class="heading">
+                        <header>게시글 작성</header>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: end; margin-right: 2rem;">
+                    <input type="submit" class="save-btn" style="width: 100%;">
+                </div>
+            </div>
+            <hr>
         </div>
-        <br>
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        <div style="padding: 1rem; width: 90%; margin: 0 auto;">
+            <form method="post" action="{% url 'board:board_create' %}">
+                <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+                    <p style="width: 10%; align-content: center; text-align: center; font-weight: bold; margin: auto 0;">설정</p>
+                    <div style="display: flex; width: 82%; margin-right: 3%">
+                        <div style="width: 13%; display: flex;">
+                            <p style="margin: auto 0; margin-right: 0.7rem;">비밀글</p>
+                            {{ form.is_secret }}
+                        </div>
+                        {% if request.user.is_staff %}
+                            <div style="width: 13%; display: flex;">
+                                <p style="margin: auto 0; margin-right: 0.7rem;">공지</p>
+                                {{ form.is_notice }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+                    <p style="width: 10%; text-align: center; font-weight: bold;">제목</p>
+                    {{ form.title }}
+                </div>
+                <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+                    <p style="width: 10%; text-align: center; font-weight: bold;">내용</p>
+                    {{ form.content }}
+                </div>
+            </form>
+        </div>
     </form>
 {% endblock %}

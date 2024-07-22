@@ -100,5 +100,6 @@ def comment_delete(request, pk):
     if request.user == comment.writer or request.user.is_staff:
         comment.delete()
         messages.success(request, '삭제 완료!')
-    messages.error(request, '권한이 없습니다.')
+    else:
+        messages.error(request, '권한이 없습니다.')
     return redirect(f'/boards/detail/{board_pk}')

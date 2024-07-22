@@ -4,11 +4,15 @@
     <div>
         <div>
             <div style="display: flex; justify-content: space-between; align-items: center; align-content: center;">
-                <h3>게시판</h3>
+                <div class="board-head">
+                    <div class="heading">
+                        <header>게시판</header>
+                    </div>
+                </div>
                 <div style="display: flex; justify-content: end; margin-right: 2rem;">
                     {% if request.user.is_authenticated %}
-                    <a href="{% url 'board:board_create' %}" class="btn btn-primary">
-                        <span>생성</span>
+                    <a href="{% url 'board:board_create' %}" class="save-btn" style="text-decoration: none;">
+                        <span>글쓰기</span>
                     </a>
                     {% endif %}
                 </div>
@@ -16,48 +20,66 @@
             <hr>
         </div>
         <div>
-            {% for board in board_object_list %}
             <div style="display: flex; align-content: center; align-content: center;">
                 <div style="width: 10%; text-align: center; margin: auto 0;">
-                    {% if board.is_notice %}
-                    <h5 style="margin: auto 0;">공지</h5>
-                    {% else %}
-                    <p style="margin: auto 0;">{{ board.pk }}</p>
-                    {% endif %}
+                    <p style="margin: auto 0;">No</p>
                 </div>
-
                 <div style="width: 60%; margin: auto 0;">
-                    {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
-                    <a href="{% url 'board:board_detail' board.pk %}">
-                        {% if board.is_notice %}
-                        <h5 style="margin: auto 0;">{{ board.title }}</h5>
-                        {% else %}
-                        <p style="margin: auto 0;">{{ board.title }}</p>
-                        {% endif %}
-                    </a>
-                    {% else %}
-                    <p style="margin: auto 0;">비밀글입니다</p>
-                    {% endif %}
+                    <p style="margin: auto 0; text-align:center;">제목</p>
                 </div>
-
                 <div style="display: flex; width: 25%; justify-content: space-between; margin: auto 0;">
-                    {% if board.writer.is_staff %}
-                    <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username }}</p>
-                    {% else %}
-                        {% if board.writer.username|length < 5 %}
-                        <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</p>
-                        {% else %}
-                        <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</p>
-                        {% endif %}
-                    {% endif %}
-                    <p style="margin: auto 0;">{{ board.created_at|date:'Y.m.d' }}</p>
+                    <p style="margin-right: 1rem; margin: auto 0;">글쓴이</p>
+                    <p style="margin: auto 0;">작성일자</p>
                 </div>
-
             </div>
             <hr>
+            {% for board in board_object_list %}
+                <div style="display: flex; align-content: center;">
+                    <div style="width: 10%; text-align: center; margin: auto 0;">
+                        {% if board.is_notice %}
+                            <p style="margin: auto 0; font-weight: bold;">공지</p>
+                        {% else %}
+                            <p style="margin: auto 0;">{{ board.pk }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div style="width: 60%; margin: auto 0;">
+                        {% if request.user == board.writer or request.user.is_staff or not board.is_secret %}
+                            <a href="{% url 'board:board_detail' board.pk %}" style="text-decoration-line: none;">
+                                {% if board.is_notice %}
+                                    <p style="margin: auto 0; font-weight: bold;">{{ board.title }}</p>
+                                {% else %}
+                                    <p style="margin: auto 0;">{{ board.title }}</p>
+                                {% endif %}
+                            </a>
+                        {% else %}
+                            <p style="margin: auto 0;">비밀글입니다</p>
+                        {% endif %}
+                    </div>
+                    <div style="display: flex; width: 26%; justify-content: space-between; margin: auto 0;">
+                        {% if board.writer.is_staff %}
+                            {% if board.is_notice %}
+                                <p style="margin-right: 1rem; margin: auto 0; font-weight: bold;">{{ board.writer.username }}</p>
+                            {% else %}
+                                <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username }}</p>
+                            {% endif %}
+                        {% else %}
+                            {% if board.writer.username|length < 5 %}
+                                <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-2' }}**</p>
+                            {% else %}
+                                <p style="margin-right: 1rem; margin: auto 0;">{{ board.writer.username|slice:':-3' }}***</p>
+                            {% endif %}
+                        {% endif %}
+                        {% if board.is_notice %}
+                            <p style="margin: auto 0; font-weight: bold;">{{ board.created_at|date:'Y.m.d' }}</p>
+                        {% else %}
+                            <p style="margin: auto 0;">{{ board.created_at|date:'Y.m.d' }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr style="border-color: rgba(0, 0, 0, 0.5);">
             {% endfor %}
         </div>
         {% include 'snippets/pagination.html' with page_obj=board_object_list %}
     </div>
-
 {% endblock %}

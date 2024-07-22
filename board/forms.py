@@ -5,10 +5,15 @@ from board.models import Board, Comment
 
 
 class BoardCreationForm(ModelForm):
-    title = forms.CharField(max_length=150, required=True)
-    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'editable text-left',
-                                                           'style': 'height: auto;'},),
-                              required=True)
+    title = forms.CharField(max_length=150, required=True,
+                            widget=forms.TextInput(
+                                attrs={'style': 'width: 82%; margin-right: 3%; padding: 10px;',
+                                       'placeholder': '제목을 입력하세요'}))
+    content = forms.CharField(required=True,
+        widget=forms.Textarea(
+            attrs={'class': 'editable text-left',
+                    'style': 'width: 82%; margin-right: 3%; height: 17rem; padding: 10px;',
+                    'placeholder': '내용을 작성하세요'}))
     is_secret = forms.BooleanField(initial=True, required=False)
 
     def __init__(self, *args, user=None, **kwargs):
