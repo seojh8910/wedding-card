@@ -42,7 +42,7 @@ def review_create(request):
             messages.success(request, '리뷰 생성 완료!')
             return redirect('review:review_list')
         else:
-            messages.error(request, '리뷰 생성 실패')
+            messages.error(request, '이미지 및 리뷰를 작성하세요.')
             return redirect('review:review_create')
     form = ReviewCreationForm
     return render(request, 'review/create.html', context={'form': form})
