@@ -1,27 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load custom_filters %}
 {% block content %}
-    <h4>제작 내역</h4>
+    <div class="board-head">
+        <div class="heading">
+            <header>제작내역</header>
+        </div>
+    </div>
     <hr>
-    <div style="border: 1px solid #eeeded; background-color: #f3f2f2; padding: 0.8rem;">
+    <div style="border: 1px solid #eeeded; background-color: #f3f2f2; padding: 1.2rem;">
         <span style="font-size: 1rem; font-weight: bold">모바일 청첩장</span>
-        <ul style="font-size: 0.7rem; font-weight: bolder; color: #666; margin-top: 5px; margin-bottom: 0;">
+        <ul style="font-size: 0.9rem; font-weight: bolder; color: #666; margin-top: 15px; margin-bottom: 5px;">
             <li>예식일 +30일 후 모바일 청첩장이 자동 삭제됩니다.</li>
             <li>언제든지 편집 가능합니다.</li>
         </ul>
     </div>
-
     {% if cards %}
         {% for card in cards %}
             <hr>
-            <div style="display:flex; justify-content:space-between; padding: 1rem;">
-                <img src="{% if card.main_img %}{{ card.main_img.url }}{% endif %}" width=100px; height=150; alt="이미지가 없습니다.">
-                <div style="display: flex; flex-direction: column; margin: 0 auto; font-size: 0.8rem;">
-                    <p style="height: 20%;">삭제 예정일 &nbsp;&nbsp;{% if card.wedding_date %}{{ card.wedding_date|add_days:30|date:'y.m.d' }}{% endif %}</p>
-                    <p style="height: 20%;">수정일&nbsp;&nbsp;{{ card.updated_at|date:'y.m.d' }}</p>
-                    <p style="height: 20%;">생성일&nbsp;&nbsp;{{ card.created_at|date:'y.m.d' }}</p>
+            <div style="display:flex; justify-content:space-between;">
+                <div style="display: flex; width: 450px;">
+                    <img src="{% if card.main_img %}{{ card.main_img.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}" width=160px; height=240px; alt="이미지가 없습니다." style="object-fit: contain;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; margin: auto; font-size: 0.9rem; width: 200px; height: 130px;">
+                        <p><span style="font-weight: bold;">✔&nbsp;&nbsp;&nbsp;삭제 예정일</span> &nbsp;&nbsp;{% if card.wedding_date %}{{ card.wedding_date|add_days:30|date:'Y.m.d' }}{% else %}미정{% endif %}</p>
+                        <p><span style="font-weight: bold;">✔&nbsp;&nbsp;&nbsp;수정일</span>&nbsp;&nbsp;{{ card.updated_at|date:'Y.m.d' }}</p>
+                        <p><span style="font-weight: bold;">✔&nbsp;&nbsp;&nbsp;생성일</span>&nbsp;&nbsp;{{ card.created_at|date:'Y.m.d' }}</p>
+                    </div>
                 </div>
-                <div>
+                <div style="margin: auto 0;">
                     <a style="border: 1px solid #d5d5d5; border-radius: 10%;" class="btn btn-outline-light" href="{% url 'card:detail' pk=card.pk %}">보기</a>
                     <a style="border: 1px solid #d5d5d5; border-radius: 10%;" class="btn btn-outline-light" href="{% url 'card:update' pk=card.pk %}">수정</a>
                     <a style="border: 1px solid #d5d5d5; border-radius: 10%;" class="btn btn-outline-light" href="{% url 'card:delete' pk=card.pk %}">삭제</a>
