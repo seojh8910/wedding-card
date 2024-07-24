@@ -80,7 +80,6 @@ def detail_card(request, pk):
     galleries = Gallery.objects.filter(card=card)
     transports = Transport.objects.filter(card=card)
     accounts = Account.objects.filter(card=card)
-    thumb_img_url = request.build_absolute_uri(card.thumb_img.url)
     context = {
         'form': form,
         'transports': transports,
@@ -88,7 +87,6 @@ def detail_card(request, pk):
         'card': card,
         'wedding_date': card.wedding_date.isoformat(),
         'galleries': galleries,
-        'thumb_img_url': thumb_img_url,
     }
     return render(request, 'card/detail_card.html', context)
 

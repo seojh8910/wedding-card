@@ -13,7 +13,9 @@
 
         <meta property="og:title" content="{{ card.thumb_title }}"/>
         <meta property="og:description" content="{{ card.thumb_content }}"/>
-        <meta property="og:image" content="{{ thumb_img_url }}"/>
+        {% if card.thumb_img %}
+            <meta property="og:image" content="{{ card.thumb_img.url }}"/>
+        {% endif %}
         <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
         <meta property="og:type" content="website"/>
     {% endif %}
