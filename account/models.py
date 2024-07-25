@@ -15,4 +15,4 @@ class User(AbstractUser):
     type = models.CharField(max_length=30, null=False, default='basic')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
