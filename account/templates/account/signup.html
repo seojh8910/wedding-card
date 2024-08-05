@@ -1,57 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-    <div class="col-12" style="text-align:center; margin: 4rem auto; padding: 40px;">
-        <div class="mb-4">
-            <h1>회원가입</h1>
-        </div>
-        <div style="text-align:left; margin: 4rem auto">
-            <form method="POST" action="{% url 'account:sign_up' %}">
-                {% csrf_token %}
-                <br>
-                <div class="col-12" style="margin: 0 auto;">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">이메일</label>
-                        <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1"
-                               aria-describedby="emailHelp" value="{{ email }}">
-                    </div>
-                    {% if type == 'basic' %}
+    <!-- 회원가입 정보 입력 -->
+    <div class="col-12" style="max-width: 400px; padding: 40px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 40px;">회원가입</h2>
+        <form class="row" method="POST" action="{% url 'account:sign_up' %}">
+            {% csrf_token %}
+            <div class="col-12" style="margin: 0 auto;">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">이메일</label>
+                    <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" value="{{ email }}">
+                </div>
+                {% if type != 'gmail' %}
                     <div>
-                        <label for="exampleInputPassword1" class="form-label">패스워드</label>
+                        <label for="exampleInputPassword1" class="form-label">비밀번호</label>
                         <input type="password" name="password1" class="form-control form-control-lg" id="exampleInputPassword1">
                     </div>
-                    <p style="font-size: 0.9rem; color: #929394">영문 대·소문자/특수문자와 숫자 조합, 8자~32자</p>
+                    <p style="font-size: 0.9rem; color: #929394; margin-top: 5px;">영문 대·소문자/특수문자와 숫자 조합, 8자~32자</p>
                     <div class="mb-3">
-                        <label for="exampleInputPassword2" class="form-label">패스워드 확인</label>
+                        <label for="exampleInputPassword2" class="form-label">비밀번호 확인</label>
                         <input type="password" name="password2" class="form-control form-control-lg" id="exampleInputPassword2">
                     </div>
-                    {% endif %}
-
-                    <div class="mb-3">
-                        <label for="exampleInputphone" class="form-label">전화번호</label>
-                        <input type="text" name="phone_number" class="form-control form-control-lg">
-                    </div>
-
+                {% endif %}
+                <div class="mb-3">
+                    <label for="exampleInputphone" class="form-label">전화번호</label>
+                    <input type="text" name="phone_number" class="form-control form-control-lg" id="exampleInputphone">
                 </div>
                 <input type="hidden" name="username" id="username_input" value="{{ email }}">
                 <input type="hidden" name="type" value="{{ type }}">
-                <button type="submit" style="width: 100%;" onclick="change_username()" class="btn btn-primary btn-xl mb-4">가입하기</button>
-            </form>
-            <div class="hr-sect col-12" style="margin: 0 auto; margin-bottom: 1rem;">소셜 회원가입</div>
-            <div class="col-12" style="display: flex; margin: 0 auto; margin-bottom: 1rem; justify-content: center;">
-                <a style="margin-right: 1rem;" href="{% url 'account:google_login' %}">
-                    <span style="background-image: url({% static 'img/icons/google_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-                </a>
-                <a style="margin-right: 1rem;">
-                    <span style="background-image: url({% static 'img/icons/naver_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-                </a>
-                <a style="margin-right: 1rem;">
-                    <span style="background-image: url({% static 'img/icons/kakao_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-                </a>
-
+                <button type="submit" style="width: 100%; border: 1px solid #d8d8d8; border-radius: 3px;" onclick="change_username()"
+                        class="btn btn-primary btn-xl mt-4 mb-4">가입하기</button>
             </div>
-        </div>
+        </form>
+
+        <!-- 소셜 로그인 -->
+        <div class="hr-sect col-12" style="margin: 0 auto; margin-bottom: 1rem; font-size: 0.9rem;">간편 로그인</div>
+        <a style="display: block; border: 1px solid #d8d8d8; border-radius: 3px;" class="btn btn-outline-light btn-xl mt-4 mb-4" href="/accounts/google/login/">
+            <span style="margin-right: 5px;">
+                <svg version="1.1" xmlns="https://www.w3.org/2000/svg" width="23px" height="23px" viewBox="0 0 48 48" class="abcRioButtonSvg">
+                    <g>
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                    </g>
+                </svg>
+            </span>
+            구글 로그인
+        </a>
     </div>
 {% endblock %}
 
@@ -63,6 +61,5 @@
         let username_input = document.getElementById('username_input')
         username_input.value = email_id
     }
-
     </script>
 {% endblock %}

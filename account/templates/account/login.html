@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div style="padding: 40px;" class="mb-auto col-12">
+    <!-- 로그인 정보 입력 -->
+    <div style="max-width: 400px; padding: 40px; margin: 0 auto;" class="mb-auto col-12">
         <h2 style="text-align: center;">로그인</h2>
-
         <form class="row" action="{% url 'account:login' %}" method="POST">
         {% csrf_token %}
             <div class="col-12" style="margin: 0 auto;">
@@ -13,27 +13,29 @@
                            aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">패스워드</label>
+                    <label for="exampleInputPassword1" class="form-label">비밀번호</label>
                     <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1">
                 </div>
-                <button type="submit" style="width: 100%;" class="btn btn-primary btn-xl mb-4">로그인</button>
+                <button type="submit" style="width: 100%;" class="btn btn-primary btn-xl mt-4 mb-4">로그인</button>
+                <a style="display: block; border: 1px solid #d8d8d8; border-radius: 3px;" class="btn btn-outline-light btn-xl mb-4" href="{% url 'account:google_login' %}">회원가입</a>
             </div>
         </form>
-        <div class="hr-sect col-12" style="margin: 0 auto; margin-bottom: 1rem;">간편로그인</div>
-        <div class="col-12" style="display: flex; margin: 0 auto; margin-bottom: 1rem; justify-content: center;">
-            <a style="margin-right: 1rem;" href="{% url 'account:google_login' %}">
-                <span style="background-image: url({% static 'img/icons/google_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-            </a>
-            <a style="margin-right: 1rem;">
-                <span style="background-image: url({% static 'img/icons/naver_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-            </a>
-            <a style="margin-right: 1rem;">
-                <span style="background-image: url({% static 'img/icons/kakao_icon.png' %}); background-size: cover; display: inline-block; width: 40px; height: 40px;"></span>
-            </a>
 
-        </div>
-
+        <!-- 소셜 로그인 -->
+        <div class="hr-sect col-12" style="margin: 0 auto; margin-bottom: 1rem; font-size: 0.9rem;">간편 로그인</div>
+        <a style="display: block; border: 1px solid #d8d8d8; border-radius: 3px;" class="btn btn-outline-light btn-xl mt-4 mb-4" href="{% url 'account:google_login' %}">
+            <span style="margin-right: 5px;">
+                <svg version="1.1" xmlns="https://www.w3.org/2000/svg" width="23px" height="23px" viewBox="0 0 48 48" class="abcRioButtonSvg">
+                    <g>
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                    </g>
+                </svg>
+            </span>
+            구글 로그인
+        </a>
     </div>
-
-
 {% endblock %}

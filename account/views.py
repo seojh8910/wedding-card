@@ -31,10 +31,10 @@ def login_page(request):
                     messages.error(request, "비밀번호가 일치하지 않습니다.")
                     return render(request, 'account/login.html', {"form": form})
             except User.DoesNotExist:
-                messages.error(request, "아이디와 비밀번호를 확인해주세요.")
+                messages.error(request, "이메일과 비밀번호를 확인해주세요.")
                 return render(request, 'account/login.html', {"form": form})
         else:
-            messages.error(request, "아이디와 비밀번호를 확인해주세요.")
+            messages.error(request, "이메일과 비밀번호를 확인해주세요.")
             return render(request, 'account/login.html', {"form": form})
     else:
         form = LoginForm()
@@ -90,17 +90,8 @@ def sign_up(request):
             messages.info(request, f"{username}으로 로그인 되었습니다.")
             return redirect('home:landing_page')
         else:
-            password1 = form.data['password1']
-            password2 = form.data['password2']
-            for msg in form.errors.as_data():
-                if msg == 'email':
-                    messages.error(request, "유효하지 않은 이메일입니다.")
-                if msg == 'password2' and password1 == password2:
-                    messages.error(request, "복잡한 비밀번호가 필요합니다.")
-                elif msg == 'password2' and password1 != password2:
-                    messages.error(request, "비밀번호가 일치하지 않습니다.")
-                else:
-                    messages.error(request, "뭔가 오류!!!!!")
-            return render(request=request, template_name='account/signup.html', context={'form': form})
-    return render(request, 'account/signup.html', context={'type': 'basic'})
+            return render(request=request, template_name='account/signup.html', context={'form': form, 'type': 'basic'})
+    else:
+        form = CreateUserForm()
+    return render(request, 'account/signup.html', context={'form': form, 'type': 'basic'})
 
