@@ -1,0 +1,25 @@
+# .dockerignore
+
+# 파이썬 바이너리 파일
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+
+# 데이터베이스 파일
+*.db
+*.sqlite3
+
+# 환경 변수 파일
+.env
+
+# git 관련 파일 및 디렉토리
+.git
+.gitignore
+
+# node_modules 디렉토리
+node_modules
+
+# 정적 파일 디렉토리
+/staticfiles
+/media
